@@ -3,7 +3,7 @@
 #include <locale.h>
 
 //Cria matriz para o tabuleiro.
-char tabuleiro[10][10] =
+char table[10][10] =
     {'-', '1', '2', '3', '4', '5', '6', '7', '8', '|',
      '1', 't', 'c', 'b', 'k', 'q', 'b', 'c', 't', '1',
      '2', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', '2',
@@ -19,7 +19,10 @@ char tabuleiro[10][10] =
 char player1[20];
 char player2[20];
 
-void sobre()
+//Variaveis de controle.
+int game_over = 0;
+
+void about()
 {
     system("cls || clear"); //Limpar cmd.
 
@@ -38,7 +41,7 @@ void sobre()
     getchar();
 }
 
-void ajuda()
+void help()
 {
     system("cls || clear"); //Limpar cmd.
 
@@ -56,6 +59,10 @@ void ajuda()
     getchar();
 }
 
+void render() {
+    printf("teste");
+}
+
 int main()
 {
     system("cls || clear"); //Limpar cmd.
@@ -65,8 +72,8 @@ int main()
 
     //Inicia o menu.
     //Declarar variaveis:
-    int opcaoMenu;
-    int opcaoValida = 0;
+    int optionsMenu;
+    int trueOption = 0;
 
     do
     {
@@ -82,33 +89,53 @@ int main()
         printf("2. Ajuda\n");
         printf("3. Sobre\n");
         printf("4. Sair\n\n");
-        if (opcaoValida == 1) {
+        if (trueOption == 1)
+        {
             printf("Digite uma opção válida. \n");
         }
         printf("Selecione o número correspondente a opção do menu: ");
-        scanf("%d", &opcaoMenu);
+        scanf("%d", &optionsMenu);
 
-        switch (opcaoMenu)
+        switch (optionsMenu)
         {
         case 1:
-            opcaoValida = 0;
+            trueOption = 0;
             break;
         case 2:
-            opcaoValida = 0;
-            ajuda();
+            trueOption = 0;
+            help();
             break;
         case 3:
-            opcaoValida = 0;
-            sobre();
+            trueOption = 0;
+            about();
             break;
         case 4:
             exit(0);
             break;
         default:
-            opcaoValida = 1;
+            trueOption = 1;
             break;
         }
-    } while (opcaoMenu != 4);
+    } while (optionsMenu != 1);
 
-    return 0;
+    system("cls || clear"); //Limpar cmd.
+
+    //Limpar buffer.
+    fflush(stdin);
+    __fpurge(stdin);
+
+    printf("Digite o nome do Player 1: ");
+    scanf("%s", player1);
+
+    printf("Digite o nome do Player 2: ");
+    scanf(" %s", player2);
+
+    do {
+
+        render();
+
+
+    } while (game_over = 0);
+
+    return EXIT_SUCCESS;
 }
