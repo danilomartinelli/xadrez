@@ -4,16 +4,16 @@
 
 //Cria matriz para o tabuleiro.
 char table[10][10] =
-    {'-', '1', '2', '3', '4', '5', '6', '7', '8', '|',
+    {'|', '1', '2', '3', '4', '5', '6', '7', '8', '|',
      '1', 't', 'c', 'b', 'k', 'q', 'b', 'c', 't', '1',
      '2', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', '2',
-     '3', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '3',
-     '4', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '4',
-     '5', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '5',
-     '6', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '6',
+     '3', '-', '-', '-', '-', '-', '-', '-', '-', '3',
+     '4', '-', '-', '-', '-', '-', '-', '-', '-', '4',
+     '5', '-', '-', '-', '-', '-', '-', '-', '-', '5',
+     '6', '-', '-', '-', '-', '-', '-', '-', '-', '6',
      '7', 'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P', '7',
      '8', 'T', 'C', 'B', 'Q', 'K', 'B', 'C', 'T', '8',
-     '-', '1', '2', '3', '4', '5', '6', '7', '8', '-'};
+     '|', '1', '2', '3', '4', '5', '6', '7', '8', '|'};
 
 //Define variaveis para player 1 e 2.
 char player1[20];
@@ -59,8 +59,21 @@ void help()
     getchar();
 }
 
-void render() {
-    printf("teste");
+void renderTable()
+{
+    int row, columns;
+    int numberOfLines = 10;
+    int numberColumns = 10;
+
+    //Renderizando tabuleiro.
+    for (row = 0; row < numberOfLines; row++)
+    {
+        for (columns = 0; columns < numberColumns; columns++)
+        {
+            printf("%c\t", table[row][columns]);
+        }
+        printf("\n\n");
+    }
 }
 
 int main()
@@ -70,10 +83,12 @@ int main()
     //Configurando UTF-8 para caracteres.
     setlocale(LC_ALL, "Portuguese");
 
-    //Inicia o menu.
     //Declarar variaveis:
     int optionsMenu;
     int trueOption = 0;
+
+    char piece1, piece2;
+    int line1, line2, column1, column2;
 
     do
     {
@@ -130,10 +145,23 @@ int main()
     printf("Digite o nome do Player 2: ");
     scanf(" %s", player2);
 
-    do {
+    do
+    {
+        system("cls || clear");
 
-        render();
+        printf("\t\t\t########## PARTIDA ########\n\n\n");
 
+        renderTable();
+        printf("%s é sua vez (PEÇA, LINHA, COLUNA): ", player1);
+        scanf("%c %d %d", &piece1, &line1, &column1);
+
+        fflush(stdin);
+        __fpurge(stdin);
+        system("cls || clear");
+
+        renderTable();
+        printf("%s é sua vez: ", player2);
+        scanf("%c %d %d", &piece2, &line2, &column2);
 
     } while (game_over = 0);
 
