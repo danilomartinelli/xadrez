@@ -34,8 +34,8 @@ void about()
     printf("Jogo de xadrez desenvolvido para a disciplina de introdução a lógica de programação.\n\n");
     printf("\t\t\t########## EQUIPE ########\n");
     printf("Abraão\n");
+    printf("Bruno\n");
     printf("Danilo Leone Di Paolo Martinelli Silva\n");
-    printf("Daniel\n");
     printf("Stephanie Oliveira da Rocha\n\n\n");
     printf("Pressione ENTER para voltar.");
     getchar();
