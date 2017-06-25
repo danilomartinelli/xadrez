@@ -15,6 +15,9 @@ char table[10][10] =
      '8', 'T', 'C', 'B', 'Q', 'K', 'B', 'C', 'T', '8',
      '|', '1', '2', '3', '4', '5', '6', '7', '8', '|'};
 
+int numberOfLines = 10;
+int numberColumns = 10;
+
 //Define variaveis para player 1 e 2.
 char player1[20];
 char player2[20];
@@ -62,8 +65,6 @@ void help()
 void renderTable()
 {
     int row, columns;
-    int numberOfLines = 10;
-    int numberColumns = 10;
 
     //Renderizando tabuleiro.
     for (row = 0; row < numberOfLines; row++)
@@ -74,6 +75,28 @@ void renderTable()
         }
         printf("\n\n");
     }
+}
+
+void changePosition(char piece, int line, int column)
+{
+    int row, columns;
+
+    for (row = 0; row < numberOfLines; row++)
+    {
+        for (columns = 0; columns < numberColumns; columns++)
+        {
+            if (table[row][columns] == piece)
+            {
+                printf("OK");
+            }
+        }
+    }
+}
+
+const char * prettyPiece(char piece) {
+    const char *prettyPiece = "Teste";
+
+    return prettyPiece;
 }
 
 int main()
@@ -87,8 +110,9 @@ int main()
     int optionsMenu;
     int trueOption = 0;
 
-    char piece1, piece2;
-    int line1, line2, column1, column2;
+    int line, column;
+
+    const char *piece;
 
     do
     {
@@ -152,16 +176,20 @@ int main()
         printf("\t\t\t########## PARTIDA ########\n\n\n");
 
         renderTable();
-        printf("%s é sua vez (PEÇA, LINHA, COLUNA): ", player1);
-        scanf("%c %d %d", &piece1, &line1, &column1);
+        printf("%s,\n", player1);
+        printf("Digite a posição da peça a ser movida (LINHA, COLUNA): ");
+        scanf("%d %d", &line, &column);
+        piece = prettyPiece(table[line][column]);
+        printf("Here: %s", piece);
 
         fflush(stdin);
         __fpurge(stdin);
         system("cls || clear");
 
         renderTable();
-        printf("%s é sua vez: ", player2);
-        scanf("%c %d %d", &piece2, &line2, &column2);
+        printf("%s,\n", player1);
+        printf("Digite a posição da peça a ser movida (LINHA, COLUNA): ");
+        scanf("%d %d", &line, &column);
 
     } while (game_over = 0);
 
