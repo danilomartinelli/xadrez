@@ -1,6 +1,7 @@
 #include <stdio_ext.h>
 #include <stdlib.h>
 #include <locale.h>
+#include <ctype.h>
 
 //Cria matriz para o tabuleiro.
 char table[10][10] =
@@ -24,6 +25,7 @@ char player2[20];
 
 //Variaveis de controle.
 int game_over = 0;
+int line, column;
 
 void about()
 {
@@ -37,7 +39,7 @@ void about()
     printf("Jogo de xadrez desenvolvido para a disciplina de introdução a lógica de programação.\n\n");
     printf("\t\t\t########## EQUIPE ########\n");
     printf("Abraão\n");
-    printf("Bruno\n");
+    printf("Bruno Correia Arvan\n");
     printf("Danilo Leone Di Paolo Martinelli Silva\n");
     printf("Stephanie Oliveira da Rocha\n\n\n");
     printf("Pressione ENTER para voltar.");
@@ -77,8 +79,28 @@ void renderTable()
     }
 }
 
-void changePosition(char piece, int line, int column)
+const char *choosePiece(int player)
 {
+    char piece;
+    char *name;
+    if(player == 1) {
+        name = player1;
+    }
+    if(player == 1) {
+        name = player2;
+    }
+
+    do {
+        renderTable();
+        printf("%s,\n", player1);
+        printf("Digite a posição da peça a ser movida (LINHA, COLUNA): ");
+        scanf("%d %d", &line, &column);
+        piece = table[line][column];
+        printf("%c", piece);
+        system("cls || clear");
+    } while (!((player == 1 && isupper(piece)) || (player == 2 && islower(piece)) && piece != '-' && piece != '|' && isalpha(piece)));
+
+    const char *choosePiece;
     int row, columns;
 
     for (row = 0; row < numberOfLines; row++)
@@ -91,12 +113,8 @@ void changePosition(char piece, int line, int column)
             }
         }
     }
-}
 
-const char * prettyPiece(char piece) {
-    const char *prettyPiece = "Teste";
-
-    return prettyPiece;
+    return choosePiece;
 }
 
 int main()
@@ -109,8 +127,6 @@ int main()
     //Declarar variaveis:
     int optionsMenu;
     int trueOption = 0;
-
-    int line, column;
 
     const char *piece;
 
@@ -175,21 +191,13 @@ int main()
 
         printf("\t\t\t########## PARTIDA ########\n\n\n");
 
-        renderTable();
-        printf("%s,\n", player1);
-        printf("Digite a posição da peça a ser movida (LINHA, COLUNA): ");
-        scanf("%d %d", &line, &column);
-        piece = prettyPiece(table[line][column]);
-        printf("Here: %s", piece);
+        piece = choosePiece(1);
 
         fflush(stdin);
         __fpurge(stdin);
         system("cls || clear");
 
-        renderTable();
-        printf("%s,\n", player1);
-        printf("Digite a posição da peça a ser movida (LINHA, COLUNA): ");
-        scanf("%d %d", &line, &column);
+        piece = choosePiece(2);
 
     } while (game_over = 0);
 
