@@ -37,7 +37,7 @@ void about()
     printf("\t\t\t########## SOBRE ##########\n");
     printf("Jogo de xadrez desenvolvido para a disciplina de introdução a lógica de programação.\n\n");
     printf("\t\t\t########## EQUIPE ########\n");
-    printf("Abraão\n");
+    printf("Abraão Lima Xavier Evangelista\n");
     printf("Bruno Correia Arvan\n");
     printf("Danilo Leone Di Paolo Martinelli Silva\n");
     printf("Stephanie Oliveira da Rocha\n\n\n");
