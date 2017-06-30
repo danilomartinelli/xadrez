@@ -4,6 +4,7 @@
 #include <locale.h>
 #include <ctype.h>
 #include <string.h>
+#include <cstdlib>
 
 //Cria matriz para o tabuleiro.
 char table[10][10] =
@@ -26,9 +27,19 @@ const int numberColumns = 10;
 char player1[20];
 char player2[20];
 
+// Função para limpar tela 
+void clear_screen()
+{
+#ifdef WINDOWS
+    std::system("cls");
+#else
+    std::system("clear");
+#endif
+}
+
 void about()
 {
-    system("cls || clear"); //Limpar cmd.
+    clear_screen(); //Limpar cmd.
 
     printf("\t\t\t########## SOBRE ##########\n");
     printf("Jogo de xadrez desenvolvido para a disciplina de introdução a lógica de programação.\n\n");
@@ -43,7 +54,7 @@ void about()
 
 void help()
 {
-    system("cls || clear"); //Limpar cmd.
+    clear_screen(); //Limpar cmd.
 
     printf("\t\t\t########## Ajuda ##########\n\n");
     printf("Player 1 são as peças brancas, Player 2 as peças Pretas.\n");
@@ -55,7 +66,8 @@ void help()
     getchar();
 }
 
-const char *prettyPiece(char piece) {
+const char *prettyPiece(char piece)
+{
     const char *choosePiece;
     piece = toupper(piece);
 
@@ -111,7 +123,7 @@ void actionPiece(int player)
     char name[20];
     int line, column;
     const char *prettyPieceStr;
-    
+
     if (player == 1)
     {
         strcpy(name, player1);
@@ -138,13 +150,13 @@ void actionPiece(int player)
         }
         scanf("%d %d", &line, &column);
         piece = table[line][column];
-        system("cls || clear");
+        clear_screen();
         countErro++;
     } while (!((player == 1 && isupper(piece)) || (player == 2 && islower(piece)) && piece != '-' && piece != '|' && isalpha(piece)));
 
     prettyPieceStr = prettyPiece(piece);
-    
-    system("cls || clear");
+
+    clear_screen();
 
     renderTable();
     printf("Player: %s\n", name);
@@ -155,7 +167,7 @@ void actionPiece(int player)
 
 int main()
 {
-    system("cls || clear"); //Limpar cmd.
+    clear_screen(); //Limpar cmd.
 
     //Configurando UTF-8 para caracteres.
     setlocale(LC_ALL, "Portuguese");
@@ -171,7 +183,7 @@ int main()
 
     do
     {
-        system("cls || clear"); //Limpar cmd.
+        clear_screen(); //Limpar cmd.
 
         printf("\t\t\t########## XADREZ ########\n\n\n");
         printf("\t\t\t########## MENU ##########\n");
@@ -208,7 +220,7 @@ int main()
         }
     } while (optionsMenu != 1);
 
-    system("cls || clear"); //Limpar cmd.
+    clear_screen(); //Limpar cmd.
 
     printf("Digite o nome do Player 1: ");
     fgets(player1, 20, stdin);
@@ -218,12 +230,12 @@ int main()
 
     do
     {
-        system("cls || clear");
+        clear_screen();
 
         //SEÇÃO - PLAYER 1 MOVER PEÇA.
         actionPiece(1);
 
-        system("cls || clear"); //Limpar cmd.
+        clear_screen(); //Limpar cmd.
 
         //SEÇÃO - PLAYER 2 MOVER PEÇA.
         actionPiece(2);
