@@ -149,6 +149,7 @@ void actionPiece(int player)
             printf("Digite a posição da peça a ser movida (LINHA COLUNA): ");
         }
         scanf("%d %d", &line, &column);
+        getchar(); //Consumir Enter.
         piece = table[line][column];
         clear_screen();
         countErro++;
@@ -162,7 +163,7 @@ void actionPiece(int player)
     printf("Player: %s\n", name);
     printf("Você selecionou: %s (%d, %d)\n", prettyPieceStr, line, column);
     printf("Digite para qual posição você deseja movimentar a peça: ");
-    getchar();
+    scanf("%d %d", &line, &column);
 }
 
 int main()
@@ -197,6 +198,7 @@ int main()
         }
         printf("Selecione o número correspondente a opção do menu: ");
         scanf("%d", &optionsMenu);
+        getchar(); //Consumir Enter.
 
         switch (optionsMenu)
         {
