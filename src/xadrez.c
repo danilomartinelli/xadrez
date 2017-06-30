@@ -82,36 +82,62 @@ void renderTable()
 const char *choosePiece(int player)
 {
     char piece;
-    char *name;
-    if(player == 1) {
-        name = player1;
+    char name[20];
+    if (player == 1)
+    {
+        strcpy(name, player1);
     }
-    if(player == 1) {
-        name = player2;
+    if (player == 2)
+    {
+        strcpy(name, player2);
     }
 
-    do {
+    //Verifica se é possível escolher a peça.
+    int countErro = 0;
+    do
+    {
         renderTable();
-        printf("%s,\n", player1);
-        printf("Digite a posição da peça a ser movida (LINHA, COLUNA): ");
+        printf("%s,\n", name);
+        if (countErro >= 1)
+        {
+            printf("Você digitou um valor inválido.\n");
+            printf("Digite a posição da peça a ser movida (LINHA, COLUNA): ");
+        }
+        else
+        {
+            printf("Digite a posição da peça a ser movida (LINHA, COLUNA): ");
+        }
         scanf("%d %d", &line, &column);
         piece = table[line][column];
         printf("%c", piece);
         system("cls || clear");
+        countErro++;
     } while (!((player == 1 && isupper(piece)) || (player == 2 && islower(piece)) && piece != '-' && piece != '|' && isalpha(piece)));
 
     const char *choosePiece;
-    int row, columns;
+    piece = toupper(piece);
 
-    for (row = 0; row < numberOfLines; row++)
+    //Deixa o nome da peça mais amigavel para o usuário.
+    switch (piece)
     {
-        for (columns = 0; columns < numberColumns; columns++)
-        {
-            if (table[row][columns] == piece)
-            {
-                printf("OK");
-            }
-        }
+    case 'P':
+        choosePiece = "Peão";
+        break;
+    case 'T':
+        choosePiece = "Torre";
+        break;
+    case 'C':
+        choosePiece = "Cavalo";
+        break;
+    case 'B':
+        choosePiece = "Bispo";
+        break;
+    case 'Q':
+        choosePiece = "Rainha"
+        break;
+    case 'K':
+        choosePiece = "Rei"
+        break;
     }
 
     return choosePiece;
@@ -180,16 +206,18 @@ int main()
     __fpurge(stdin);
 
     printf("Digite o nome do Player 1: ");
-    scanf("%s", player1);
+    fgets(player1, 20, stdin);
 
     printf("Digite o nome do Player 2: ");
-    scanf(" %s", player2);
+    fgets(player2, 20, stdin);
 
     do
     {
         system("cls || clear");
 
         printf("\t\t\t########## PARTIDA ########\n\n\n");
+
+        //SEÇÃO EM QUE A PEÇA É DEFINIDA.
 
         piece = choosePiece(1);
 
@@ -198,6 +226,8 @@ int main()
         system("cls || clear");
 
         piece = choosePiece(2);
+
+        //SEÇÃO EM QUE A PEÇA É MOVIDA.
 
     } while (game_over = 0);
 
