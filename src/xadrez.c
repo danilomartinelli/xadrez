@@ -1,5 +1,5 @@
 //Importar libs que vão ser utilizadas no programa.
-#include <stdio_ext.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
 #include <ctype.h>
@@ -32,7 +32,6 @@ void about()
 
     //Limpar buffer.
     fflush(stdin);
-    __fpurge(stdin);
 
     printf("\t\t\t########## SOBRE ##########\n");
     printf("Jogo de xadrez desenvolvido para a disciplina de introdução a lógica de programação.\n\n");
@@ -51,7 +50,6 @@ void help()
 
     //Limpar buffer.
     fflush(stdin);
-    __fpurge(stdin);
 
     printf("\t\t\t########## Ajuda ##########\n\n");
     printf("Player 1 são as peças brancas, Player 2 as peças Pretas.\n");
@@ -153,7 +151,6 @@ void actionPiece(int player)
     prettyPieceStr = prettyPiece(piece);
     
     fflush(stdin);
-    __fpurge(stdin);
     system("cls || clear");
 
     renderTable();
@@ -185,7 +182,6 @@ int main()
 
         //Limpar buffer.
         fflush(stdin);
-        __fpurge(stdin);
 
         printf("\t\t\t########## XADREZ ########\n\n\n");
         printf("\t\t\t########## MENU ##########\n");
@@ -226,7 +222,6 @@ int main()
 
     //Limpar buffer.
     fflush(stdin);
-    __fpurge(stdin);
 
     printf("Digite o nome do Player 1: ");
     fgets(player1, 20, stdin);
@@ -243,7 +238,6 @@ int main()
         actionPiece(1);
 
         fflush(stdin);
-        __fpurge(stdin);
         system("cls || clear");
 
         //SEÇÃO - PLAYER 2 MOVER PEÇA.
