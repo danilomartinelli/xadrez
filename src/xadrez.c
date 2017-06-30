@@ -1,7 +1,9 @@
+//Importar libs que vão ser utilizadas no programa.
 #include <stdio_ext.h>
 #include <stdlib.h>
 #include <locale.h>
 #include <ctype.h>
+#include <string.h>
 
 //Cria matriz para o tabuleiro.
 char table[10][10] =
@@ -133,10 +135,13 @@ const char *choosePiece(int player)
         choosePiece = "Bispo";
         break;
     case 'Q':
-        choosePiece = "Rainha"
+        choosePiece = "Rainha";
         break;
     case 'K':
-        choosePiece = "Rei"
+        choosePiece = "Rei";
+        break;
+    default:
+        exit(EXIT_FAILURE);
         break;
     }
 
@@ -191,7 +196,7 @@ int main()
             about();
             break;
         case 4:
-            exit(0);
+            exit(EXIT_SUCCESS);
             break;
         default:
             trueOption = 1;
@@ -217,7 +222,7 @@ int main()
 
         printf("\t\t\t########## PARTIDA ########\n\n\n");
 
-        //SEÇÃO EM QUE A PEÇA É DEFINIDA.
+        //SEÇÃO - PLAYER 1 MOVER PEÇA.
 
         piece = choosePiece(1);
 
@@ -225,9 +230,10 @@ int main()
         __fpurge(stdin);
         system("cls || clear");
 
+        //SEÇÃO - PLAYER 2 MOVER PEÇA.
+
         piece = choosePiece(2);
 
-        //SEÇÃO EM QUE A PEÇA É MOVIDA.
 
     } while (game_over = 0);
 
