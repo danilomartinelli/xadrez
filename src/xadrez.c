@@ -27,7 +27,7 @@ const int numberColumns = 10;
 char player1[20];
 char player2[20];
 
-// Função para limpar tela 
+// Função para limpar tela
 void clear_screen()
 {
 #ifdef WINDOWS
@@ -117,6 +117,16 @@ void renderTable()
     }
 }
 
+//Movimentos da peça
+int pieceMove(char piece, int line, int column) {
+    toupper(piece);
+    switch (piece) {
+        case 'P':
+            
+            break;
+    }
+}
+
 void actionPiece(int player)
 {
     char piece;
@@ -162,8 +172,11 @@ void actionPiece(int player)
     renderTable();
     printf("Player: %s\n", name);
     printf("Você selecionou: %s (%d, %d)\n", prettyPieceStr, line, column);
-    printf("Digite para qual posição você deseja movimentar a peça: ");
-    scanf("%d %d", &line, &column);
+    do
+    {
+        printf("Digite para qual posição você deseja movimentar a peça: ");
+        scanf("%d %d", &line, &column);
+    } while (pieceMove(piece, line, column));
 }
 
 int main()
@@ -176,11 +189,10 @@ int main()
     //Declarar variaveis:
     int optionsMenu;
     int trueOption = 0;
+    const char *piece;
 
     //Variaveis de controle.
     int game_over = 0;
-
-    const char *piece;
 
     do
     {
