@@ -30,9 +30,6 @@ void about()
 {
     system("cls || clear"); //Limpar cmd.
 
-    //Limpar buffer.
-    fflush(stdin);
-
     printf("\t\t\t########## SOBRE ##########\n");
     printf("Jogo de xadrez desenvolvido para a disciplina de introdução a lógica de programação.\n\n");
     printf("\t\t\t########## EQUIPE ########\n");
@@ -47,9 +44,6 @@ void about()
 void help()
 {
     system("cls || clear"); //Limpar cmd.
-
-    //Limpar buffer.
-    fflush(stdin);
 
     printf("\t\t\t########## Ajuda ##########\n\n");
     printf("Player 1 são as peças brancas, Player 2 as peças Pretas.\n");
@@ -150,7 +144,6 @@ void actionPiece(int player)
 
     prettyPieceStr = prettyPiece(piece);
     
-    fflush(stdin);
     system("cls || clear");
 
     renderTable();
@@ -179,9 +172,6 @@ int main()
     do
     {
         system("cls || clear"); //Limpar cmd.
-
-        //Limpar buffer.
-        fflush(stdin);
 
         printf("\t\t\t########## XADREZ ########\n\n\n");
         printf("\t\t\t########## MENU ##########\n");
@@ -220,9 +210,6 @@ int main()
 
     system("cls || clear"); //Limpar cmd.
 
-    //Limpar buffer.
-    fflush(stdin);
-
     printf("Digite o nome do Player 1: ");
     fgets(player1, 20, stdin);
 
@@ -234,16 +221,12 @@ int main()
         system("cls || clear");
 
         //SEÇÃO - PLAYER 1 MOVER PEÇA.
-
         actionPiece(1);
 
-        fflush(stdin);
-        system("cls || clear");
+        system("cls || clear"); //Limpar cmd.
 
         //SEÇÃO - PLAYER 2 MOVER PEÇA.
-
         actionPiece(2);
-
 
     } while (game_over = 0);
 
