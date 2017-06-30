@@ -63,58 +63,7 @@ void help()
     getchar();
 }
 
-void renderTable()
-{
-    int row, columns;
-
-    //Renderizando tabuleiro.
-    for (row = 0; row < numberOfLines; row++)
-    {
-        for (columns = 0; columns < numberColumns; columns++)
-        {
-            printf("%c\t", table[row][columns]);
-        }
-        printf("\n\n");
-    }
-}
-
-const char *choosePiece(int player)
-{
-    char piece;
-    char name[20];
-    int line, column;
-    
-    if (player == 1)
-    {
-        strcpy(name, player1);
-    }
-    if (player == 2)
-    {
-        strcpy(name, player2);
-    }
-
-    //Verifica se é possível escolher a peça.
-    int countErro = 0;
-    do
-    {
-        renderTable();
-        printf("%s,\n", name);
-        if (countErro >= 1)
-        {
-            printf("Você digitou um valor inválido.\n");
-            printf("Digite a posição da peça a ser movida (LINHA, COLUNA): ");
-        }
-        else
-        {
-            printf("Digite a posição da peça a ser movida (LINHA, COLUNA): ");
-        }
-        scanf("%d %d", &line, &column);
-        piece = table[line][column];
-        printf("%c", piece);
-        system("cls || clear");
-        countErro++;
-    } while (!((player == 1 && isupper(piece)) || (player == 2 && islower(piece)) && piece != '-' && piece != '|' && isalpha(piece)));
-
+const char *prettyPiece(char piece) {
     const char *choosePiece;
     piece = toupper(piece);
 
@@ -145,6 +94,73 @@ const char *choosePiece(int player)
     }
 
     return choosePiece;
+}
+
+void renderTable()
+{
+    int row, columns;
+
+    printf("\t\t\t########## PARTIDA ########\n\n\n");
+
+    //Renderizando tabuleiro.
+    for (row = 0; row < numberOfLines; row++)
+    {
+        for (columns = 0; columns < numberColumns; columns++)
+        {
+            printf("%c\t", table[row][columns]);
+        }
+        printf("\n\n");
+    }
+}
+
+void actionPiece(int player)
+{
+    char piece;
+    char name[20];
+    int line, column;
+    const char *prettyPieceStr;
+    
+    if (player == 1)
+    {
+        strcpy(name, player1);
+    }
+    if (player == 2)
+    {
+        strcpy(name, player2);
+    }
+
+    //Verifica se é possível escolher a peça.
+    int countErro = 0;
+    do
+    {
+        renderTable();
+        printf("Player: %s", name);
+        if (countErro >= 1)
+        {
+            printf("Você digitou um valor inválido.\n");
+            printf("Digite a posição da peça a ser movida (LINHA COLUNA): ");
+        }
+        else
+        {
+            printf("Digite a posição da peça a ser movida (LINHA COLUNA): ");
+        }
+        scanf("%d %d", &line, &column);
+        piece = table[line][column];
+        system("cls || clear");
+        countErro++;
+    } while (!((player == 1 && isupper(piece)) || (player == 2 && islower(piece)) && piece != '-' && piece != '|' && isalpha(piece)));
+
+    prettyPieceStr = prettyPiece(piece);
+    
+    fflush(stdin);
+    __fpurge(stdin);
+    system("cls || clear");
+
+    renderTable();
+    printf("Player: %s\n", name);
+    printf("Você selecionou: %s (%d, %d)\n", prettyPieceStr, line, column);
+    printf("Digite para qual posição você deseja movimentar a peça: ");
+    getchar();
 }
 
 int main()
@@ -222,11 +238,9 @@ int main()
     {
         system("cls || clear");
 
-        printf("\t\t\t########## PARTIDA ########\n\n\n");
-
         //SEÇÃO - PLAYER 1 MOVER PEÇA.
 
-        piece = choosePiece(1);
+        actionPiece(1);
 
         fflush(stdin);
         __fpurge(stdin);
@@ -234,7 +248,7 @@ int main()
 
         //SEÇÃO - PLAYER 2 MOVER PEÇA.
 
-        piece = choosePiece(2);
+        actionPiece(2);
 
 
     } while (game_over = 0);
