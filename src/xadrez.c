@@ -18,16 +18,13 @@ char table[10][10] =
      '8', 'T', 'C', 'B', 'Q', 'K', 'B', 'C', 'T', '8',
      '|', '1', '2', '3', '4', '5', '6', '7', '8', '|'};
 
-int numberOfLines = 10;
-int numberColumns = 10;
+//Variaveis para gerenciar o tabuleiro;
+const int numberOfLines = 10;
+const int numberColumns = 10;
 
 //Define variaveis para player 1 e 2.
 char player1[20];
 char player2[20];
-
-//Variaveis de controle.
-int game_over = 0;
-int line, column;
 
 void about()
 {
@@ -85,6 +82,8 @@ const char *choosePiece(int player)
 {
     char piece;
     char name[20];
+    int line, column;
+    
     if (player == 1)
     {
         strcpy(name, player1);
@@ -158,6 +157,9 @@ int main()
     //Declarar variaveis:
     int optionsMenu;
     int trueOption = 0;
+
+    //Variaveis de controle.
+    int game_over = 0;
 
     const char *piece;
 
