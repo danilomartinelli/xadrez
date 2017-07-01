@@ -174,6 +174,7 @@ int pawnPiece(int oldLine, int oldColumn, int newLine, int newColumn, int player
     }
 }
 
+//Torre
 int townPiece(int oldLine, int oldColumn, int newLine, int newColumn)
 {
     if ((newColumn == oldColumn && (newLine >= 1 && newLine <= 8)) || (newLine == oldLine && (newColumn >= 1 && newColumn <= 8)))
@@ -227,6 +228,7 @@ int pieceMove(char piece, int oldLine, int oldColumn, int newLine, int newColumn
     }
 }
 
+//FUnção que gerencia todas as ações da peça do player.
 void actionPiece(int player)
 {
     char piece;
