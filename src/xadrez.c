@@ -20,7 +20,7 @@ char table[10][10] =
      '|', '1', '2', '3', '4', '5', '6', '7', '8', '|'};
 
 //Variaveis para gerenciar o tabuleiro;
-const int numberOfLines = 10;
+const int numberOfRows = 10;
 const int numberColumns = 10;
 
 //Define variaveis para player 1 e 2.
@@ -107,7 +107,7 @@ void renderTable()
     printf("\t\t\t########## PARTIDA ########\n\n\n");
 
     //Renderizando tabuleiro.
-    for (row = 0; row < numberOfLines; row++)
+    for (row = 0; row < numberOfRows; row++)
     {
         for (columns = 0; columns < numberColumns; columns++)
         {
@@ -120,13 +120,13 @@ void renderTable()
 //Funções de movimento para cada peça:
 
 //Peão
-int pawnPiece(int oldLine, int oldColumn, int newLine, int newColumn, int player)
+int pawnPiece(int oldRow, int oldColumn, int newRow, int newColumn, int player)
 {
     if (player == 1)
     {
         if (oldColumn == 7)
         {
-            if (newColumn == oldColumn && (newLine == (oldLine - 1) || newLine == (oldLine - 2)))
+            if (newColumn == oldColumn && (newRow == (oldRow - 1) || newRow == (oldRow - 2)))
             {
                 return 1;
             }
@@ -137,7 +137,7 @@ int pawnPiece(int oldLine, int oldColumn, int newLine, int newColumn, int player
         }
         else
         {
-            if (newColumn == oldColumn && newLine == (oldLine - 1))
+            if (newColumn == oldColumn && newRow == (oldRow - 1))
             {
                 return 1;
             }
@@ -152,7 +152,7 @@ int pawnPiece(int oldLine, int oldColumn, int newLine, int newColumn, int player
     {
         if (oldColumn == 2)
         {
-            if (newColumn == oldColumn && (newLine == (oldLine + 1) || newLine == (oldLine + 2)))
+            if (newColumn == oldColumn && (newRow == (oldRow + 1) || newRow == (oldRow + 2)))
             {
                 return 1;
             }
@@ -163,7 +163,7 @@ int pawnPiece(int oldLine, int oldColumn, int newLine, int newColumn, int player
         }
         else
         {
-            if (newColumn == oldColumn && newLine == (oldLine + 1))
+            if (newColumn == oldColumn && newRow == (oldRow + 1))
             {
                 return 1;
             }
@@ -178,9 +178,9 @@ int pawnPiece(int oldLine, int oldColumn, int newLine, int newColumn, int player
 }
 
 //Torre
-int townPiece(int oldLine, int oldColumn, int newLine, int newColumn)
+int rookPiece(int oldRow, int oldColumn, int newRow, int newColumn)
 {
-    if ((newColumn == oldColumn && (newLine >= 1 && newLine <= 8)) || (newLine == oldLine && (newColumn >= 1 && newColumn <= 8)))
+    if ((newColumn == oldColumn && (newRow >= 1 && newRow <= 8)) || (newRow == oldRow && (newColumn >= 1 && newColumn <= 8)))
     {
         return 1;
     }
@@ -188,21 +188,28 @@ int townPiece(int oldLine, int oldColumn, int newLine, int newColumn)
 }
 
 //Cavalo
-int horsePiece(int oldLine, int oldColumn, int newLine, int newColumn)
+int horsePiece(int oldRow, int oldColumn, int newRow, int newColumn)
 {
-    if (((newColumn == oldColumn - 1) || (newColumn == oldColumn + 1)) && ((newLine == oldLine - 2) || (newLine == oldLine + 2)))
+    if (((newColumn == oldColumn - 1) || (newColumn == oldColumn + 1)) && ((newRow == oldRow - 2) || (newRow == oldRow + 2)))
     {
         return 1;
     }
-    if (((newColumn == oldColumn - 2) || (newColumn == oldColumn + 2)) && ((newLine == oldLine - 1) || (newLine == oldLine + 1)))
+    if (((newColumn == oldColumn - 2) || (newColumn == oldColumn + 2)) && ((newRow == oldRow - 1) || (newRow == oldRow + 1)))
     {
         return 1;
     }
     return 0;
 }
 
+//Bispo
+int bishopPiece(int oldRow, int oldColumn, int newRow, int newColumn)
+{
+    if ()
+    return 0;
+}
+
 //Gerencia as função de movimento de peças
-int pieceMove(char piece, int oldLine, int oldColumn, int newLine, int newColumn, int player)
+int pieceMove(char piece, int oldRow, int oldColumn, int newRow, int newColumn, int player)
 {
     const char *prettyPieceStr;
     prettyPieceStr = prettyPiece(piece);
@@ -220,19 +227,25 @@ int pieceMove(char piece, int oldLine, int oldColumn, int newLine, int newColumn
     switch (toupper(piece))
     {
     case 'P':
-        if (pawnPiece(oldLine, oldColumn, newLine, newColumn, player))
+        if (pawnPiece(oldRow, oldColumn, newRow, newColumn, player))
         {
             return 1;
             break;
         }
     case 'T':
-        if (townPiece(oldLine, oldColumn, newLine, newColumn))
+        if (rookPiece(oldRow, oldColumn, newRow, newColumn))
         {
             return 1;
             break;
         }
     case 'C':
-        if (horsePiece(oldLine, oldColumn, newLine, newColumn))
+        if (horsePiece(oldRow, oldColumn, newRow, newColumn))
+        {
+            return 1;
+            break;
+        }
+    case 'B':
+        if(bishopPiece(oldRow, oldColumn, newRow, newColumn))
         {
             return 1;
             break;
@@ -241,7 +254,7 @@ int pieceMove(char piece, int oldLine, int oldColumn, int newLine, int newColumn
         clear_screen();
         renderTable();
         printf("Player: %s\n", name);
-        printf("Você selecionou: %s (%d, %d)\n", prettyPieceStr, oldLine, oldColumn);
+        printf("Você selecionou: %s (%d, %d)\n", prettyPieceStr, oldRow, oldColumn);
         printf("Movimento inválido.\n");
         return 0;
         break;
@@ -253,7 +266,7 @@ void actionPiece(int player)
 {
     char piece;
     char name[20];
-    int newLine, newColumn, oldLine, oldColumn;
+    int newRow, newColumn, oldRow, oldColumn;
     const char *prettyPieceStr;
 
     if (player == 1)
@@ -280,9 +293,9 @@ void actionPiece(int player)
         {
             printf("Digite a posição da peça a ser movida (LINHA COLUNA): ");
         }
-        scanf("%d %d", &oldLine, &oldColumn);
+        scanf("%d %d", &oldRow, &oldColumn);
         getchar(); //Consumir Enter.
-        piece = table[oldLine][oldColumn];
+        piece = table[oldRow][oldColumn];
         clear_screen();
         countErro++;
     } while (!((player == 1 && isupper(piece)) || (player == 2 && islower(piece)) && piece != '-' && piece != '|' && isalpha(piece)));
@@ -293,13 +306,13 @@ void actionPiece(int player)
 
     renderTable();
     printf("Player: %s\n", name);
-    printf("Você selecionou: %s (%d, %d)\n", prettyPieceStr, oldLine, oldColumn);
+    printf("Você selecionou: %s (%d, %d)\n", prettyPieceStr, oldRow, oldColumn);
     do
     {
         printf("Digite para qual posição você deseja movimentar a peça: ");
-        scanf("%d %d", &newLine, &newColumn);
+        scanf("%d %d", &newRow, &newColumn);
         getchar(); //Consumir Enter.
-    } while (!pieceMove(piece, oldLine, oldColumn, newLine, newColumn, player));
+    } while (!pieceMove(piece, oldRow, oldColumn, newRow, newColumn, player));
 }
 
 int main()
