@@ -203,8 +203,12 @@ int horsePiece(int oldRow, int oldColumn, int newRow, int newColumn)
 
 //Bispo
 int bishopPiece(int oldRow, int oldColumn, int newRow, int newColumn)
-{
-    if ()
+{   
+    int rowAux = oldRow - newRow;
+    int columnAux = oldColumn - newColumn;
+    if (rowAux == columnAux) {
+        return 1;
+    }
     return 0;
 }
 
