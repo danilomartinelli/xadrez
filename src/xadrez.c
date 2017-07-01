@@ -174,15 +174,44 @@ int pawnPiece(int oldLine, int oldColumn, int newLine, int newColumn, int player
     }
 }
 
+int townPiece(int oldLine, int oldColumn, int newLine, int newColumn)
+{
+    if ((newColumn == oldColumn && (newLine >= 1 && newLine <= 8)) || (newLine == oldLine && (newColumn >= 1 && newColumn <= 8)))
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
 //Gerencia as função de movimento de peças
 int pieceMove(char piece, int oldLine, int oldColumn, int newLine, int newColumn, int player)
 {
+    const char *prettyPieceStr;
+    prettyPieceStr = prettyPiece(piece);
 
-    toupper(piece);
-    switch (piece)
+    char name[20];
+    if (player == 1)
+    {
+        strcpy(name, player1);
+    }
+    if (player == 2)
+    {
+        strcpy(name, player2);
+    }
+
+    switch (toupper(piece))
     {
     case 'P':
         if (pawnPiece(oldLine, oldColumn, newLine, newColumn, player))
+        {
+            return 1;
+            break;
+        }
+    case 'T':
+        if (townPiece(oldLine, oldColumn, newLine, newColumn))
         {
             return 1;
             break;
@@ -191,6 +220,7 @@ int pieceMove(char piece, int oldLine, int oldColumn, int newLine, int newColumn
         clear_screen();
         renderTable();
         printf("Player: %s\n", name);
+        printf("Você selecionou: %s (%d, %d)\n", prettyPieceStr, oldLine, oldColumn);
         printf("Movimento inválido.\n");
         return 0;
         break;
@@ -246,6 +276,7 @@ void actionPiece(int player)
     {
         printf("Digite para qual posição você deseja movimentar a peça: ");
         scanf("%d %d", &newLine, &newColumn);
+        getchar(); //Consumir Enter.
     } while (!pieceMove(piece, oldLine, oldColumn, newLine, newColumn, player));
 }
 
