@@ -146,6 +146,7 @@ int pawnPiece(int oldLine, int oldColumn, int newLine, int newColumn, int player
                 return 0;
             }
         }
+        return 0;
     }
     if (player == 2)
     {
@@ -171,7 +172,9 @@ int pawnPiece(int oldLine, int oldColumn, int newLine, int newColumn, int player
                 return 0;
             }
         }
+        return 0;
     }
+    return 0;
 }
 
 //Torre
@@ -181,10 +184,21 @@ int townPiece(int oldLine, int oldColumn, int newLine, int newColumn)
     {
         return 1;
     }
-    else
+    return 0;
+}
+
+//Cavalo
+int horsePiece(int oldLine, int oldColumn, int newLine, int newColumn)
+{
+    if (((newColumn == oldColumn - 1) || (newColumn == oldColumn + 1)) && ((newLine == oldLine - 2) || (newLine == oldLine + 2)))
     {
-        return 0;
+        return 1;
     }
+    if (((newColumn == oldColumn - 2) || (newColumn == oldColumn + 2)) && ((newLine == oldLine - 1) || (newLine == oldLine + 1)))
+    {
+        return 1;
+    }
+    return 0;
 }
 
 //Gerencia as função de movimento de peças
@@ -213,6 +227,12 @@ int pieceMove(char piece, int oldLine, int oldColumn, int newLine, int newColumn
         }
     case 'T':
         if (townPiece(oldLine, oldColumn, newLine, newColumn))
+        {
+            return 1;
+            break;
+        }
+    case 'C':
+        if (horsePiece(oldLine, oldColumn, newLine, newColumn))
         {
             return 1;
             break;
