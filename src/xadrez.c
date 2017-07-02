@@ -206,6 +206,11 @@ int bishopPiece(int oldRow, int oldColumn, int newRow, int newColumn)
 {   
     int rowAux = oldRow - newRow;
     int columnAux = oldColumn - newColumn;
+
+    //Valor absoluto da diferença.
+    rowAux = abs(rowAux);
+    columnAux = abs(columnAux);
+
     if (rowAux == columnAux) {
         return 1;
     }
