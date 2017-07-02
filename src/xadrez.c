@@ -203,7 +203,7 @@ int horsePiece(int oldRow, int oldColumn, int newRow, int newColumn)
 
 //Bispo
 int bishopPiece(int oldRow, int oldColumn, int newRow, int newColumn)
-{   
+{
     int rowAux = oldRow - newRow;
     int columnAux = oldColumn - newColumn;
 
@@ -211,7 +211,28 @@ int bishopPiece(int oldRow, int oldColumn, int newRow, int newColumn)
     rowAux = abs(rowAux);
     columnAux = abs(columnAux);
 
-    if (rowAux == columnAux) {
+    if (rowAux == columnAux)
+    {
+        return 1;
+    }
+    return 0;
+}
+
+//Rainha
+int queenPiece(int oldRow, int oldColumn, int newRow, int newColumn)
+{
+    if (bishopPiece(oldRow, oldColumn, newRow, newColumn) ^ rookPiece(oldRow, oldColumn, newRow, newColumn))
+    {
+        return 1;
+    }
+    return 0;
+}
+
+//Rei
+int kingPiece(int oldRow, int oldColumn, int newRow, int newColumn)
+{
+    if ()
+    {
         return 1;
     }
     return 0;
@@ -254,7 +275,19 @@ int pieceMove(char piece, int oldRow, int oldColumn, int newRow, int newColumn, 
             break;
         }
     case 'B':
-        if(bishopPiece(oldRow, oldColumn, newRow, newColumn))
+        if (bishopPiece(oldRow, oldColumn, newRow, newColumn))
+        {
+            return 1;
+            break;
+        }
+    case 'Q':
+        if (queenPiece(oldRow, oldColumn, newRow, newColumn))
+        {
+            return 1;
+            break;
+        }
+    case 'K':
+        if (kingPiece(oldRow, oldColumn, newRow, newColumn))
         {
             return 1;
             break;
