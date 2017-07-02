@@ -231,7 +231,7 @@ int queenPiece(int oldRow, int oldColumn, int newRow, int newColumn)
 //Rei
 int kingPiece(int oldRow, int oldColumn, int newRow, int newColumn)
 {
-    if ()
+    if ((newRow == oldRow + 1 || newRow == oldRow || newRow == oldRow - 1) && (newColumn == oldColumn + 1 || newColumn == oldColumn || newColumn == oldColumn - 1))
     {
         return 1;
     }
