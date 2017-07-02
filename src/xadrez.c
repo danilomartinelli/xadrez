@@ -57,12 +57,12 @@ void help()
     clear_screen(); //Limpar cmd.
 
     printf("\t\t\t########## Ajuda ##########\n\n");
-    printf("Player 1 são as peças brancas, Player 2 as peças Pretas.\n");
-    printf("O jogo segue todas as regras oficiais. Exceto que:\n");
-    printf("\t\tNão é possível fazer movimentos especiais como o roque.\n\n");
-    printf("Para jogar é necessário digitar a letra correspondente a peça que deseja movimentar.\n");
-    printf("Logo depois digitar a linha e a coluna para qual você deseja se movimentar.\n\n");
-    printf("Pressione ENTER para voltar.");
+    printf("Player 1 são as peças brancasna linha 8 e 7, Player 2 as peças na linha 1 e 2.\n");
+    printf("O Jogue trabalha sempre a partir da LINHA digitada e COLUNA digitada.\n");
+    printf("\tExemplo:\n");
+    printf("\t\tCavalo se encontra na linha 6, coluna 4. É necessário digitar: 6 4\n");
+    printf("O mesmo é necessário para escolher para onde vai ser movimentar.\n");
+    printf("\n\nPressione ENTER para voltar.");
     getchar();
 }
 
