@@ -302,6 +302,13 @@ int pieceMove(char piece, int oldRow, int oldColumn, int newRow, int newColumn, 
     }
 }
 
+int positionVerify(char piece, int oldRow, int oldColumn, int newRow, int newColumn, int player) {
+    if((newRow >= 1 && newRow <= 8) && (newColumn >= 1 && newColumn <= 8)) {
+        return 1;
+    }
+    return 0;
+}
+
 //FUnção que gerencia todas as ações da peça do player.
 void actionPiece(int player)
 {
@@ -339,7 +346,7 @@ void actionPiece(int player)
         piece = table[oldRow][oldColumn];
         clear_screen();
         countErro++;
-    } while (!((player == 1 && isupper(piece)) || (player == 2 && islower(piece)) && piece != '-' && piece != '|' && isalpha(piece)));
+    } while (!((player == 1 && isupper(piece)) || (player == 2 && islower(piece)) && piece != '-' && piece != '|' && isalpha(piece) && (oldRow >= 1 && oldRow <= 8) && (oldColumn >= 1 && oldColumn <= 8)));
 
     prettyPieceStr = prettyPiece(piece);
 
@@ -353,7 +360,7 @@ void actionPiece(int player)
         printf("Digite para qual posição você deseja movimentar a peça: ");
         scanf("%d %d", &newRow, &newColumn);
         getchar(); //Consumir Enter.
-    } while (!pieceMove(piece, oldRow, oldColumn, newRow, newColumn, player));
+    } while (!positionVerify(piece, oldRow, oldColumn, newRow, newColumn, player) && !pieceMove(piece, oldRow, oldColumn, newRow, newColumn, player));
 }
 
 int main()
