@@ -4,7 +4,6 @@
 #include <locale.h>
 #include <ctype.h>
 #include <string.h>
-#include <cstdlib>
 
 //Cria matriz para o tabuleiro.
 char table[10][10] =
@@ -30,10 +29,10 @@ char player2[20];
 // Função para limpar tela
 void clear_screen()
 {
-#ifdef WINDOWS
-    std::system("cls");
+#ifdef WIN32
+    system("cls");
 #else
-    std::system("clear");
+    system("clear");
 #endif
 }
 
