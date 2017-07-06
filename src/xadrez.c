@@ -259,54 +259,77 @@ int pieceMove(char piece, int oldRow, int oldColumn, int newRow, int newColumn, 
         if (pawnPiece(oldRow, oldColumn, newRow, newColumn, player))
         {
             return 1;
-            break;
         }
+        return 0;
     case 'T':
         if (rookPiece(oldRow, oldColumn, newRow, newColumn))
         {
             return 1;
-            break;
         }
+        return 0;
     case 'C':
         if (horsePiece(oldRow, oldColumn, newRow, newColumn))
         {
             return 1;
-            break;
         }
+        return 0;
     case 'B':
         if (bishopPiece(oldRow, oldColumn, newRow, newColumn))
         {
             return 1;
-            break;
         }
+        return 0;
     case 'Q':
         if (queenPiece(oldRow, oldColumn, newRow, newColumn))
         {
             return 1;
-            break;
         }
+        return 0;
     case 'K':
         if (kingPiece(oldRow, oldColumn, newRow, newColumn))
         {
             return 1;
-            break;
         }
-    default:
-        clear_screen();
-        renderTable();
-        printf("Player: %s\n", name);
-        printf("Você selecionou: %s (%d, %d)\n", prettyPieceStr, oldRow, oldColumn);
-        printf("Movimento inválido.\n");
         return 0;
-        break;
+    default:
+        return 0;
     }
 }
 
-int positionVerify(char piece, int oldRow, int oldColumn, int newRow, int newColumn, int player) {
-    if((newRow >= 1 && newRow <= 8) && (newColumn >= 1 && newColumn <= 8)) {
-        return 1;
+//Verifica se posição atribuida pelo player pode ser ocupada.
+int positionVerify(char piece, int oldRow, int oldColumn, int newRow, int newColumn, int player)
+{
+    if ((newRow >= 1 && newRow <= 8) && (newColumn >= 1 && newColumn <= 8))
+    {
+        switch (toupper(piece))
+        {
+        case 'P': //Peão
+            if (table[newRow][newColumn] == '-')
+            {
+                if (player == 1 && oldRow == 7 && newRow == 5 && table[6][newColumn] != '-') {
+                    return 0;
+                } 
+                if (player == 2 && oldRow == 2 && newRow == 4 && table[3][newColumn] != '-') {
+                    return 0;
+                }
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        default:
+            return 1;
+            break;
+        }
     }
     return 0;
+}
+
+void movePiece(char piece, int oldRow, int oldColumn, int newRow, int newColumn)
+{
+    table[newRow][newColumn] = piece;
+    table[oldRow][oldColumn] = '-';
 }
 
 //FUnção que gerencia todas as ações da peça do player.
@@ -350,17 +373,22 @@ void actionPiece(int player)
 
     prettyPieceStr = prettyPiece(piece);
 
-    clear_screen();
-
-    renderTable();
-    printf("Player: %s\n", name);
-    printf("Você selecionou: %s (%d, %d)\n", prettyPieceStr, oldRow, oldColumn);
+    int countAuxPieceMove = 0;
     do
     {
+        clear_screen();
+        renderTable();
+        printf("Player: %s\n", name);
+        printf("Você selecionou: %s (%d, %d)\n", prettyPieceStr, oldRow, oldColumn);
+        if (countAuxPieceMove > 0)
+            printf("Movimento inválido.\n");
         printf("Digite para qual posição você deseja movimentar a peça: ");
         scanf("%d %d", &newRow, &newColumn);
         getchar(); //Consumir Enter.
-    } while (!positionVerify(piece, oldRow, oldColumn, newRow, newColumn, player) && !pieceMove(piece, oldRow, oldColumn, newRow, newColumn, player));
+        countAuxPieceMove++;
+    } while (!pieceMove(piece, oldRow, oldColumn, newRow, newColumn, player));
+
+    movePiece(piece, oldRow, oldColumn, newRow, newColumn);
 }
 
 int main()
@@ -438,7 +466,7 @@ int main()
         //SEÇÃO - PLAYER 2 MOVER PEÇA.
         actionPiece(2);
 
-    } while (game_over = 0);
+    } while (game_over = 1);
 
     return EXIT_SUCCESS;
 }
