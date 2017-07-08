@@ -123,7 +123,7 @@ int pawnPiece(int oldRow, int oldColumn, int newRow, int newColumn, int player)
 {
     if (player == 1)
     {
-        if (oldColumn == 7)
+        if (oldRow == 7)
         {
             if (newColumn == oldColumn && (newRow == (oldRow - 1) || newRow == (oldRow - 2)))
             {
@@ -149,7 +149,7 @@ int pawnPiece(int oldRow, int oldColumn, int newRow, int newColumn, int player)
     }
     if (player == 2)
     {
-        if (oldColumn == 2)
+        if (oldRow == 2)
         {
             if (newColumn == oldColumn && (newRow == (oldRow + 1) || newRow == (oldRow + 2)))
             {
@@ -252,7 +252,7 @@ int pieceMove(char piece, int oldRow, int oldColumn, int newRow, int newColumn, 
     {
         strcpy(name, player2);
     }
-
+    
     switch (toupper(piece))
     {
     case 'P':
@@ -306,10 +306,12 @@ int positionVerify(char piece, int oldRow, int oldColumn, int newRow, int newCol
         case 'P': //Peão
             if (table[newRow][newColumn] == '-')
             {
-                if (player == 1 && oldRow == 7 && newRow == 5 && table[6][newColumn] != '-') {
+                if (player == 1 && oldRow == 7 && newRow == 5 && table[6][newColumn] != '-')
+                {
                     return 0;
-                } 
-                if (player == 2 && oldRow == 2 && newRow == 4 && table[3][newColumn] != '-') {
+                }
+                if (player == 2 && oldRow == 2 && newRow == 4 && table[3][newColumn] != '-')
+                {
                     return 0;
                 }
                 return 1;
@@ -319,8 +321,7 @@ int positionVerify(char piece, int oldRow, int oldColumn, int newRow, int newCol
                 return 0;
             }
         default:
-            return 1;
-            break;
+            return 0;
         }
     }
     return 0;
@@ -386,7 +387,7 @@ void actionPiece(int player)
         scanf("%d %d", &newRow, &newColumn);
         getchar(); //Consumir Enter.
         countAuxPieceMove++;
-    } while (!pieceMove(piece, oldRow, oldColumn, newRow, newColumn, player));
+    } while (!(pieceMove(piece, oldRow, oldColumn, newRow, newColumn, player) && positionVerify(piece, oldRow, oldColumn, newRow, newColumn, player)));
 
     movePiece(piece, oldRow, oldColumn, newRow, newColumn);
 }
