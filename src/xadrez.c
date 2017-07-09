@@ -342,6 +342,7 @@ int pieceMove(char piece, int oldRow, int oldColumn, int newRow, int newColumn, 
     }
 }
 
+//Verificar possíveis locais para o peão.
 int pawnVerify(int oldRow, int oldColumn, int newRow, int newColumn, int player)
 {
     if (table[newRow][newColumn] == '-' && newColumn == oldColumn)
@@ -362,12 +363,14 @@ int pawnVerify(int oldRow, int oldColumn, int newRow, int newColumn, int player)
     }
 }
 
+//Verificar possíveis locais para a torre.
 int rookVerify(int oldRow, int oldColumn, int newRow, int newColumn, int player)
 {
     //Declarar variáveis auxiliares.
     int aux;
     char tempPiece;
 
+    //Torre percorrendo verticalmente para baixo.
     if (newColumn == oldColumn && newRow > oldRow)
     {
         for (aux = (oldRow + 1); aux <= newRow; aux++)
@@ -395,6 +398,8 @@ int rookVerify(int oldRow, int oldColumn, int newRow, int newColumn, int player)
         }
         return 1;
     }
+
+    //Torre percorrendo verticalmente para cima.
     if (newColumn == oldColumn && newRow < oldRow)
     {
         for (aux = (oldRow - 1); aux >= newRow; aux--)
@@ -422,6 +427,8 @@ int rookVerify(int oldRow, int oldColumn, int newRow, int newColumn, int player)
         }
         return 1;
     }
+
+    //Torre percorrendo horizontalmente para a direita.
     if (newRow == oldRow && newColumn > oldColumn)
     {
         for (aux = (oldColumn + 1); aux <= newColumn; aux++)
@@ -449,6 +456,8 @@ int rookVerify(int oldRow, int oldColumn, int newRow, int newColumn, int player)
         }
         return 1;
     }
+
+    //Torre percorrendo horizontalmente para a esquerda.
     if (newRow == oldRow && newColumn < oldColumn)
     {
         for (aux = (oldColumn - 1); aux >= newColumn; aux--)
