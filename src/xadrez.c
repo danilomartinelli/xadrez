@@ -36,9 +36,10 @@ void clear_screen()
 #endif
 }
 
+//Exibe SOBRE no DOS.
 void about()
 {
-    clear_screen(); //Limpar cmd.
+    clear_screen();
 
     printf("\t\t\t########## SOBRE ##########\n");
     printf("Jogo de xadrez desenvolvido para a disciplina de introdução a lógica de programação.\n\n");
@@ -51,9 +52,10 @@ void about()
     getchar();
 }
 
+//Exibe AJUDA no DOS.
 void help()
 {
-    clear_screen(); //Limpar cmd.
+    clear_screen();
 
     printf("\t\t\t########## Ajuda ##########\n\n");
     printf("Player 1 são as peças brancasna linha 8 e 7, Player 2 as peças na linha 1 e 2.\n");
@@ -65,12 +67,12 @@ void help()
     getchar();
 }
 
+//Deixa o nome da peça mais amigavel para o usuário.
 const char *prettyPiece(char piece)
 {
     const char *choosePiece;
     piece = toupper(piece);
 
-    //Deixa o nome da peça mais amigavel para o usuário.
     switch (piece)
     {
     case 'P':
@@ -99,6 +101,7 @@ const char *prettyPiece(char piece)
     return choosePiece;
 }
 
+//Função para renderizar o tabuleiro na tela.
 void renderTable()
 {
     int row, columns;
@@ -298,37 +301,37 @@ int pieceMove(char piece, int oldRow, int oldColumn, int newRow, int newColumn, 
 
     switch (toupper(piece))
     {
-    case 'P':
+    case 'P': //Peão
         if (pawnPiece(oldRow, oldColumn, newRow, newColumn, player))
         {
             return 1;
         }
         return 0;
-    case 'T':
+    case 'T': //Torre
         if (rookPiece(oldRow, oldColumn, newRow, newColumn))
         {
             return 1;
         }
         return 0;
-    case 'C':
+    case 'C': //Cavalo
         if (horsePiece(oldRow, oldColumn, newRow, newColumn))
         {
             return 1;
         }
         return 0;
-    case 'B':
+    case 'B': //Bispo
         if (bishopPiece(oldRow, oldColumn, newRow, newColumn))
         {
             return 1;
         }
         return 0;
-    case 'Q':
+    case 'Q': //Rainha
         if (queenPiece(oldRow, oldColumn, newRow, newColumn))
         {
             return 1;
         }
         return 0;
-    case 'K':
+    case 'K': //Rei
         if (kingPiece(oldRow, oldColumn, newRow, newColumn))
         {
             return 1;
@@ -339,6 +342,143 @@ int pieceMove(char piece, int oldRow, int oldColumn, int newRow, int newColumn, 
     }
 }
 
+int pawnVerify(int oldRow, int oldColumn, int newRow, int newColumn, int player)
+{
+    if (table[newRow][newColumn] == '-' && newColumn == oldColumn)
+    {
+        if (player == 1 && oldRow == 7 && newRow == 5 && table[6][newColumn] != '-')
+        {
+            return 0;
+        }
+        if (player == 2 && oldRow == 2 && newRow == 4 && table[3][newColumn] != '-')
+        {
+            return 0;
+        }
+        return 1;
+    }
+    else
+    {
+        return 1;
+    }
+}
+
+int rookVerify(int oldRow, int oldColumn, int newRow, int newColumn, int player)
+{
+    //Declarar variáveis auxiliares.
+    int aux;
+    char tempPiece;
+
+    if (newColumn == oldColumn && newRow > oldRow)
+    {
+        for (aux = (oldRow + 1); aux <= newRow; aux++)
+        {
+            tempPiece = table[aux][newColumn];
+
+            if (tempPiece != '-')
+            {
+                if (boolPlayerPiece(aux, newColumn, player))
+                {
+                    return 0;
+                }
+                else
+                {
+                    if (!boolPlayerPiece(aux, newColumn, player) && aux == newRow)
+                    {
+                        return 1;
+                    }
+                    else
+                    {
+                        return 0;
+                    }
+                }
+            }
+        }
+        return 1;
+    }
+    if (newColumn == oldColumn && newRow < oldRow)
+    {
+        for (aux = (oldRow - 1); aux >= newRow; aux--)
+        {
+            tempPiece = table[aux][newColumn];
+
+            if (tempPiece != '-')
+            {
+                if (boolPlayerPiece(aux, newColumn, player))
+                {
+                    return 0;
+                }
+                else
+                {
+                    if (!boolPlayerPiece(aux, newColumn, player) && aux == newRow)
+                    {
+                        return 1;
+                    }
+                    else
+                    {
+                        return 0;
+                    }
+                }
+            }
+        }
+        return 1;
+    }
+    if (newRow == oldRow && newColumn > oldColumn)
+    {
+        for (aux = (oldColumn + 1); aux <= newColumn; aux++)
+        {
+            tempPiece = table[aux][newColumn];
+
+            if (tempPiece != '-')
+            {
+                if (boolPlayerPiece(newRow, aux, player))
+                {
+                    return 0;
+                }
+                else
+                {
+                    if (!boolPlayerPiece(newRow, aux, player) && aux == newColumn)
+                    {
+                        return 1;
+                    }
+                    else
+                    {
+                        return 0;
+                    }
+                }
+            }
+        }
+        return 1;
+    }
+    if (newRow == oldRow && newColumn < oldColumn)
+    {
+        for (aux = (oldColumn - 1); aux >= newColumn; aux--)
+        {
+            tempPiece = table[aux][newColumn];
+
+            if (tempPiece != '-')
+            {
+                if (boolPlayerPiece(newRow, aux, player))
+                {
+                    return 0;
+                }
+                else
+                {
+                    if (!boolPlayerPiece(newRow, aux, player) && aux == newColumn)
+                    {
+                        return 1;
+                    }
+                    else
+                    {
+                        return 0;
+                    }
+                }
+            }
+        }
+        return 1;
+    }
+    return 0;
+}
+
 //Verifica se posição atribuida pelo player pode ser ocupada.
 int positionVerify(char piece, int oldRow, int oldColumn, int newRow, int newColumn, int player)
 {
@@ -347,22 +487,18 @@ int positionVerify(char piece, int oldRow, int oldColumn, int newRow, int newCol
         switch (toupper(piece))
         {
         case 'P': //Peão
-            if (table[newRow][newColumn] == '-' && newColumn == oldColumn)
-            {
-                if (player == 1 && oldRow == 7 && newRow == 5 && table[6][newColumn] != '-')
-                {
-                    return 0;
-                }
-                if (player == 2 && oldRow == 2 && newRow == 4 && table[3][newColumn] != '-')
-                {
-                    return 0;
-                }
-                return 1;
-            }
-            else
+            if (pawnVerify(oldRow, oldColumn, newRow, newColumn, player))
             {
                 return 1;
             }
+            return 0;
+        case 'T': //Torre
+            if (rookVerify(oldRow, oldColumn, newRow, newColumn, player))
+            {
+                return 1;
+            }
+            return 0;
+
         default:
             return 0;
         }
@@ -370,6 +506,7 @@ int positionVerify(char piece, int oldRow, int oldColumn, int newRow, int newCol
     return 0;
 }
 
+//Função que movimenta as peças no tabuleiro.
 void movePiece(char piece, int oldRow, int oldColumn, int newRow, int newColumn)
 {
     table[newRow][newColumn] = piece;
@@ -437,7 +574,7 @@ void actionPiece(int player)
 
 int main()
 {
-    clear_screen(); //Limpar cmd.
+    clear_screen();
 
     //Configurando UTF-8 para caracteres.
     setlocale(LC_ALL, "Portuguese");
@@ -452,7 +589,7 @@ int main()
 
     do
     {
-        clear_screen(); //Limpar cmd.
+        clear_screen();
 
         printf("\t\t\t########## XADREZ ########\n\n\n");
         printf("\t\t\t########## MENU ##########\n");
@@ -490,7 +627,7 @@ int main()
         }
     } while (optionsMenu != 1);
 
-    clear_screen(); //Limpar cmd.
+    clear_screen();
 
     printf("Digite o nome do Player 1: ");
     fgets(player1, 20, stdin);
@@ -505,7 +642,7 @@ int main()
         //SEÇÃO - PLAYER 1 MOVER PEÇA.
         actionPiece(1);
 
-        clear_screen(); //Limpar cmd.
+        clear_screen();
 
         //SEÇÃO - PLAYER 2 MOVER PEÇA.
         actionPiece(2);
