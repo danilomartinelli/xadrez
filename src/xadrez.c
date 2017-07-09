@@ -116,6 +116,27 @@ void renderTable()
     }
 }
 
+//Veficar se peça é do time verificado
+int boolPlayerPiece(int row, int column, int player)
+{
+    char piece = table[row][column];
+    if (isalpha(piece))
+    {
+        if ((isupper(piece) && player == 1) || (islower(piece) && player == 2))
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    else
+    {
+        return 0;
+    }
+}
+
 //Funções de movimento para cada peça:
 
 //Peão
@@ -123,6 +144,17 @@ int pawnPiece(int oldRow, int oldColumn, int newRow, int newColumn, int player)
 {
     if (player == 1)
     {
+        if (newRow == (oldRow - 1) && (newColumn == (oldColumn + 1) || newColumn == (oldColumn - 1)))
+        {
+            if (!boolPlayerPiece(newRow, newColumn, player) && table[newRow][newColumn] != '-')
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
         if (oldRow == 7)
         {
             if (newColumn == oldColumn && (newRow == (oldRow - 1) || newRow == (oldRow - 2)))
@@ -149,6 +181,17 @@ int pawnPiece(int oldRow, int oldColumn, int newRow, int newColumn, int player)
     }
     if (player == 2)
     {
+        if (newRow == (oldRow + 1) && (newColumn == (oldColumn + 1) || newColumn == (oldColumn - 1)))
+        {
+            if (!boolPlayerPiece(newRow, newColumn, player) && table[newRow][newColumn] != '-')
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
         if (oldRow == 2)
         {
             if (newColumn == oldColumn && (newRow == (oldRow + 1) || newRow == (oldRow + 2)))
@@ -252,7 +295,7 @@ int pieceMove(char piece, int oldRow, int oldColumn, int newRow, int newColumn, 
     {
         strcpy(name, player2);
     }
-    
+
     switch (toupper(piece))
     {
     case 'P':
@@ -304,7 +347,7 @@ int positionVerify(char piece, int oldRow, int oldColumn, int newRow, int newCol
         switch (toupper(piece))
         {
         case 'P': //Peão
-            if (table[newRow][newColumn] == '-')
+            if (table[newRow][newColumn] == '-' && newColumn == oldColumn)
             {
                 if (player == 1 && oldRow == 7 && newRow == 5 && table[6][newColumn] != '-')
                 {
@@ -318,7 +361,7 @@ int positionVerify(char piece, int oldRow, int oldColumn, int newRow, int newCol
             }
             else
             {
-                return 0;
+                return 1;
             }
         default:
             return 0;
