@@ -266,7 +266,7 @@ int bishopPiece(int oldRow, int oldColumn, int newRow, int newColumn)
 //Rainha
 int queenPiece(int oldRow, int oldColumn, int newRow, int newColumn)
 {
-    if (bishopPiece(oldRow, oldColumn, newRow, newColumn) ^ rookPiece(oldRow, oldColumn, newRow, newColumn))
+    if (bishopPiece(oldRow, oldColumn, newRow, newColumn) || rookPiece(oldRow, oldColumn, newRow, newColumn))
     {
         return 1;
     }
