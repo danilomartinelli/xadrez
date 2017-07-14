@@ -5,6 +5,13 @@
 #include <ctype.h>
 #include <string.h>
 
+//Define constantes gerais.
+#define STRING_PLAYER 20
+
+//Variaveis para gerenciar o tabuleiro;
+const int numberOfRows = 10;
+const int numberOfColumns = 10;
+
 //Cria matriz para o tabuleiro.
 char table[10][10] =
     {'|', '1', '2', '3', '4', '5', '6', '7', '8', '|',
@@ -18,13 +25,9 @@ char table[10][10] =
      '8', 'T', 'C', 'B', 'Q', 'K', 'B', 'C', 'T', '8',
      '|', '1', '2', '3', '4', '5', '6', '7', '8', '|'};
 
-//Variaveis para gerenciar o tabuleiro;
-const int numberOfRows = 10;
-const int numberColumns = 10;
-
 //Define variaveis para player 1 e 2.
-char player1[20];
-char player2[20];
+char player1[STRING_PLAYER];
+char player2[STRING_PLAYER];
 
 // Função para limpar tela
 void clear_screen()
@@ -111,7 +114,7 @@ void renderTable()
     //Renderizando tabuleiro.
     for (row = 0; row < numberOfRows; row++)
     {
-        for (columns = 0; columns < numberColumns; columns++)
+        for (columns = 0; columns < numberOfColumns; columns++)
         {
             printf("%c\t", table[row][columns]);
         }
@@ -765,23 +768,63 @@ void actionPiece(int player)
         countErro++;
     } while (!((player == 1 && isupper(piece)) || (player == 2 && islower(piece)) && piece != '-' && piece != '|' && isalpha(piece) && (oldRow >= 1 && oldRow <= 8) && (oldColumn >= 1 && oldColumn <= 8)));
 
-    prettyPieceStr = prettyPiece(piece);
-
     int countAuxPieceMove = 0;
     do
     {
+        //Atribui nome da peça ao char.
+        prettyPieceStr = prettyPiece(piece);
+
         clear_screen();
         renderTable();
         printf("Player: %s\n", name);
         printf("Você selecionou: %s (%d, %d)\n", prettyPieceStr, oldRow, oldColumn);
-        if (countAuxPieceMove > 0)
+        if (countAuxPieceMove >= 1)
         {
             printf("Movimento inválido.\n");
+            printf("Digite 0 0 para selecionar outra peça.\n");
+        }
+        else
+        {
+            printf("Digite 0 0 para selecionar outra peça.\n");
         }
         printf("Digite para qual posição você deseja movimentar a peça: ");
         scanf("%d %d", &newRow, &newColumn);
         getchar(); //Consumir Enter.
-        countAuxPieceMove++;
+
+        //Caso o player digite 0 0.
+        if (newRow == 0 && newColumn == 0)
+        {
+            countErro = 0;
+
+            do
+            {
+                clear_screen();
+                renderTable();
+                printf("Player: %s", name);
+                if (countErro >= 1)
+                {
+                    printf("Você digitou um valor inválido.\n");
+                    printf("Digite a posição da nova peça a ser movida (LINHA COLUNA): ");
+                }
+                else
+                {
+                    printf("Digite a posição da  nova peça a ser movida (LINHA COLUNA): ");
+                }
+                scanf("%d %d", &oldRow, &oldColumn);
+                getchar(); //Consumir Enter.
+                piece = table[oldRow][oldColumn];
+                clear_screen();
+                countErro++;
+            } while (!((player == 1 && isupper(piece)) || (player == 2 && islower(piece)) && piece != '-' && piece != '|' && isalpha(piece) && (oldRow >= 1 && oldRow <= 8) && (oldColumn >= 1 && oldColumn <= 8)));
+
+            countAuxPieceMove = 0;
+        }
+        //Caso player digite 0 0, não é contado como erro.
+        if (oldRow != 0 && oldColumn != 0)
+        {
+            countAuxPieceMove++;
+        }
+        
     } while (!(pieceMove(piece, oldRow, oldColumn, newRow, newColumn, player) && positionVerify(piece, oldRow, oldColumn, newRow, newColumn, player)));
 
     movePiece(piece, oldRow, oldColumn, newRow, newColumn);
