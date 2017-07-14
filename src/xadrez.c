@@ -616,7 +616,8 @@ int bishopVerify(int oldRow, int oldColumn, int newRow, int newColumn, int playe
 //Verificar possíveis locais para o cavalo.
 int horseVerify(int oldRow, int oldColumn, int newRow, int newColumn, int player)
 {
-    tempPiece = table[newRow][newColumn];
+    //Declarar variáveis auxiliares.
+    char tempPiece = table[newRow][newColumn];
 
     if (tempPiece != '-')
     {
