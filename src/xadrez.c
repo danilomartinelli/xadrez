@@ -613,6 +613,28 @@ int bishopVerify(int oldRow, int oldColumn, int newRow, int newColumn, int playe
     return 0;
 }
 
+//Verificar possíveis locais para o cavalo.
+int horseVerify(int oldRow, int oldColumn, int newRow, int newColumn, int player)
+{
+    tempPiece = table[newRow][newColumn];
+
+    if (tempPiece != '-')
+    {
+        if (boolPlayerPiece(newRow, newColumn, player))
+        {
+            return 0;
+        }
+        else
+        {
+            return 1;
+        }
+    }
+    else
+    {
+        return 1;
+    }
+}
+
 //Verifica se posição atribuida pelo player pode ser ocupada.
 int positionVerify(char piece, int oldRow, int oldColumn, int newRow, int newColumn, int player)
 {
@@ -634,6 +656,12 @@ int positionVerify(char piece, int oldRow, int oldColumn, int newRow, int newCol
             return 0;
         case 'B': //Bispo
             if (bishopVerify(oldRow, oldColumn, newRow, newColumn, player))
+            {
+                return 1;
+            }
+            return 0;
+        case 'C': //Cavalo
+            if (horseVerify(oldRow, oldColumn, newRow, newColumn, player))
             {
                 return 1;
             }
