@@ -488,6 +488,131 @@ int rookVerify(int oldRow, int oldColumn, int newRow, int newColumn, int player)
     return 0;
 }
 
+//Verificar possíveis locais para o bispo.
+int bishopVerify(int oldRow, int oldColumn, int newRow, int newColumn, int player)
+{
+    //Declarar variáveis auxiliares.
+    int auxRow, auxColumn;
+    char tempPiece;
+
+    //Bispo percorrendo para o inferior direito.
+    if (newColumn > oldColumn && newRow > oldRow)
+    {
+        for (auxRow = (oldRow + 1), auxColumn = (oldColumn + 1); auxRow <= newRow, auxColumn <= newColumn; auxRow++, auxColumn++)
+        {
+            tempPiece = table[auxRow][auxColumn];
+
+            if (tempPiece != '-')
+            {
+                if (boolPlayerPiece(auxRow, auxColumn, player))
+                {
+                    return 0;
+                }
+                else
+                {
+                    if (!boolPlayerPiece(auxRow, auxColumn, player) && auxRow == newRow)
+                    {
+                        return 1;
+                    }
+                    else
+                    {
+                        return 0;
+                    }
+                }
+            }
+        }
+        return 1;
+    }
+
+    //Bispo percorrendo para o superior direito.
+    if (newColumn > oldColumn && newRow < oldRow)
+    {
+        for (auxRow = (oldRow - 1), auxColumn = (oldColumn + 1); auxRow >= newRow, auxColumn <= newColumn; auxRow--, auxColumn++)
+        {
+            tempPiece = table[auxRow][auxColumn];
+
+            if (tempPiece != '-')
+            {
+                if (boolPlayerPiece(auxRow, auxColumn, player))
+                {
+                    return 0;
+                }
+                else
+                {
+                    if (!boolPlayerPiece(auxRow, auxColumn, player) && auxRow == newRow)
+                    {
+                        return 1;
+                    }
+                    else
+                    {
+                        return 0;
+                    }
+                }
+            }
+        }
+        return 1;
+    }
+
+    //Bispo percorrendo para o inferior esquerdo.
+    if (newRow > oldRow && newColumn < oldColumn)
+    {
+        for (auxColumn = (oldColumn - 1), auxRow = (oldRow + 1); auxColumn >= newColumn, auxRow <= newRow; auxRow++, auxColumn--)
+        {
+            tempPiece = table[auxRow][auxColumn];
+
+            if (tempPiece != '-')
+            {
+                if (boolPlayerPiece(auxRow, auxColumn, player))
+                {
+                    return 0;
+                }
+                else
+                {
+                    if (!boolPlayerPiece(auxRow, auxColumn, player) && auxRow == newRow)
+                    {
+                        return 1;
+                    }
+                    else
+                    {
+                        return 0;
+                    }
+                }
+            }
+        }
+        return 1;
+    }
+
+    //Bispo percorrendo para o inferior superior.
+    if (newRow < oldRow && newColumn < oldColumn)
+    {
+        for (auxColumn = (oldColumn - 1), auxRow = (oldRow - 1); auxColumn >= newColumn, auxRow >= newRow; auxColumn--, auxRow--)
+        {
+            tempPiece = table[auxRow][auxColumn];
+
+            if (tempPiece != '-')
+            {
+                if (boolPlayerPiece(auxRow, auxColumn, player))
+                {
+                    return 0;
+                }
+                else
+                {
+                    if (!boolPlayerPiece(auxRow, auxColumn, player) && auxRow == newRow)
+                    {
+                        return 1;
+                    }
+                    else
+                    {
+                        return 0;
+                    }
+                }
+            }
+        }
+        return 1;
+    }
+    return 0;
+}
+
 //Verifica se posição atribuida pelo player pode ser ocupada.
 int positionVerify(char piece, int oldRow, int oldColumn, int newRow, int newColumn, int player)
 {
@@ -507,7 +632,12 @@ int positionVerify(char piece, int oldRow, int oldColumn, int newRow, int newCol
                 return 1;
             }
             return 0;
-
+        case 'B': //Bispo
+            if (bishopVerify(oldRow, oldColumn, newRow, newColumn, player))
+            {
+                return 1;
+            }
+            return 0;
         default:
             return 0;
         }
