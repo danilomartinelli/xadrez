@@ -636,6 +636,16 @@ int horseVerify(int oldRow, int oldColumn, int newRow, int newColumn, int player
     }
 }
 
+//Verificar possíveis locais para a rainha.
+int queenVerify(int oldRow, int oldColumn, int newRow, int newColumn, int player)
+{
+    if (bishopVerify(oldRow, oldColumn, newRow, newColumn, player) || rookVerify(oldRow, oldColumn, newRow, newColumn, player))
+    {
+        return 1;
+    }
+    return 0;
+}
+
 //Verifica se posição atribuida pelo player pode ser ocupada.
 int positionVerify(char piece, int oldRow, int oldColumn, int newRow, int newColumn, int player)
 {
@@ -663,6 +673,12 @@ int positionVerify(char piece, int oldRow, int oldColumn, int newRow, int newCol
             return 0;
         case 'C': //Cavalo
             if (horseVerify(oldRow, oldColumn, newRow, newColumn, player))
+            {
+                return 1;
+            }
+            return 0;
+        case 'Q': //Rainha
+            if (queenVerify(oldRow, oldColumn, newRow, newColumn, player))
             {
                 return 1;
             }
