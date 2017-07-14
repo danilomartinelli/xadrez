@@ -614,7 +614,7 @@ int bishopVerify(int oldRow, int oldColumn, int newRow, int newColumn, int playe
 }
 
 //Verificar possíveis locais para o cavalo.
-int horseVerify(int oldRow, int oldColumn, int newRow, int newColumn, int player)
+int horseVerify(int newRow, int newColumn, int player)
 {
     //Declarar variáveis auxiliares.
     char tempPiece = table[newRow][newColumn];
@@ -646,6 +646,29 @@ int queenVerify(int oldRow, int oldColumn, int newRow, int newColumn, int player
     return 0;
 }
 
+//Verificar possíveis locais para o rei.
+int kingVerify(int newRow, int newColumn, int player)
+{
+    //Declarar variáveis auxiliares.
+    char tempPiece = table[newRow][newColumn];
+
+    if (tempPiece != '-')
+    {
+        if (boolPlayerPiece(newRow, newColumn, player))
+        {
+            return 0;
+        }
+        else
+        {
+            return 1;
+        }
+    }
+    else
+    {
+        return 1;
+    }
+}
+
 //Verifica se posição atribuida pelo player pode ser ocupada.
 int positionVerify(char piece, int oldRow, int oldColumn, int newRow, int newColumn, int player)
 {
@@ -672,13 +695,19 @@ int positionVerify(char piece, int oldRow, int oldColumn, int newRow, int newCol
             }
             return 0;
         case 'C': //Cavalo
-            if (horseVerify(oldRow, oldColumn, newRow, newColumn, player))
+            if (horseVerify(newRow, newColumn, player))
             {
                 return 1;
             }
             return 0;
         case 'Q': //Rainha
             if (queenVerify(oldRow, oldColumn, newRow, newColumn, player))
+            {
+                return 1;
+            }
+            return 0;
+        case 'K': //Rei
+            if (kingVerify(newRow, newColumn, player))
             {
                 return 1;
             }
@@ -746,7 +775,9 @@ void actionPiece(int player)
         printf("Player: %s\n", name);
         printf("Você selecionou: %s (%d, %d)\n", prettyPieceStr, oldRow, oldColumn);
         if (countAuxPieceMove > 0)
+        {
             printf("Movimento inválido.\n");
+        }
         printf("Digite para qual posição você deseja movimentar a peça: ");
         scanf("%d %d", &newRow, &newColumn);
         getchar(); //Consumir Enter.
