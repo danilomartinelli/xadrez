@@ -820,7 +820,7 @@ void actionPiece(int player)
             countAuxPieceMove = 0;
         }
         //Caso player digite 0 0, não é contado como erro.
-        if (oldRow != 0 && oldColumn != 0)
+        if (newRow != 0 && newColumn != 0)
         {
             countAuxPieceMove++;
         }
