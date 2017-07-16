@@ -143,6 +143,10 @@ int boolPlayerPiece(int row, int column, int player)
     }
 }
 
+int checkmateVerify(int newRow, int newColumn, int player)
+{
+}
+
 //Funções de movimento para cada peça:
 
 //Peão
@@ -663,12 +667,26 @@ int kingVerify(int newRow, int newColumn, int player)
         }
         else
         {
-            return 1;
+            if (!(checkmateVerify(newRow, newColumn, player)))
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
         }
     }
     else
     {
-        return 1;
+        if (!(checkmateVerify(newRow, newColumn, player)))
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
     }
 }
 
@@ -824,7 +842,7 @@ void actionPiece(int player)
         {
             countAuxPieceMove++;
         }
-        
+
     } while (!(pieceMove(piece, oldRow, oldColumn, newRow, newColumn, player) && positionVerify(piece, oldRow, oldColumn, newRow, newColumn, player)));
 
     movePiece(piece, oldRow, oldColumn, newRow, newColumn);
