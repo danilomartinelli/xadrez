@@ -143,8 +143,83 @@ int boolPlayerPiece(int row, int column, int player)
     }
 }
 
-int checkmateVerify(int newRow, int newColumn, int player)
+//Função para verificar se é check:
+int checkVerify(int newRow, int newColumn, int player)
 {
+    //Variáveis auxiliares
+    int count;
+
+    //Verifica se torre ou rainha está em posição de dar check ao rei inimigo:
+    if (newRow != 8)
+    {
+        for (count = newRow + 1; count <= 8; count++)
+        {
+            if (table[count][newColumn] != '-')
+            {
+                if (!(boolPlayerPiece(count, newColumn, player)) && (toupper(table[count][newColumn]) == 'T' || toupper(table[count][newColumn]) == 'Q'))
+                {
+                    return 1;
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+    }
+    if (newRow != 1)
+    {
+        for (count = newRow - 1; count >= 1; count--)
+        {
+            if (table[count][newColumn] != '-')
+            {
+                if (!(boolPlayerPiece(count, newColumn, player)) && (toupper(table[count][newColumn]) == 'T' || toupper(table[count][newColumn]) == 'Q'))
+                {
+                    return 1;
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+    }
+    if (newColumn != 8)
+    {
+        for (count = newColumn + 1; count <= 8; count++)
+        {
+            if (table[newRow][count] != '-')
+            {
+                if (!(boolPlayerPiece(newRow, count, player)) && (toupper(table[newRow][count]) == 'T' || toupper(table[newRow][count]) == 'Q'))
+                {
+                    return 1;
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+    }
+    if (newColumn != 1)
+    {
+        for (count = newColumn - 1; count >= 1; count--)
+        {
+            if (table[newRow][count] != '-')
+            {
+                if (!(boolPlayerPiece(newRow, count, player)) && (toupper(table[newRow][count]) == 'T' || toupper(table[newRow][count]) == 'Q'))
+                {
+                    return 1;
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+    }
+
+    return 0;
 }
 
 //Funções de movimento para cada peça:
@@ -667,7 +742,7 @@ int kingVerify(int newRow, int newColumn, int player)
         }
         else
         {
-            if (!(checkmateVerify(newRow, newColumn, player)))
+            if (!(checkVerify(newRow, newColumn, player)))
             {
                 return 1;
             }
@@ -679,7 +754,7 @@ int kingVerify(int newRow, int newColumn, int player)
     }
     else
     {
-        if (!(checkmateVerify(newRow, newColumn, player)))
+        if (!(checkVerify(newRow, newColumn, player)))
         {
             return 1;
         }
