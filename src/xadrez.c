@@ -754,7 +754,7 @@ void actionPiece(int player)
         printf("Player: %s", name);
         if (countErro >= 1)
         {
-            printf("Você digitou um valor inválido.\n");
+            printf("Você digitou uma posição inválida.\n");
             printf("Digite a posição da peça a ser movida (LINHA COLUNA): ");
         }
         else
@@ -803,7 +803,7 @@ void actionPiece(int player)
                 printf("Player: %s", name);
                 if (countErro >= 1)
                 {
-                    printf("Você digitou um valor inválido.\n");
+                    printf("Você digitou uma posição inválida.\n");
                     printf("Digite a posição da nova peça a ser movida (LINHA COLUNA): ");
                 }
                 else
@@ -887,10 +887,10 @@ int main()
 
     clear_screen();
 
-    printf("Digite o nome do Player 1: ");
+    printf("Digite o nome do Player 1 (Máx. 20 caractéres): ");
     fgets(player1, 20, stdin);
 
-    printf("Digite o nome do Player 2: ");
+    printf("Digite o nome do Player 2 (Máx. 20 caractéres): ");
     fgets(player2, 20, stdin);
 
     do
