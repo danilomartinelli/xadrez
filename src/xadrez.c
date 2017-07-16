@@ -147,9 +147,9 @@ int boolPlayerPiece(int row, int column, int player)
 int checkVerify(int newRow, int newColumn, int player)
 {
     //Variáveis auxiliares
-    int count;
+    int count, count2;
 
-    //Verifica se torre ou rainha está em posição de dar check ao rei inimigo:
+    //Verifica se torre ou rainha estão em posição de dar check ao rei inimigo:
     if (newRow != 8)
     {
         for (count = newRow + 1; count <= 8; count++)
@@ -216,6 +216,14 @@ int checkVerify(int newRow, int newColumn, int player)
                     break;
                 }
             }
+        }
+    }
+
+    //Verifica se bispo ou rainha estão em posição de dar check ao rei inimigo:
+    if (newColumn != 8 && newRow != 8)
+    {
+        for (count = newRow + 1, count2 = newColumn + 1; count <= 8, count2 <= 8; count++, count2++)
+        {
         }
     }
 
