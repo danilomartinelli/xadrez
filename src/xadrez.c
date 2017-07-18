@@ -224,9 +224,72 @@ int checkVerify(int newRow, int newColumn, int player)
     {
         for (count = newRow + 1, count2 = newColumn + 1; count <= 8, count2 <= 8; count++, count2++)
         {
+            if (table[count][count2] != '-')
+            {
+                if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == 'B' || toupper(table[count][count2]) == 'Q'))
+                {
+                    return 1;
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+    }
+    if (newColumn != 1 && newRow != 8)
+    {
+        for (count = newRow + 1, count2 = newColumn - 1; count <= 8, count2 >= 1; count++, count2--)
+        {
+            if (table[count][count2] != '-')
+            {
+                if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == 'B' || toupper(table[count][count2]) == 'Q'))
+                {
+                    return 1;
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+    }
+    if (newColumn != 8 && newRow != 1)
+    {
+        for (count = newRow - 1, count2 = newColumn + 1; count >= 1, count2 <= 8; count--, count2++)
+        {
+            if (table[count][count2] != '-')
+            {
+                if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == 'B' || toupper(table[count][count2]) == 'Q'))
+                {
+                    return 1;
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+    }
+    if (newColumn != 1 && newRow != 1)
+    {
+        for (count = newRow - 1, count2 = newColumn - 1; count >= 1, count2 >= 1; count--, count2--)
+        {
+            if (table[count][count2] != '-')
+            {
+                if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == 'B' || toupper(table[count][count2]) == 'Q'))
+                {
+                    return 1;
+                }
+                else
+                {
+                    break;
+                }
+            }
         }
     }
 
+    //Caso não entre em nenhuma das condições acima, é suposto que não é check e o retorno é 0.
     return 0;
 }
 
