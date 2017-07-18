@@ -289,6 +289,72 @@ int checkVerify(int newRow, int newColumn, int player)
         }
     }
 
+    //Verifica se cavalo está em posição de dar check ao rei inimigo:
+
+    count = newRow + 1;
+    count2 = newColumn + 2;
+    if (table[count][count2] != '-')
+    {
+        if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == 'C'))
+            return 1;
+    }
+
+    count = newRow + 1;
+    count2 = newColumn - 2;
+    if (table[count][count2] != '-')
+    {
+        if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == 'C'))
+            return 1;
+    }
+
+    count = newRow - 1;
+    count2 = newColumn + 2;
+    if (table[count][count2] != '-')
+    {
+        if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == 'C'))
+            return 1;
+    }
+
+    count = newRow - 1;
+    count2 = newColumn - 2;
+    if (table[count][count2] != '-')
+    {
+        if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == 'C'))
+            return 1;
+    }
+
+    count = newRow + 2;
+    count2 = newColumn + 1;
+    if (table[count][count2] != '-')
+    {
+        if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == 'C'))
+            return 1;
+    }
+
+    count = newRow + 2;
+    count2 = newColumn - 1;
+    if (table[count][count2] != '-')
+    {
+        if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == 'C'))
+            return 1;
+    }
+
+    count = newRow - 2;
+    count2 = newColumn + 1;
+    if (table[count][count2] != '-')
+    {
+        if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == 'C'))
+            return 1;
+    }
+
+    count = newRow - 2;
+    count2 = newColumn - 1;
+    if (table[count][count2] != '-')
+    {
+        if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == 'C'))
+            return 1;
+    }
+
     //Caso não entre em nenhuma das condições acima, é suposto que não é check e o retorno é 0.
     return 0;
 }
