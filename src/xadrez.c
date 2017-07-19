@@ -5,8 +5,12 @@
 #include <ctype.h>
 #include <string.h>
 
-//Define constantes gerais.
+//Define carácter máximo para username.
 #define STRING_PLAYER 20
+#define PLAYER_1 1
+#define PLAYER_2 2
+
+//Define constantes para o fim de jogo.
 #define GAME_ON_GOING 0
 #define STALEMATE 1
 #define PLAYER1_WINNER 2
@@ -19,6 +23,7 @@
 #define HORSE 'C'
 #define QUEEN 'Q'
 #define KING 'K'
+#define VOID_SQUARE '-'
 
 //Variaveis para gerenciar o tabuleiro;
 const int numberOfRows = 10;
@@ -144,7 +149,7 @@ int boolPlayerPiece(int row, int column, int player)
     char piece = table[row][column];
     if (isalpha(piece))
     {
-        if ((isupper(piece) && player == 1) || (islower(piece) && player == 2))
+        if ((isupper(piece) && player == PLAYER_1) || (islower(piece) && player == PLAYER_2))
         {
             return 1;
         }
@@ -170,7 +175,7 @@ int checkVerify(int newRow, int newColumn, int player)
     {
         for (count = newRow + 1; count <= 8; count++)
         {
-            if (table[count][newColumn] != '-')
+            if (table[count][newColumn] != VOID_SQUARE)
             {
                 if (!(boolPlayerPiece(count, newColumn, player)) && (toupper(table[count][newColumn]) == ROOK || toupper(table[count][newColumn]) == QUEEN))
                 {
@@ -187,7 +192,7 @@ int checkVerify(int newRow, int newColumn, int player)
     {
         for (count = newRow - 1; count >= 1; count--)
         {
-            if (table[count][newColumn] != '-')
+            if (table[count][newColumn] != VOID_SQUARE)
             {
                 if (!(boolPlayerPiece(count, newColumn, player)) && (toupper(table[count][newColumn]) == ROOK || toupper(table[count][newColumn]) == QUEEN))
                 {
@@ -204,7 +209,7 @@ int checkVerify(int newRow, int newColumn, int player)
     {
         for (count = newColumn + 1; count <= 8; count++)
         {
-            if (table[newRow][count] != '-')
+            if (table[newRow][count] != VOID_SQUARE)
             {
                 if (!(boolPlayerPiece(newRow, count, player)) && (toupper(table[newRow][count]) == ROOK || toupper(table[newRow][count]) == QUEEN))
                 {
@@ -221,7 +226,7 @@ int checkVerify(int newRow, int newColumn, int player)
     {
         for (count = newColumn - 1; count >= 1; count--)
         {
-            if (table[newRow][count] != '-')
+            if (table[newRow][count] != VOID_SQUARE)
             {
                 if (!(boolPlayerPiece(newRow, count, player)) && (toupper(table[newRow][count]) == ROOK || toupper(table[newRow][count]) == QUEEN))
                 {
@@ -240,7 +245,7 @@ int checkVerify(int newRow, int newColumn, int player)
     {
         for (count = newRow + 1, count2 = newColumn + 1; count <= 8, count2 <= 8; count++, count2++)
         {
-            if (table[count][count2] != '-')
+            if (table[count][count2] != VOID_SQUARE)
             {
                 if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == BISHOP || toupper(table[count][count2]) == QUEEN))
                 {
@@ -257,7 +262,7 @@ int checkVerify(int newRow, int newColumn, int player)
     {
         for (count = newRow + 1, count2 = newColumn - 1; count <= 8, count2 >= 1; count++, count2--)
         {
-            if (table[count][count2] != '-')
+            if (table[count][count2] != VOID_SQUARE)
             {
                 if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == BISHOP || toupper(table[count][count2]) == QUEEN))
                 {
@@ -274,7 +279,7 @@ int checkVerify(int newRow, int newColumn, int player)
     {
         for (count = newRow - 1, count2 = newColumn + 1; count >= 1, count2 <= 8; count--, count2++)
         {
-            if (table[count][count2] != '-')
+            if (table[count][count2] != VOID_SQUARE)
             {
                 if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == BISHOP || toupper(table[count][count2]) == QUEEN))
                 {
@@ -291,7 +296,7 @@ int checkVerify(int newRow, int newColumn, int player)
     {
         for (count = newRow - 1, count2 = newColumn - 1; count >= 1, count2 >= 1; count--, count2--)
         {
-            if (table[count][count2] != '-')
+            if (table[count][count2] != VOID_SQUARE)
             {
                 if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == BISHOP || toupper(table[count][count2]) == QUEEN))
                 {
@@ -309,7 +314,7 @@ int checkVerify(int newRow, int newColumn, int player)
 
     count = newRow + 1;
     count2 = newColumn + 2;
-    if (table[count][count2] != '-')
+    if (table[count][count2] != VOID_SQUARE)
     {
         if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == HORSE))
             return 1;
@@ -317,7 +322,7 @@ int checkVerify(int newRow, int newColumn, int player)
 
     count = newRow + 1;
     count2 = newColumn - 2;
-    if (table[count][count2] != '-')
+    if (table[count][count2] != VOID_SQUARE)
     {
         if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == HORSE))
             return 1;
@@ -325,7 +330,7 @@ int checkVerify(int newRow, int newColumn, int player)
 
     count = newRow - 1;
     count2 = newColumn + 2;
-    if (table[count][count2] != '-')
+    if (table[count][count2] != VOID_SQUARE)
     {
         if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == HORSE))
             return 1;
@@ -333,7 +338,7 @@ int checkVerify(int newRow, int newColumn, int player)
 
     count = newRow - 1;
     count2 = newColumn - 2;
-    if (table[count][count2] != '-')
+    if (table[count][count2] != VOID_SQUARE)
     {
         if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == HORSE))
             return 1;
@@ -341,7 +346,7 @@ int checkVerify(int newRow, int newColumn, int player)
 
     count = newRow + 2;
     count2 = newColumn + 1;
-    if (table[count][count2] != '-')
+    if (table[count][count2] != VOID_SQUARE)
     {
         if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == HORSE))
             return 1;
@@ -349,7 +354,7 @@ int checkVerify(int newRow, int newColumn, int player)
 
     count = newRow + 2;
     count2 = newColumn - 1;
-    if (table[count][count2] != '-')
+    if (table[count][count2] != VOID_SQUARE)
     {
         if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == HORSE))
             return 1;
@@ -357,7 +362,7 @@ int checkVerify(int newRow, int newColumn, int player)
 
     count = newRow - 2;
     count2 = newColumn + 1;
-    if (table[count][count2] != '-')
+    if (table[count][count2] != VOID_SQUARE)
     {
         if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == HORSE))
             return 1;
@@ -365,18 +370,18 @@ int checkVerify(int newRow, int newColumn, int player)
 
     count = newRow - 2;
     count2 = newColumn - 1;
-    if (table[count][count2] != '-')
+    if (table[count][count2] != VOID_SQUARE)
     {
         if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == HORSE))
             return 1;
     }
 
     //Verifica se o peão está em posição de dar check ao rei inimigo:
-    if (player = 1)
+    if (player = PLAYER_1)
     {
         count = newRow - 1;
         count2 = newColumn + 1;
-        if (table[count][count2] != '-')
+        if (table[count][count2] != VOID_SQUARE)
         {
             if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == PAWN))
                 return 1;
@@ -384,17 +389,17 @@ int checkVerify(int newRow, int newColumn, int player)
 
         count = newRow - 1;
         count2 = newColumn - 1;
-        if (table[count][count2] != '-')
+        if (table[count][count2] != VOID_SQUARE)
         {
             if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == PAWN))
                 return 1;
         }
     }
-    if (player = 2)
+    if (player = PLAYER_2)
     {
         count = newRow + 1;
         count2 = newColumn + 1;
-        if (table[count][count2] != '-')
+        if (table[count][count2] != VOID_SQUARE)
         {
             if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == PAWN))
                 return 1;
@@ -402,7 +407,7 @@ int checkVerify(int newRow, int newColumn, int player)
 
         count = newRow + 1;
         count2 = newColumn - 1;
-        if (table[count][count2] != '-')
+        if (table[count][count2] != VOID_SQUARE)
         {
             if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == PAWN))
                 return 1;
@@ -418,11 +423,11 @@ int checkVerify(int newRow, int newColumn, int player)
 //Peão
 int pawnPiece(int oldRow, int oldColumn, int newRow, int newColumn, int player)
 {
-    if (player == 1)
+    if (player == PLAYER_1)
     {
         if (newRow == (oldRow - 1) && (newColumn == (oldColumn + 1) || newColumn == (oldColumn - 1)))
         {
-            if (!boolPlayerPiece(newRow, newColumn, player) && table[newRow][newColumn] != '-')
+            if (!boolPlayerPiece(newRow, newColumn, player) && table[newRow][newColumn] != VOID_SQUARE)
             {
                 return 1;
             }
@@ -455,11 +460,11 @@ int pawnPiece(int oldRow, int oldColumn, int newRow, int newColumn, int player)
         }
         return 0;
     }
-    if (player == 2)
+    if (player == PLAYER_2)
     {
         if (newRow == (oldRow + 1) && (newColumn == (oldColumn + 1) || newColumn == (oldColumn - 1)))
         {
-            if (!boolPlayerPiece(newRow, newColumn, player) && table[newRow][newColumn] != '-')
+            if (!boolPlayerPiece(newRow, newColumn, player) && table[newRow][newColumn] != VOID_SQUARE)
             {
                 return 1;
             }
@@ -618,13 +623,13 @@ int pieceMove(char piece, int oldRow, int oldColumn, int newRow, int newColumn, 
 //Verificar possíveis locais para o peão.
 int pawnVerify(int oldRow, int oldColumn, int newRow, int newColumn, int player)
 {
-    if (table[newRow][newColumn] == '-' && newColumn == oldColumn)
+    if (table[newRow][newColumn] == VOID_SQUARE && newColumn == oldColumn)
     {
-        if (player == 1 && oldRow == 7 && newRow == 5 && table[6][newColumn] != '-')
+        if (player == PLAYER_1 && oldRow == 7 && newRow == 5 && table[6][newColumn] != VOID_SQUARE)
         {
             return 0;
         }
-        if (player == 2 && oldRow == 2 && newRow == 4 && table[3][newColumn] != '-')
+        if (player == PLAYER_2 && oldRow == 2 && newRow == 4 && table[3][newColumn] != VOID_SQUARE)
         {
             return 0;
         }
@@ -650,7 +655,7 @@ int rookVerify(int oldRow, int oldColumn, int newRow, int newColumn, int player)
         {
             tempPiece = table[aux][newColumn];
 
-            if (tempPiece != '-')
+            if (tempPiece != VOID_SQUARE)
             {
                 if (boolPlayerPiece(aux, newColumn, player))
                 {
@@ -679,7 +684,7 @@ int rookVerify(int oldRow, int oldColumn, int newRow, int newColumn, int player)
         {
             tempPiece = table[aux][newColumn];
 
-            if (tempPiece != '-')
+            if (tempPiece != VOID_SQUARE)
             {
                 if (boolPlayerPiece(aux, newColumn, player))
                 {
@@ -708,7 +713,7 @@ int rookVerify(int oldRow, int oldColumn, int newRow, int newColumn, int player)
         {
             tempPiece = table[aux][newColumn];
 
-            if (tempPiece != '-')
+            if (tempPiece != VOID_SQUARE)
             {
                 if (boolPlayerPiece(newRow, aux, player))
                 {
@@ -737,7 +742,7 @@ int rookVerify(int oldRow, int oldColumn, int newRow, int newColumn, int player)
         {
             tempPiece = table[aux][newColumn];
 
-            if (tempPiece != '-')
+            if (tempPiece != VOID_SQUARE)
             {
                 if (boolPlayerPiece(newRow, aux, player))
                 {
@@ -775,7 +780,7 @@ int bishopVerify(int oldRow, int oldColumn, int newRow, int newColumn, int playe
         {
             tempPiece = table[auxRow][auxColumn];
 
-            if (tempPiece != '-')
+            if (tempPiece != VOID_SQUARE)
             {
                 if (boolPlayerPiece(auxRow, auxColumn, player))
                 {
@@ -804,7 +809,7 @@ int bishopVerify(int oldRow, int oldColumn, int newRow, int newColumn, int playe
         {
             tempPiece = table[auxRow][auxColumn];
 
-            if (tempPiece != '-')
+            if (tempPiece != VOID_SQUARE)
             {
                 if (boolPlayerPiece(auxRow, auxColumn, player))
                 {
@@ -833,7 +838,7 @@ int bishopVerify(int oldRow, int oldColumn, int newRow, int newColumn, int playe
         {
             tempPiece = table[auxRow][auxColumn];
 
-            if (tempPiece != '-')
+            if (tempPiece != VOID_SQUARE)
             {
                 if (boolPlayerPiece(auxRow, auxColumn, player))
                 {
@@ -862,7 +867,7 @@ int bishopVerify(int oldRow, int oldColumn, int newRow, int newColumn, int playe
         {
             tempPiece = table[auxRow][auxColumn];
 
-            if (tempPiece != '-')
+            if (tempPiece != VOID_SQUARE)
             {
                 if (boolPlayerPiece(auxRow, auxColumn, player))
                 {
@@ -892,7 +897,7 @@ int horseVerify(int newRow, int newColumn, int player)
     //Declarar variáveis auxiliares.
     char tempPiece = table[newRow][newColumn];
 
-    if (tempPiece != '-')
+    if (tempPiece != VOID_SQUARE)
     {
         if (boolPlayerPiece(newRow, newColumn, player))
         {
@@ -925,7 +930,7 @@ int kingVerify(int newRow, int newColumn, int player)
     //Declarar variáveis auxiliares.
     char tempPiece = table[newRow][newColumn];
 
-    if (tempPiece != '-')
+    if (tempPiece != VOID_SQUARE)
     {
         if (boolPlayerPiece(newRow, newColumn, player))
         {
@@ -1010,7 +1015,7 @@ int positionVerify(char piece, int oldRow, int oldColumn, int newRow, int newCol
 void movePiece(char piece, int oldRow, int oldColumn, int newRow, int newColumn)
 {
     table[newRow][newColumn] = piece;
-    table[oldRow][oldColumn] = '-';
+    table[oldRow][oldColumn] = VOID_SQUARE;
 }
 
 //FUnção que gerencia todas as ações da peça do player.
@@ -1021,11 +1026,11 @@ void actionPiece(int player)
     int newRow, newColumn, oldRow, oldColumn;
     const char *prettyPieceStr;
 
-    if (player == 1)
+    if (player == PLAYER_1)
     {
         strcpy(name, player1);
     }
-    if (player == 2)
+    if (player == PLAYER_2)
     {
         strcpy(name, player2);
     }
@@ -1050,7 +1055,7 @@ void actionPiece(int player)
         piece = table[oldRow][oldColumn];
         clear_screen();
         countErro++;
-    } while (!((player == 1 && isupper(piece)) || (player == 2 && islower(piece)) && piece != '-' && piece != '|' && isalpha(piece) && (oldRow >= 1 && oldRow <= 8) && (oldColumn >= 1 && oldColumn <= 8)));
+    } while (!((player == PLAYER_1 && isupper(piece)) || (player == PLAYER_2 && islower(piece)) && piece != VOID_SQUARE && piece != '|' && isalpha(piece) && (oldRow >= 1 && oldRow <= 8) && (oldColumn >= 1 && oldColumn <= 8)));
 
     int countAuxPieceMove = 0;
     do
@@ -1099,7 +1104,7 @@ void actionPiece(int player)
                 piece = table[oldRow][oldColumn];
                 clear_screen();
                 countErro++;
-            } while (!((player == 1 && isupper(piece)) || (player == 2 && islower(piece)) && piece != '-' && piece != '|' && isalpha(piece) && (oldRow >= 1 && oldRow <= 8) && (oldColumn >= 1 && oldColumn <= 8)));
+            } while (!((player == PLAYER_1 && isupper(piece)) || (player == PLAYER_2 && islower(piece)) && piece != VOID_SQUARE && piece != '|' && isalpha(piece) && (oldRow >= 1 && oldRow <= 8) && (oldColumn >= 1 && oldColumn <= 8)));
 
             countAuxPieceMove = 0;
         }
@@ -1190,9 +1195,9 @@ int main()
         clear_screen();
 
         //PLAYER 1 MOVER PEÇA.
-        actionPiece(1);
+        actionPiece(PLAYER_1);
         //CHECAR SE PLAYER 1 VENCEU/EMPATOU.
-        game_over = checkGameOver(1);
+        game_over = checkGameOver(PLAYER_1);
 
         //Caso o jogo acabe na rodada do player 1.
         if (game_over != GAME_ON_GOING) break;
@@ -1200,9 +1205,9 @@ int main()
         clear_screen();
 
         //PLAYER 2 MOVER PEÇA.
-        actionPiece(2);
+        actionPiece(PLAYER_2);
         //CHECAR SE PLAYER 2 VENCEU/EMPATOU.
-        game_over = checkGameOver(2);
+        game_over = checkGameOver(PLAYER_2);
 
     } while (game_over == GAME_ON_GOING);
 
