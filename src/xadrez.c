@@ -7,6 +7,18 @@
 
 //Define constantes gerais.
 #define STRING_PLAYER 20
+#define GAME_ON_GOING 0
+#define STALEMATE 1
+#define PLAYER1_WINNER 2
+#define PLAYER2_WINNER 3
+
+//Define constantes para as peças do jogo.
+#define PAWN 'P'
+#define ROOK 'T'
+#define BISHOP 'B'
+#define HORSE 'C'
+#define QUEEN 'Q'
+#define KING 'R'
 
 //Variaveis para gerenciar o tabuleiro;
 const int numberOfRows = 10;
@@ -28,6 +40,9 @@ char table[10][10] =
 //Define variaveis para player 1 e 2.
 char player1[STRING_PLAYER];
 char player2[STRING_PLAYER];
+
+//Variavel global
+int gameRound = 0;
 
 // Função para limpar tela
 void clear_screen()
@@ -120,6 +135,7 @@ void renderTable()
         }
         printf("\n\n");
     }
+    printf("Rodada n°: %d\n\n", gameRound);
 }
 
 //Veficar se peça é do time verificado
@@ -353,6 +369,44 @@ int checkVerify(int newRow, int newColumn, int player)
     {
         if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == 'C'))
             return 1;
+    }
+
+    //Verifica se o peão está em posição de dar check ao rei inimigo:
+    if (player = 1)
+    {
+        count = newRow - 1;
+        count2 = newColumn + 1;
+        if (table[count][count2] != '-')
+        {
+            if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == 'P'))
+                return 1;
+        }
+
+        count = newRow - 1;
+        count2 = newColumn - 1;
+        if (table[count][count2] != '-')
+        {
+            if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == 'P'))
+                return 1;
+        }
+    }
+    if (player = 2)
+    {
+        count = newRow + 1;
+        count2 = newColumn + 1;
+        if (table[count][count2] != '-')
+        {
+            if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == 'P'))
+                return 1;
+        }
+
+        count = newRow + 1;
+        count2 = newColumn - 1;
+        if (table[count][count2] != '-')
+        {
+            if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == 'P'))
+                return 1;
+        }
     }
 
     //Caso não entre em nenhuma das condições acima, é suposto que não é check e o retorno é 0.
@@ -1060,6 +1114,11 @@ void actionPiece(int player)
     movePiece(piece, oldRow, oldColumn, newRow, newColumn);
 }
 
+int checkGameOver(int player)
+{
+    return GAME_ON_GOING;
+}
+
 int main()
 {
     clear_screen();
@@ -1073,7 +1132,7 @@ int main()
     const char *piece;
 
     //Variaveis de controle.
-    int game_over = 0;
+    int game_over = GAME_ON_GOING;
 
     do
     {
@@ -1125,17 +1184,42 @@ int main()
 
     do
     {
+        //Incrementa em 1 round.
+        gameRound++;
+
         clear_screen();
 
-        //SEÇÃO - PLAYER 1 MOVER PEÇA.
+        //PLAYER 1 MOVER PEÇA.
         actionPiece(1);
+        //CHECAR SE PLAYER 1 VENCEU/EMPATOU.
+        game_over = checkGameOver(1);
+
+        //Caso o jogo acabe na rodada do player 1.
+        if (game_over != GAME_ON_GOING) break;
 
         clear_screen();
 
-        //SEÇÃO - PLAYER 2 MOVER PEÇA.
+        //PLAYER 2 MOVER PEÇA.
         actionPiece(2);
+        //CHECAR SE PLAYER 2 VENCEU/EMPATOU.
+        game_over = checkGameOver(2);
 
-    } while (game_over = 1);
+    } while (game_over == GAME_ON_GOING);
+
+    switch (game_over) {
+
+        case STALEMATE:
+            break;
+
+        case PLAYER1_WINNER:
+            break;
+
+        case PLAYER2_WINNER:
+            break;
+
+        default:
+            return EXIT_FAILURE;
+    }
 
     return EXIT_SUCCESS;
 }
