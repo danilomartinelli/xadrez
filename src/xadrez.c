@@ -18,7 +18,7 @@
 #define BISHOP 'B'
 #define HORSE 'C'
 #define QUEEN 'Q'
-#define KING 'R'
+#define KING 'K'
 
 //Variaveis para gerenciar o tabuleiro;
 const int numberOfRows = 10;
@@ -93,22 +93,22 @@ const char *prettyPiece(char piece)
 
     switch (piece)
     {
-    case 'P':
+    case PAWN:
         choosePiece = "Peão";
         break;
-    case 'T':
+    case ROOK:
         choosePiece = "Torre";
         break;
-    case 'C':
+    case HORSE:
         choosePiece = "Cavalo";
         break;
-    case 'B':
+    case BISHOP:
         choosePiece = "Bispo";
         break;
-    case 'Q':
+    case QUEEN:
         choosePiece = "Rainha";
         break;
-    case 'K':
+    case KING:
         choosePiece = "Rei";
         break;
     default:
@@ -172,7 +172,7 @@ int checkVerify(int newRow, int newColumn, int player)
         {
             if (table[count][newColumn] != '-')
             {
-                if (!(boolPlayerPiece(count, newColumn, player)) && (toupper(table[count][newColumn]) == 'T' || toupper(table[count][newColumn]) == 'Q'))
+                if (!(boolPlayerPiece(count, newColumn, player)) && (toupper(table[count][newColumn]) == ROOK || toupper(table[count][newColumn]) == QUEEN))
                 {
                     return 1;
                 }
@@ -189,7 +189,7 @@ int checkVerify(int newRow, int newColumn, int player)
         {
             if (table[count][newColumn] != '-')
             {
-                if (!(boolPlayerPiece(count, newColumn, player)) && (toupper(table[count][newColumn]) == 'T' || toupper(table[count][newColumn]) == 'Q'))
+                if (!(boolPlayerPiece(count, newColumn, player)) && (toupper(table[count][newColumn]) == ROOK || toupper(table[count][newColumn]) == QUEEN))
                 {
                     return 1;
                 }
@@ -206,7 +206,7 @@ int checkVerify(int newRow, int newColumn, int player)
         {
             if (table[newRow][count] != '-')
             {
-                if (!(boolPlayerPiece(newRow, count, player)) && (toupper(table[newRow][count]) == 'T' || toupper(table[newRow][count]) == 'Q'))
+                if (!(boolPlayerPiece(newRow, count, player)) && (toupper(table[newRow][count]) == ROOK || toupper(table[newRow][count]) == QUEEN))
                 {
                     return 1;
                 }
@@ -223,7 +223,7 @@ int checkVerify(int newRow, int newColumn, int player)
         {
             if (table[newRow][count] != '-')
             {
-                if (!(boolPlayerPiece(newRow, count, player)) && (toupper(table[newRow][count]) == 'T' || toupper(table[newRow][count]) == 'Q'))
+                if (!(boolPlayerPiece(newRow, count, player)) && (toupper(table[newRow][count]) == ROOK || toupper(table[newRow][count]) == QUEEN))
                 {
                     return 1;
                 }
@@ -242,7 +242,7 @@ int checkVerify(int newRow, int newColumn, int player)
         {
             if (table[count][count2] != '-')
             {
-                if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == 'B' || toupper(table[count][count2]) == 'Q'))
+                if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == BISHOP || toupper(table[count][count2]) == QUEEN))
                 {
                     return 1;
                 }
@@ -259,7 +259,7 @@ int checkVerify(int newRow, int newColumn, int player)
         {
             if (table[count][count2] != '-')
             {
-                if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == 'B' || toupper(table[count][count2]) == 'Q'))
+                if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == BISHOP || toupper(table[count][count2]) == QUEEN))
                 {
                     return 1;
                 }
@@ -276,7 +276,7 @@ int checkVerify(int newRow, int newColumn, int player)
         {
             if (table[count][count2] != '-')
             {
-                if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == 'B' || toupper(table[count][count2]) == 'Q'))
+                if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == BISHOP || toupper(table[count][count2]) == QUEEN))
                 {
                     return 1;
                 }
@@ -293,7 +293,7 @@ int checkVerify(int newRow, int newColumn, int player)
         {
             if (table[count][count2] != '-')
             {
-                if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == 'B' || toupper(table[count][count2]) == 'Q'))
+                if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == BISHOP || toupper(table[count][count2]) == QUEEN))
                 {
                     return 1;
                 }
@@ -311,7 +311,7 @@ int checkVerify(int newRow, int newColumn, int player)
     count2 = newColumn + 2;
     if (table[count][count2] != '-')
     {
-        if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == 'C'))
+        if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == HORSE))
             return 1;
     }
 
@@ -319,7 +319,7 @@ int checkVerify(int newRow, int newColumn, int player)
     count2 = newColumn - 2;
     if (table[count][count2] != '-')
     {
-        if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == 'C'))
+        if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == HORSE))
             return 1;
     }
 
@@ -327,7 +327,7 @@ int checkVerify(int newRow, int newColumn, int player)
     count2 = newColumn + 2;
     if (table[count][count2] != '-')
     {
-        if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == 'C'))
+        if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == HORSE))
             return 1;
     }
 
@@ -335,7 +335,7 @@ int checkVerify(int newRow, int newColumn, int player)
     count2 = newColumn - 2;
     if (table[count][count2] != '-')
     {
-        if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == 'C'))
+        if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == HORSE))
             return 1;
     }
 
@@ -343,7 +343,7 @@ int checkVerify(int newRow, int newColumn, int player)
     count2 = newColumn + 1;
     if (table[count][count2] != '-')
     {
-        if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == 'C'))
+        if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == HORSE))
             return 1;
     }
 
@@ -351,7 +351,7 @@ int checkVerify(int newRow, int newColumn, int player)
     count2 = newColumn - 1;
     if (table[count][count2] != '-')
     {
-        if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == 'C'))
+        if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == HORSE))
             return 1;
     }
 
@@ -359,7 +359,7 @@ int checkVerify(int newRow, int newColumn, int player)
     count2 = newColumn + 1;
     if (table[count][count2] != '-')
     {
-        if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == 'C'))
+        if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == HORSE))
             return 1;
     }
 
@@ -367,7 +367,7 @@ int checkVerify(int newRow, int newColumn, int player)
     count2 = newColumn - 1;
     if (table[count][count2] != '-')
     {
-        if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == 'C'))
+        if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == HORSE))
             return 1;
     }
 
@@ -378,7 +378,7 @@ int checkVerify(int newRow, int newColumn, int player)
         count2 = newColumn + 1;
         if (table[count][count2] != '-')
         {
-            if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == 'P'))
+            if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == PAWN))
                 return 1;
         }
 
@@ -386,7 +386,7 @@ int checkVerify(int newRow, int newColumn, int player)
         count2 = newColumn - 1;
         if (table[count][count2] != '-')
         {
-            if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == 'P'))
+            if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == PAWN))
                 return 1;
         }
     }
@@ -396,7 +396,7 @@ int checkVerify(int newRow, int newColumn, int player)
         count2 = newColumn + 1;
         if (table[count][count2] != '-')
         {
-            if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == 'P'))
+            if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == PAWN))
                 return 1;
         }
 
@@ -404,7 +404,7 @@ int checkVerify(int newRow, int newColumn, int player)
         count2 = newColumn - 1;
         if (table[count][count2] != '-')
         {
-            if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == 'P'))
+            if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == PAWN))
                 return 1;
         }
     }
@@ -574,37 +574,37 @@ int pieceMove(char piece, int oldRow, int oldColumn, int newRow, int newColumn, 
 
     switch (toupper(piece))
     {
-    case 'P': //Peão
+    case PAWN: //Peão
         if (pawnPiece(oldRow, oldColumn, newRow, newColumn, player))
         {
             return 1;
         }
         return 0;
-    case 'T': //Torre
+    case ROOK: //Torre
         if (rookPiece(oldRow, oldColumn, newRow, newColumn))
         {
             return 1;
         }
         return 0;
-    case 'C': //Cavalo
+    case HORSE: //Cavalo
         if (horsePiece(oldRow, oldColumn, newRow, newColumn))
         {
             return 1;
         }
         return 0;
-    case 'B': //Bispo
+    case BISHOP: //Bispo
         if (bishopPiece(oldRow, oldColumn, newRow, newColumn))
         {
             return 1;
         }
         return 0;
-    case 'Q': //Rainha
+    case QUEEN: //Rainha
         if (queenPiece(oldRow, oldColumn, newRow, newColumn))
         {
             return 1;
         }
         return 0;
-    case 'K': //Rei
+    case KING: //Rei
         if (kingPiece(oldRow, oldColumn, newRow, newColumn))
         {
             return 1;
@@ -963,37 +963,37 @@ int positionVerify(char piece, int oldRow, int oldColumn, int newRow, int newCol
     {
         switch (toupper(piece))
         {
-        case 'P': //Peão
+        case PAWN: //Peão
             if (pawnVerify(oldRow, oldColumn, newRow, newColumn, player))
             {
                 return 1;
             }
             return 0;
-        case 'T': //Torre
+        case ROOK: //Torre
             if (rookVerify(oldRow, oldColumn, newRow, newColumn, player))
             {
                 return 1;
             }
             return 0;
-        case 'B': //Bispo
+        case BISHOP: //Bispo
             if (bishopVerify(oldRow, oldColumn, newRow, newColumn, player))
             {
                 return 1;
             }
             return 0;
-        case 'C': //Cavalo
+        case HORSE: //Cavalo
             if (horseVerify(newRow, newColumn, player))
             {
                 return 1;
             }
             return 0;
-        case 'Q': //Rainha
+        case QUEEN: //Rainha
             if (queenVerify(oldRow, oldColumn, newRow, newColumn, player))
             {
                 return 1;
             }
             return 0;
-        case 'K': //Rei
+        case KING: //Rei
             if (kingVerify(newRow, newColumn, player))
             {
                 return 1;
