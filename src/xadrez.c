@@ -15,6 +15,7 @@
 #define STALEMATE 1
 #define PLAYER1_WINNER 2
 #define PLAYER2_WINNER 3
+#define CHECK 4
 
 //Define constantes para as peças do jogo.
 #define PAWN 'P'
@@ -49,7 +50,8 @@ void clear_screen()
 #endif
 }
 
-void drawTable() {
+void drawTable()
+{
     int row, column;
 
     //Posições auxiliares:
@@ -68,7 +70,7 @@ void drawTable() {
         // um inteiro de valor 48 equivale a um char de valor 0.
         table[0][column] = column + 48;
         table[9][column] = column + 48;
-    } 
+    }
 
     //Espaços vazios:
     for (row = 3; row <= 6; row++)
@@ -92,7 +94,7 @@ void drawTable() {
     {
         table[7][column] = 'P';
     }
-    
+
     //Player 2:
     table[1][1] = 't';
     table[1][2] = 'c';
@@ -1170,6 +1172,22 @@ void actionPiece(int player)
 
 int checkGameOver(int player)
 {
+    int kingRowPosition, kingColumnPosition, row, column;
+    //Procura a posição do rei no jogo:
+    for (row = 0; row < numberOfRows; row++)
+    {
+        for (column = 0; column < numberOfColumns; column++)
+        {
+            if (player == PLAYER_1 && table[row][column] == 'K')
+            {
+                
+            }
+            if (player == PLAYER_2 && table[row][column] == 'k')
+            {
+            }
+        }
+    }
+
     return GAME_ON_GOING;
 }
 
@@ -1177,7 +1195,9 @@ int main()
 {
     do
     {
+        //Coloca as peças no tabuleiro.
         drawTable();
+
         clear_screen();
 
         //Configurando UTF-8 para caracteres.
@@ -1264,16 +1284,32 @@ int main()
 
         } while (game_over == GAME_ON_GOING);
 
+        clear_screen();
         switch (game_over)
         {
 
         case STALEMATE:
+            renderTable();
+            printf("\n\t\tEMPATE!\n");
+            printf("O jogo terminou em empate.\n");
+            printf("Presione ENTER para voltar a tela inicial...");
+            getchar();
             break;
 
         case PLAYER1_WINNER:
+            renderTable();
+            printf("\n\t\tVITÓRIA DE %s!\n", player1);
+            printf("O player 1 deu Xeque-mate.\n");
+            printf("Presione ENTER para voltar a tela inicial...");
+            getchar();
             break;
 
         case PLAYER2_WINNER:
+            renderTable();
+            printf("\n\t\tVITÓRIA DE %s!\n", player2);
+            printf("O player 2 deu Xeque-mate.\n");
+            printf("Presione ENTER para voltar a tela inicial...");
+            getchar();
             break;
 
         default:
