@@ -1126,92 +1126,96 @@ int checkGameOver(int player)
 
 int main()
 {
-    clear_screen();
-
-    //Configurando UTF-8 para caracteres.
-    setlocale(LC_ALL, "Portuguese");
-
-    //Declarar variaveis:
-    int optionsMenu;
-    int trueOption = 0;
-    const char *piece;
-
-    //Variaveis de controle.
-    int game_over = GAME_ON_GOING;
-
     do
     {
         clear_screen();
 
-        printf("\t\t\t########## XADREZ ########\n\n\n");
-        printf("\t\t\t########## MENU ##########\n");
-        printf("1. Novo Jogo\n");
-        printf("2. Ajuda\n");
-        printf("3. Sobre\n");
-        printf("4. Sair\n\n");
-        if (trueOption == 1)
+        //Configurando UTF-8 para caracteres.
+        setlocale(LC_ALL, "Portuguese");
+
+        //Declarar variaveis:
+        int optionsMenu;
+        int trueOption = 0;
+        const char *piece;
+
+        //Variaveis de controle.
+        int game_over = GAME_ON_GOING;
+
+        do
         {
-            printf("Digite uma opção válida. \n");
-        }
-        printf("Selecione o número correspondente a opção do menu: ");
-        scanf("%d", &optionsMenu);
-        getchar(); //Consumir Enter.
+            clear_screen();
 
-        switch (optionsMenu)
-        {
-        case 1:
-            trueOption = 0;
-            break;
-        case 2:
-            trueOption = 0;
-            help();
-            break;
-        case 3:
-            trueOption = 0;
-            about();
-            break;
-        case 4:
-            exit(EXIT_SUCCESS);
-            break;
-        default:
-            trueOption = 1;
-            break;
-        }
-    } while (optionsMenu != 1);
+            printf("\t\t\t########## XADREZ ########\n\n\n");
+            printf("\t\t\t########## MENU ##########\n");
+            printf("1. Novo Jogo\n");
+            printf("2. Ajuda\n");
+            printf("3. Sobre\n");
+            printf("4. Sair\n\n");
+            if (trueOption == 1)
+            {
+                printf("Digite uma opção válida. \n");
+            }
+            printf("Selecione o número correspondente a opção do menu: ");
+            scanf("%d", &optionsMenu);
+            getchar(); //Consumir Enter.
 
-    clear_screen();
-
-    printf("Digite o nome do Player 1 (Máx. 20 caractéres): ");
-    fgets(player1, 20, stdin);
-
-    printf("Digite o nome do Player 2 (Máx. 20 caractéres): ");
-    fgets(player2, 20, stdin);
-
-    do
-    {
-        //Incrementa em 1 round.
-        gameRound++;
+            switch (optionsMenu)
+            {
+            case 1:
+                trueOption = 0;
+                break;
+            case 2:
+                trueOption = 0;
+                help();
+                break;
+            case 3:
+                trueOption = 0;
+                about();
+                break;
+            case 4:
+                exit(EXIT_SUCCESS);
+                break;
+            default:
+                trueOption = 1;
+                break;
+            }
+        } while (optionsMenu != 1);
 
         clear_screen();
 
-        //PLAYER 1 MOVER PEÇA.
-        actionPiece(PLAYER_1);
-        //CHECAR SE PLAYER 1 VENCEU/EMPATOU.
-        game_over = checkGameOver(PLAYER_1);
+        printf("Digite o nome do Player 1 (Máx. 20 caractéres): ");
+        fgets(player1, 20, stdin);
 
-        //Caso o jogo acabe na rodada do player 1.
-        if (game_over != GAME_ON_GOING) break;
+        printf("Digite o nome do Player 2 (Máx. 20 caractéres): ");
+        fgets(player2, 20, stdin);
 
-        clear_screen();
+        do
+        {
+            //Incrementa em 1 round.
+            gameRound++;
 
-        //PLAYER 2 MOVER PEÇA.
-        actionPiece(PLAYER_2);
-        //CHECAR SE PLAYER 2 VENCEU/EMPATOU.
-        game_over = checkGameOver(PLAYER_2);
+            clear_screen();
 
-    } while (game_over == GAME_ON_GOING);
+            //PLAYER 1 MOVER PEÇA.
+            actionPiece(PLAYER_1);
+            //CHECAR SE PLAYER 1 VENCEU/EMPATOU.
+            game_over = checkGameOver(PLAYER_1);
 
-    switch (game_over) {
+            //Caso o jogo acabe na rodada do player 1.
+            if (game_over != GAME_ON_GOING)
+                break;
+
+            clear_screen();
+
+            //PLAYER 2 MOVER PEÇA.
+            actionPiece(PLAYER_2);
+            //CHECAR SE PLAYER 2 VENCEU/EMPATOU.
+            game_over = checkGameOver(PLAYER_2);
+
+        } while (game_over == GAME_ON_GOING);
+
+        switch (game_over)
+        {
 
         case STALEMATE:
             break;
@@ -1224,7 +1228,8 @@ int main()
 
         default:
             return EXIT_FAILURE;
-    }
+        }
+    } while (1); //Ao terminar uma partida, volta a tela inicial.
 
     return EXIT_SUCCESS;
 }
