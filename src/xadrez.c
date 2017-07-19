@@ -30,17 +30,7 @@ const int numberOfRows = 10;
 const int numberOfColumns = 10;
 
 //Cria matriz para o tabuleiro.
-char table[10][10] =
-    {'|', '1', '2', '3', '4', '5', '6', '7', '8', '|',
-     '1', 't', 'c', 'b', 'k', 'q', 'b', 'c', 't', '1',
-     '2', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', '2',
-     '3', '-', '-', '-', '-', '-', '-', '-', '-', '3',
-     '4', '-', '-', '-', '-', '-', '-', '-', '-', '4',
-     '5', '-', '-', '-', '-', '-', '-', '-', '-', '5',
-     '6', '-', '-', '-', '-', '-', '-', '-', '-', '6',
-     '7', 'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P', '7',
-     '8', 'T', 'C', 'B', 'Q', 'K', 'B', 'C', 'T', '8',
-     '|', '1', '2', '3', '4', '5', '6', '7', '8', '|'};
+char table[10][10];
 
 //Define variaveis para player 1 e 2.
 char player1[STRING_PLAYER];
@@ -57,6 +47,65 @@ void clear_screen()
 #else
     system("clear");
 #endif
+}
+
+void drawTable() {
+    int row, column;
+
+    //Posições auxiliares:
+    table[0][0] = '|';
+    table[0][9] = '|';
+    table[9][0] = '|';
+    table[9][9] = '|';
+    for (row = 1; row <= 8; row++)
+    {
+        // um inteiro de valor 48 equivale a um char de valor 0.
+        table[row][0] = row + 48;
+        table[row][9] = row + 48;
+    }
+    for (column = 1; column <= 8; column++)
+    {
+        // um inteiro de valor 48 equivale a um char de valor 0.
+        table[0][column] = column + 48;
+        table[9][column] = column + 48;
+    } 
+
+    //Espaços vazios:
+    for (row = 3; row <= 6; row++)
+    {
+        for (column = 1; column <= 8; column++)
+        {
+            table[row][column] = '-';
+        }
+    }
+
+    //Player 1:
+    table[8][1] = 'T';
+    table[8][2] = 'C';
+    table[8][3] = 'B';
+    table[8][4] = 'K';
+    table[8][5] = 'Q';
+    table[8][6] = 'B';
+    table[8][7] = 'C';
+    table[8][8] = 'T';
+    for (column = 1; column <= 8; column++)
+    {
+        table[7][column] = 'P';
+    }
+    
+    //Player 2:
+    table[1][1] = 't';
+    table[1][2] = 'c';
+    table[1][3] = 'b';
+    table[1][4] = 'k';
+    table[1][5] = 'q';
+    table[1][6] = 'b';
+    table[1][7] = 'c';
+    table[1][8] = 't';
+    for (column = 1; column <= 8; column++)
+    {
+        table[2][column] = 'p';
+    }
 }
 
 //Exibe SOBRE no DOS.
@@ -1128,6 +1177,7 @@ int main()
 {
     do
     {
+        drawTable();
         clear_screen();
 
         //Configurando UTF-8 para caracteres.
