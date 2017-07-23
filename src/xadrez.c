@@ -33,10 +33,6 @@
 //Cria matriz para o tabuleiro.
 char table[10][10];
 
-//Define variaveis para player 1 e 2.
-char player1[STRING_PLAYER];
-char player2[STRING_PLAYER];
-
 // Função para limpar tela
 void clear_screen()
 {
@@ -615,16 +611,6 @@ int pieceMove(char piece, int oldRow, int oldColumn, int newRow, int newColumn, 
     const char *prettyPieceStr;
     prettyPieceStr = prettyPiece(piece);
 
-    char name[20];
-    if (player == 1)
-    {
-        strcpy(name, player1);
-    }
-    if (player == 2)
-    {
-        strcpy(name, player2);
-    }
-
     switch (toupper(piece))
     {
     case PAWN: //Peão
@@ -1074,21 +1060,11 @@ void movePiece(char piece, int oldRow, int oldColumn, int newRow, int newColumn)
 }
 
 //FUnção que gerencia todas as ações da peça do player.
-void actionPiece(int player, int gameRound)
+void actionPiece(int player, int gameRound, char *playerName)
 {
     char piece;
-    char name[20];
     int newRow, newColumn, oldRow, oldColumn;
     const char *prettyPieceStr;
-
-    if (player == PLAYER_1)
-    {
-        strcpy(name, player1);
-    }
-    if (player == PLAYER_2)
-    {
-        strcpy(name, player2);
-    }
 
     //Variáveis auxiliares:
     int countErro = 0, movePieceOk = 1;
@@ -1100,7 +1076,7 @@ void actionPiece(int player, int gameRound)
         do
         {
             renderTable(gameRound);
-            printf("Player: %s", name);
+            printf("Player: %s", playerName);
             if (countErro >= 1)
             {
                 printf("Você digitou uma posição inválida.\n");
@@ -1126,7 +1102,7 @@ void actionPiece(int player, int gameRound)
 
             clear_screen();
             renderTable(gameRound);
-            printf("Player: %s\n", name);
+            printf("Player: %s\n", playerName);
             printf("Você selecionou: %s (%d, %d)\n", prettyPieceStr, oldRow, oldColumn);
             if (countAuxPieceMove >= 1)
             {
@@ -1320,6 +1296,10 @@ int main()
         //Variaveis de controle.
         int game_over = GAME_ON_GOING;
         int gameRound = 0;
+        
+        //Define variaveis para player 1 e 2.
+        char player1[STRING_PLAYER];
+        char player2[STRING_PLAYER];
 
         //Coloca as peças no tabuleiro.
         drawTable();
@@ -1380,7 +1360,7 @@ int main()
             clear_screen();
 
             //PLAYER 1 MOVER PEÇA.
-            actionPiece(PLAYER_1, gameRound);
+            actionPiece(PLAYER_1, gameRound, player1);
             //CHECAR SE PLAYER 1 VENCEU/EMPATOU.
             game_over = checkGameOver(PLAYER_1);
 
@@ -1391,7 +1371,7 @@ int main()
             clear_screen();
 
             //PLAYER 2 MOVER PEÇA.
-            actionPiece(PLAYER_2, gameRound);
+            actionPiece(PLAYER_2, gameRound, player2);
             //CHECAR SE PLAYER 2 VENCEU/EMPATOU.
             game_over = checkGameOver(PLAYER_2);
 
