@@ -30,9 +30,6 @@
 #define NUMBER_OF_ROWS 10
 #define NUMBER_OF_COLUMNS 10
 
-//Cria matriz para o tabuleiro.
-char table[10][10];
-
 // Função para limpar tela
 void clear_screen()
 {
@@ -43,7 +40,7 @@ void clear_screen()
 #endif
 }
 
-void drawTable()
+void drawTable(char table[][10])
 {
     int row, column;
 
@@ -169,7 +166,7 @@ const char *prettyPiece(char piece)
 }
 
 //Função para renderizar o tabuleiro na tela.
-void renderTable(int gameRound)
+void renderTable(int gameRound, char table[][10])
 {
     int row, columns;
 
@@ -188,7 +185,7 @@ void renderTable(int gameRound)
 }
 
 //Veficar se peça é do time verificado
-int boolPlayerPiece(int row, int column, int player)
+int boolPlayerPiece(int row, int column, int player, char table[][10])
 {
     char piece = table[row][column];
     if (isalpha(piece))
@@ -209,7 +206,7 @@ int boolPlayerPiece(int row, int column, int player)
 }
 
 //Função para verificar se é check:
-int checkVerify(int newRow, int newColumn, int player)
+int checkVerify(int newRow, int newColumn, int player, char table[][10])
 {
     //Variáveis auxiliares
     int count, count2;
@@ -222,7 +219,7 @@ int checkVerify(int newRow, int newColumn, int player)
         {
             if (table[count][newColumn] != VOID_SQUARE)
             {
-                if (!(boolPlayerPiece(count, newColumn, player)) && (toupper(table[count][newColumn]) == ROOK || toupper(table[count][newColumn]) == QUEEN))
+                if (!(boolPlayerPiece(count, newColumn, player, table)) && (toupper(table[count][newColumn]) == ROOK || toupper(table[count][newColumn]) == QUEEN))
                 {
                     return 1;
                 }
@@ -240,7 +237,7 @@ int checkVerify(int newRow, int newColumn, int player)
         {
             if (table[count][newColumn] != VOID_SQUARE)
             {
-                if (!(boolPlayerPiece(count, newColumn, player)) && (toupper(table[count][newColumn]) == ROOK || toupper(table[count][newColumn]) == QUEEN))
+                if (!(boolPlayerPiece(count, newColumn, player, table)) && (toupper(table[count][newColumn]) == ROOK || toupper(table[count][newColumn]) == QUEEN))
                 {
                     return 1;
                 }
@@ -258,7 +255,7 @@ int checkVerify(int newRow, int newColumn, int player)
         {
             if (table[newRow][count] != VOID_SQUARE)
             {
-                if (!(boolPlayerPiece(newRow, count, player)) && (toupper(table[newRow][count]) == ROOK || toupper(table[newRow][count]) == QUEEN))
+                if (!(boolPlayerPiece(newRow, count, player, table)) && (toupper(table[newRow][count]) == ROOK || toupper(table[newRow][count]) == QUEEN))
                 {
                     return 1;
                 }
@@ -276,7 +273,7 @@ int checkVerify(int newRow, int newColumn, int player)
         {
             if (table[newRow][count] != VOID_SQUARE)
             {
-                if (!(boolPlayerPiece(newRow, count, player)) && (toupper(table[newRow][count]) == ROOK || toupper(table[newRow][count]) == QUEEN))
+                if (!(boolPlayerPiece(newRow, count, player, table)) && (toupper(table[newRow][count]) == ROOK || toupper(table[newRow][count]) == QUEEN))
                 {
                     return 1;
                 }
@@ -295,7 +292,7 @@ int checkVerify(int newRow, int newColumn, int player)
         {
             if (table[count][count2] != VOID_SQUARE)
             {
-                if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == BISHOP || toupper(table[count][count2]) == QUEEN))
+                if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == BISHOP || toupper(table[count][count2]) == QUEEN))
                 {
                     return 1;
                 }
@@ -312,7 +309,7 @@ int checkVerify(int newRow, int newColumn, int player)
         {
             if (table[count][count2] != VOID_SQUARE)
             {
-                if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == BISHOP || toupper(table[count][count2]) == QUEEN))
+                if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == BISHOP || toupper(table[count][count2]) == QUEEN))
                 {
                     return 1;
                 }
@@ -329,7 +326,7 @@ int checkVerify(int newRow, int newColumn, int player)
         {
             if (table[count][count2] != VOID_SQUARE)
             {
-                if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == BISHOP || toupper(table[count][count2]) == QUEEN))
+                if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == BISHOP || toupper(table[count][count2]) == QUEEN))
                 {
                     return 1;
                 }
@@ -346,7 +343,7 @@ int checkVerify(int newRow, int newColumn, int player)
         {
             if (table[count][count2] != VOID_SQUARE)
             {
-                if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == BISHOP || toupper(table[count][count2]) == QUEEN))
+                if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == BISHOP || toupper(table[count][count2]) == QUEEN))
                 {
                     return 1;
                 }
@@ -364,7 +361,7 @@ int checkVerify(int newRow, int newColumn, int player)
     count2 = newColumn + 2;
     if (table[count][count2] != VOID_SQUARE)
     {
-        if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == HORSE))
+        if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == HORSE))
             return 1;
     }
 
@@ -372,7 +369,7 @@ int checkVerify(int newRow, int newColumn, int player)
     count2 = newColumn - 2;
     if (table[count][count2] != VOID_SQUARE)
     {
-        if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == HORSE))
+        if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == HORSE))
             return 1;
     }
 
@@ -380,7 +377,7 @@ int checkVerify(int newRow, int newColumn, int player)
     count2 = newColumn + 2;
     if (table[count][count2] != VOID_SQUARE)
     {
-        if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == HORSE))
+        if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == HORSE))
             return 1;
     }
 
@@ -388,7 +385,7 @@ int checkVerify(int newRow, int newColumn, int player)
     count2 = newColumn - 2;
     if (table[count][count2] != VOID_SQUARE)
     {
-        if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == HORSE))
+        if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == HORSE))
             return 1;
     }
 
@@ -396,7 +393,7 @@ int checkVerify(int newRow, int newColumn, int player)
     count2 = newColumn + 1;
     if (table[count][count2] != VOID_SQUARE)
     {
-        if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == HORSE))
+        if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == HORSE))
             return 1;
     }
 
@@ -404,7 +401,7 @@ int checkVerify(int newRow, int newColumn, int player)
     count2 = newColumn - 1;
     if (table[count][count2] != VOID_SQUARE)
     {
-        if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == HORSE))
+        if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == HORSE))
             return 1;
     }
 
@@ -412,7 +409,7 @@ int checkVerify(int newRow, int newColumn, int player)
     count2 = newColumn + 1;
     if (table[count][count2] != VOID_SQUARE)
     {
-        if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == HORSE))
+        if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == HORSE))
             return 1;
     }
 
@@ -420,7 +417,7 @@ int checkVerify(int newRow, int newColumn, int player)
     count2 = newColumn - 1;
     if (table[count][count2] != VOID_SQUARE)
     {
-        if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == HORSE))
+        if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == HORSE))
             return 1;
     }
 
@@ -431,7 +428,7 @@ int checkVerify(int newRow, int newColumn, int player)
         count2 = newColumn + 1;
         if (table[count][count2] != VOID_SQUARE)
         {
-            if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == PAWN))
+            if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == PAWN))
                 return 1;
         }
 
@@ -439,7 +436,7 @@ int checkVerify(int newRow, int newColumn, int player)
         count2 = newColumn - 1;
         if (table[count][count2] != VOID_SQUARE)
         {
-            if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == PAWN))
+            if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == PAWN))
                 return 1;
         }
     }
@@ -449,7 +446,7 @@ int checkVerify(int newRow, int newColumn, int player)
         count2 = newColumn + 1;
         if (table[count][count2] != VOID_SQUARE)
         {
-            if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == PAWN))
+            if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == PAWN))
                 return 1;
         }
 
@@ -457,7 +454,7 @@ int checkVerify(int newRow, int newColumn, int player)
         count2 = newColumn - 1;
         if (table[count][count2] != VOID_SQUARE)
         {
-            if (!(boolPlayerPiece(count, count2, player)) && (toupper(table[count][count2]) == PAWN))
+            if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == PAWN))
                 return 1;
         }
     }
@@ -469,13 +466,13 @@ int checkVerify(int newRow, int newColumn, int player)
 //Funções de movimento para cada peça:
 
 //Peão
-int pawnPiece(int oldRow, int oldColumn, int newRow, int newColumn, int player)
+int pawnPiece(int oldRow, int oldColumn, int newRow, int newColumn, int player, char table[][10])
 {
     if (player == PLAYER_1)
     {
         if (newRow == (oldRow - 1) && (newColumn == (oldColumn + 1) || newColumn == (oldColumn - 1)))
         {
-            if (!boolPlayerPiece(newRow, newColumn, player) && table[newRow][newColumn] != VOID_SQUARE)
+            if (!boolPlayerPiece(newRow, newColumn, player, table) && table[newRow][newColumn] != VOID_SQUARE)
             {
                 return 1;
             }
@@ -512,7 +509,7 @@ int pawnPiece(int oldRow, int oldColumn, int newRow, int newColumn, int player)
     {
         if (newRow == (oldRow + 1) && (newColumn == (oldColumn + 1) || newColumn == (oldColumn - 1)))
         {
-            if (!boolPlayerPiece(newRow, newColumn, player) && table[newRow][newColumn] != VOID_SQUARE)
+            if (!boolPlayerPiece(newRow, newColumn, player, table) && table[newRow][newColumn] != VOID_SQUARE)
             {
                 return 1;
             }
@@ -610,7 +607,7 @@ int kingPiece(int oldRow, int oldColumn, int newRow, int newColumn)
 }
 
 //Gerencia as função de movimento de peças
-int pieceMove(char piece, int oldRow, int oldColumn, int newRow, int newColumn, int player)
+int pieceMove(char piece, int oldRow, int oldColumn, int newRow, int newColumn, int player, char table[][10])
 {
     const char *prettyPieceStr;
     prettyPieceStr = prettyPiece(piece);
@@ -618,7 +615,7 @@ int pieceMove(char piece, int oldRow, int oldColumn, int newRow, int newColumn, 
     switch (toupper(piece))
     {
     case PAWN: //Peão
-        if (pawnPiece(oldRow, oldColumn, newRow, newColumn, player))
+        if (pawnPiece(oldRow, oldColumn, newRow, newColumn, player, table))
         {
             return 1;
         }
@@ -659,7 +656,7 @@ int pieceMove(char piece, int oldRow, int oldColumn, int newRow, int newColumn, 
 }
 
 //Verificar possíveis locais para o peão.
-int pawnVerify(int oldRow, int oldColumn, int newRow, int newColumn, int player)
+int pawnVerify(int oldRow, int oldColumn, int newRow, int newColumn, int player, char table[][10])
 {
     if (table[newRow][newColumn] == VOID_SQUARE && newColumn == oldColumn)
     {
@@ -682,12 +679,12 @@ int pawnVerify(int oldRow, int oldColumn, int newRow, int newColumn, int player)
         else
         {
             return 1;
-        }    
+        }
     }
 }
 
 //Verificar possíveis locais para a torre.
-int rookVerify(int oldRow, int oldColumn, int newRow, int newColumn, int player)
+int rookVerify(int oldRow, int oldColumn, int newRow, int newColumn, int player, char table[][10])
 {
     //Declarar variáveis auxiliares.
     int aux;
@@ -702,13 +699,13 @@ int rookVerify(int oldRow, int oldColumn, int newRow, int newColumn, int player)
 
             if (tempPiece != VOID_SQUARE)
             {
-                if (boolPlayerPiece(aux, newColumn, player))
+                if (boolPlayerPiece(aux, newColumn, player, table))
                 {
                     return 0;
                 }
                 else
                 {
-                    if (!boolPlayerPiece(aux, newColumn, player) && aux == newRow)
+                    if (!boolPlayerPiece(aux, newColumn, player, table) && aux == newRow)
                     {
                         return 1;
                     }
@@ -731,13 +728,13 @@ int rookVerify(int oldRow, int oldColumn, int newRow, int newColumn, int player)
 
             if (tempPiece != VOID_SQUARE)
             {
-                if (boolPlayerPiece(aux, newColumn, player))
+                if (boolPlayerPiece(aux, newColumn, player, table))
                 {
                     return 0;
                 }
                 else
                 {
-                    if (!boolPlayerPiece(aux, newColumn, player) && aux == newRow)
+                    if (!boolPlayerPiece(aux, newColumn, player, table) && aux == newRow)
                     {
                         return 1;
                     }
@@ -760,13 +757,13 @@ int rookVerify(int oldRow, int oldColumn, int newRow, int newColumn, int player)
 
             if (tempPiece != VOID_SQUARE)
             {
-                if (boolPlayerPiece(newRow, aux, player))
+                if (boolPlayerPiece(newRow, aux, player, table))
                 {
                     return 0;
                 }
                 else
                 {
-                    if (!boolPlayerPiece(newRow, aux, player) && aux == newColumn)
+                    if (!boolPlayerPiece(newRow, aux, player, table) && aux == newColumn)
                     {
                         return 1;
                     }
@@ -789,13 +786,13 @@ int rookVerify(int oldRow, int oldColumn, int newRow, int newColumn, int player)
 
             if (tempPiece != VOID_SQUARE)
             {
-                if (boolPlayerPiece(newRow, aux, player))
+                if (boolPlayerPiece(newRow, aux, player, table))
                 {
                     return 0;
                 }
                 else
                 {
-                    if (!boolPlayerPiece(newRow, aux, player) && aux == newColumn)
+                    if (!boolPlayerPiece(newRow, aux, player, table) && aux == newColumn)
                     {
                         return 1;
                     }
@@ -812,7 +809,7 @@ int rookVerify(int oldRow, int oldColumn, int newRow, int newColumn, int player)
 }
 
 //Verificar possíveis locais para o bispo.
-int bishopVerify(int oldRow, int oldColumn, int newRow, int newColumn, int player)
+int bishopVerify(int oldRow, int oldColumn, int newRow, int newColumn, int player, char table[][10])
 {
     //Declarar variáveis auxiliares.
     int auxRow, auxColumn;
@@ -827,13 +824,13 @@ int bishopVerify(int oldRow, int oldColumn, int newRow, int newColumn, int playe
 
             if (tempPiece != VOID_SQUARE)
             {
-                if (boolPlayerPiece(auxRow, auxColumn, player))
+                if (boolPlayerPiece(auxRow, auxColumn, player, table))
                 {
                     return 0;
                 }
                 else
                 {
-                    if (!boolPlayerPiece(auxRow, auxColumn, player) && auxRow == newRow)
+                    if (!boolPlayerPiece(auxRow, auxColumn, player, table) && auxRow == newRow)
                     {
                         return 1;
                     }
@@ -856,13 +853,13 @@ int bishopVerify(int oldRow, int oldColumn, int newRow, int newColumn, int playe
 
             if (tempPiece != VOID_SQUARE)
             {
-                if (boolPlayerPiece(auxRow, auxColumn, player))
+                if (boolPlayerPiece(auxRow, auxColumn, player, table))
                 {
                     return 0;
                 }
                 else
                 {
-                    if (!boolPlayerPiece(auxRow, auxColumn, player) && auxRow == newRow)
+                    if (!boolPlayerPiece(auxRow, auxColumn, player, table) && auxRow == newRow)
                     {
                         return 1;
                     }
@@ -885,13 +882,13 @@ int bishopVerify(int oldRow, int oldColumn, int newRow, int newColumn, int playe
 
             if (tempPiece != VOID_SQUARE)
             {
-                if (boolPlayerPiece(auxRow, auxColumn, player))
+                if (boolPlayerPiece(auxRow, auxColumn, player, table))
                 {
                     return 0;
                 }
                 else
                 {
-                    if (!boolPlayerPiece(auxRow, auxColumn, player) && auxRow == newRow)
+                    if (!boolPlayerPiece(auxRow, auxColumn, player, table) && auxRow == newRow)
                     {
                         return 1;
                     }
@@ -914,13 +911,13 @@ int bishopVerify(int oldRow, int oldColumn, int newRow, int newColumn, int playe
 
             if (tempPiece != VOID_SQUARE)
             {
-                if (boolPlayerPiece(auxRow, auxColumn, player))
+                if (boolPlayerPiece(auxRow, auxColumn, player, table))
                 {
                     return 0;
                 }
                 else
                 {
-                    if (!boolPlayerPiece(auxRow, auxColumn, player) && auxRow == newRow)
+                    if (!boolPlayerPiece(auxRow, auxColumn, player, table) && auxRow == newRow)
                     {
                         return 1;
                     }
@@ -937,14 +934,14 @@ int bishopVerify(int oldRow, int oldColumn, int newRow, int newColumn, int playe
 }
 
 //Verificar possíveis locais para o cavalo.
-int horseVerify(int newRow, int newColumn, int player)
+int horseVerify(int newRow, int newColumn, int player, char table[][10])
 {
     //Declarar variáveis auxiliares.
     char tempPiece = table[newRow][newColumn];
 
     if (tempPiece != VOID_SQUARE)
     {
-        if (boolPlayerPiece(newRow, newColumn, player))
+        if (boolPlayerPiece(newRow, newColumn, player, table))
         {
             return 0;
         }
@@ -960,9 +957,9 @@ int horseVerify(int newRow, int newColumn, int player)
 }
 
 //Verificar possíveis locais para a rainha.
-int queenVerify(int oldRow, int oldColumn, int newRow, int newColumn, int player)
+int queenVerify(int oldRow, int oldColumn, int newRow, int newColumn, int player, char table[][10])
 {
-    if (bishopVerify(oldRow, oldColumn, newRow, newColumn, player) || rookVerify(oldRow, oldColumn, newRow, newColumn, player))
+    if (bishopVerify(oldRow, oldColumn, newRow, newColumn, player, table) || rookVerify(oldRow, oldColumn, newRow, newColumn, player, table))
     {
         return 1;
     }
@@ -970,20 +967,20 @@ int queenVerify(int oldRow, int oldColumn, int newRow, int newColumn, int player
 }
 
 //Verificar possíveis locais para o rei.
-int kingVerify(int newRow, int newColumn, int player)
+int kingVerify(int newRow, int newColumn, int player, char table[][10])
 {
     //Declarar variáveis auxiliares.
     char tempPiece = table[newRow][newColumn];
 
     if (tempPiece != VOID_SQUARE)
     {
-        if (boolPlayerPiece(newRow, newColumn, player))
+        if (boolPlayerPiece(newRow, newColumn, player, table))
         {
             return 0;
         }
         else
         {
-            if (!(checkVerify(newRow, newColumn, player)))
+            if (!(checkVerify(newRow, newColumn, player, table)))
             {
                 return 1;
             }
@@ -995,7 +992,7 @@ int kingVerify(int newRow, int newColumn, int player)
     }
     else
     {
-        if (!(checkVerify(newRow, newColumn, player)))
+        if (!(checkVerify(newRow, newColumn, player, table)))
         {
             return 1;
         }
@@ -1007,44 +1004,44 @@ int kingVerify(int newRow, int newColumn, int player)
 }
 
 //Verifica se posição atribuida pelo player pode ser ocupada.
-int positionVerify(char piece, int oldRow, int oldColumn, int newRow, int newColumn, int player)
+int positionVerify(char piece, int oldRow, int oldColumn, int newRow, int newColumn, int player, char table[][10])
 {
     if ((newRow >= 1 && newRow <= 8) && (newColumn >= 1 && newColumn <= 8))
     {
         switch (toupper(piece))
         {
         case PAWN: //Peão
-            if (pawnVerify(oldRow, oldColumn, newRow, newColumn, player))
+            if (pawnVerify(oldRow, oldColumn, newRow, newColumn, player, table))
             {
                 return 1;
             }
             return 0;
         case ROOK: //Torre
-            if (rookVerify(oldRow, oldColumn, newRow, newColumn, player))
+            if (rookVerify(oldRow, oldColumn, newRow, newColumn, player, table))
             {
                 return 1;
             }
             return 0;
         case BISHOP: //Bispo
-            if (bishopVerify(oldRow, oldColumn, newRow, newColumn, player))
+            if (bishopVerify(oldRow, oldColumn, newRow, newColumn, player, table))
             {
                 return 1;
             }
             return 0;
         case HORSE: //Cavalo
-            if (horseVerify(newRow, newColumn, player))
+            if (horseVerify(newRow, newColumn, player, table))
             {
                 return 1;
             }
             return 0;
         case QUEEN: //Rainha
-            if (queenVerify(oldRow, oldColumn, newRow, newColumn, player))
+            if (queenVerify(oldRow, oldColumn, newRow, newColumn, player, table))
             {
                 return 1;
             }
             return 0;
         case KING: //Rei
-            if (kingVerify(newRow, newColumn, player))
+            if (kingVerify(newRow, newColumn, player, table))
             {
                 return 1;
             }
@@ -1057,14 +1054,14 @@ int positionVerify(char piece, int oldRow, int oldColumn, int newRow, int newCol
 }
 
 //Função que movimenta as peças no tabuleiro.
-void movePiece(char piece, int oldRow, int oldColumn, int newRow, int newColumn)
+void movePiece(char piece, int oldRow, int oldColumn, int newRow, int newColumn, char table[][10])
 {
     table[newRow][newColumn] = piece;
     table[oldRow][oldColumn] = VOID_SQUARE;
 }
 
 //FUnção que gerencia todas as ações da peça do player.
-void actionPiece(int player, int gameRound, char *playerName)
+void actionPiece(int player, int gameRound, char *playerName, char table[][10])
 {
     char piece;
     int newRow, newColumn, oldRow, oldColumn;
@@ -1079,7 +1076,7 @@ void actionPiece(int player, int gameRound, char *playerName)
         //Seleção de peça:
         do
         {
-            renderTable(gameRound);
+            renderTable(gameRound, table);
             printf("Player: %s", playerName);
             if (countErro >= 1)
             {
@@ -1105,7 +1102,7 @@ void actionPiece(int player, int gameRound, char *playerName)
             prettyPieceStr = prettyPiece(piece);
 
             clear_screen();
-            renderTable(gameRound);
+            renderTable(gameRound, table);
             printf("Player: %s\n", playerName);
             printf("Você selecionou: %s (%d, %d)\n", prettyPieceStr, oldRow, oldColumn);
             if (countAuxPieceMove >= 1)
@@ -1137,14 +1134,14 @@ void actionPiece(int player, int gameRound, char *playerName)
 
             movePieceOk = 0;
 
-        } while (!(pieceMove(piece, oldRow, oldColumn, newRow, newColumn, player) && positionVerify(piece, oldRow, oldColumn, newRow, newColumn, player)));
+        } while (!(pieceMove(piece, oldRow, oldColumn, newRow, newColumn, player, table) && positionVerify(piece, oldRow, oldColumn, newRow, newColumn, player, table)));
     } while (movePieceOk);
 
-    movePiece(piece, oldRow, oldColumn, newRow, newColumn);
+    movePiece(piece, oldRow, oldColumn, newRow, newColumn, table);
 }
 
 //Verifica se é xeque, xeque-mate ou empate:
-int checkGameOver(int player)
+int checkGameOver(int player, char table[][10])
 {
     int kingRow, kingColumn, row, column;
     //Procura a posição do rei no jogo:
@@ -1201,13 +1198,16 @@ int main()
         //Variaveis de controle.
         int game_over = GAME_ON_GOING;
         int gameRound = 0;
-        
+
+        //Cria matriz para o tabuleiro.
+        char table[10][10];
+
         //Define variaveis para player 1 e 2.
         char player1[STRING_PLAYER];
         char player2[STRING_PLAYER];
 
         //Coloca as peças no tabuleiro.
-        drawTable();
+        drawTable(table);
 
         do
         {
@@ -1265,9 +1265,9 @@ int main()
             clear_screen();
 
             //PLAYER 1 MOVER PEÇA.
-            actionPiece(PLAYER_1, gameRound, player1);
+            actionPiece(PLAYER_1, gameRound, player1, table);
             //CHECAR SE PLAYER 1 VENCEU/EMPATOU.
-            game_over = checkGameOver(PLAYER_1);
+            game_over = checkGameOver(PLAYER_1, table);
 
             //Caso o jogo acabe na rodada do player 1.
             if (game_over != GAME_ON_GOING)
@@ -1276,9 +1276,9 @@ int main()
             clear_screen();
 
             //PLAYER 2 MOVER PEÇA.
-            actionPiece(PLAYER_2, gameRound, player2);
+            actionPiece(PLAYER_2, gameRound, player2, table);
             //CHECAR SE PLAYER 2 VENCEU/EMPATOU.
-            game_over = checkGameOver(PLAYER_2);
+            game_over = checkGameOver(PLAYER_2, table);
 
         } while (game_over == GAME_ON_GOING);
 
@@ -1287,7 +1287,7 @@ int main()
         {
 
         case STALEMATE:
-            renderTable(gameRound);
+            renderTable(gameRound, table);
             printf("\n\t\tEMPATE!\n");
             printf("O jogo terminou em empate.\n");
             printf("Presione ENTER para voltar a tela inicial...");
@@ -1295,7 +1295,7 @@ int main()
             break;
 
         case PLAYER1_WINNER:
-            renderTable(gameRound);
+            renderTable(gameRound, table);
             printf("\n\t\tVITÓRIA DE %s!\n", player1);
             printf("O player 1 deu Xeque-mate.\n");
             printf("Presione ENTER para voltar a tela inicial...");
@@ -1303,7 +1303,7 @@ int main()
             break;
 
         case PLAYER2_WINNER:
-            renderTable(gameRound);
+            renderTable(gameRound, table);
             printf("\n\t\tVITÓRIA DE %s!\n", player2);
             printf("O player 2 deu Xeque-mate.\n");
             printf("Presione ENTER para voltar a tela inicial...");
