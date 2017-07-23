@@ -27,8 +27,8 @@
 #define VOID_SQUARE '-'
 
 //Variaveis para gerenciar o tabuleiro;
-const int numberOfRows = 10;
-const int numberOfColumns = 10;
+#define NUMBER_OF_ROWS 10
+#define NUMBER_OF_COLUMNS 10
 
 //Cria matriz para o tabuleiro.
 char table[10][10];
@@ -36,9 +36,6 @@ char table[10][10];
 //Define variaveis para player 1 e 2.
 char player1[STRING_PLAYER];
 char player2[STRING_PLAYER];
-
-//Variavel global
-int gameRound = 0;
 
 // Função para limpar tela
 void clear_screen()
@@ -176,16 +173,16 @@ const char *prettyPiece(char piece)
 }
 
 //Função para renderizar o tabuleiro na tela.
-void renderTable()
+void renderTable(int gameRound)
 {
     int row, columns;
 
     printf("\t\t\t########## PARTIDA ########\n\n\n");
 
     //Renderizando tabuleiro.
-    for (row = 0; row < numberOfRows; row++)
+    for (row = 0; row < NUMBER_OF_ROWS; row++)
     {
-        for (columns = 0; columns < numberOfColumns; columns++)
+        for (columns = 0; columns < NUMBER_OF_COLUMNS; columns++)
         {
             printf("%c\t", table[row][columns]);
         }
@@ -1077,7 +1074,7 @@ void movePiece(char piece, int oldRow, int oldColumn, int newRow, int newColumn)
 }
 
 //FUnção que gerencia todas as ações da peça do player.
-void actionPiece(int player)
+void actionPiece(int player, int gameRound)
 {
     char piece;
     char name[20];
@@ -1102,7 +1099,7 @@ void actionPiece(int player)
         //Seleção de peça:
         do
         {
-            renderTable();
+            renderTable(gameRound);
             printf("Player: %s", name);
             if (countErro >= 1)
             {
@@ -1128,7 +1125,7 @@ void actionPiece(int player)
             prettyPieceStr = prettyPiece(piece);
 
             clear_screen();
-            renderTable();
+            renderTable(gameRound);
             printf("Player: %s\n", name);
             printf("Você selecionou: %s (%d, %d)\n", prettyPieceStr, oldRow, oldColumn);
             if (countAuxPieceMove >= 1)
@@ -1150,6 +1147,7 @@ void actionPiece(int player)
                 countErro = 0;
                 countAuxPieceMove = 0;
                 clear_screen();
+                movePieceOk = 1;
                 break;
             }
             else //Caso player digite 0 0, não é contado como erro.
@@ -1170,9 +1168,9 @@ int checkGameOver(int player)
 {
     int kingRow, kingColumn, row, column, invalidPositions = 0, enemyAttack = 0;
     //Procura a posição do rei no jogo:
-    for (row = 0; row < numberOfRows; row++)
+    for (row = 0; row < NUMBER_OF_ROWS; row++)
     {
-        for (column = 0; column < numberOfColumns; column++)
+        for (column = 0; column < NUMBER_OF_COLUMNS; column++)
         {
             if (player == PLAYER_1 && table[row][column] == 'K')
             {
@@ -1309,9 +1307,6 @@ int main()
 {
     do
     {
-        //Coloca as peças no tabuleiro.
-        drawTable();
-
         clear_screen();
 
         //Configurando UTF-8 para caracteres.
@@ -1324,6 +1319,10 @@ int main()
 
         //Variaveis de controle.
         int game_over = GAME_ON_GOING;
+        int gameRound = 0;
+
+        //Coloca as peças no tabuleiro.
+        drawTable();
 
         do
         {
@@ -1381,7 +1380,7 @@ int main()
             clear_screen();
 
             //PLAYER 1 MOVER PEÇA.
-            actionPiece(PLAYER_1);
+            actionPiece(PLAYER_1, gameRound);
             //CHECAR SE PLAYER 1 VENCEU/EMPATOU.
             game_over = checkGameOver(PLAYER_1);
 
@@ -1392,7 +1391,7 @@ int main()
             clear_screen();
 
             //PLAYER 2 MOVER PEÇA.
-            actionPiece(PLAYER_2);
+            actionPiece(PLAYER_2, gameRound);
             //CHECAR SE PLAYER 2 VENCEU/EMPATOU.
             game_over = checkGameOver(PLAYER_2);
 
@@ -1403,7 +1402,7 @@ int main()
         {
 
         case STALEMATE:
-            renderTable();
+            renderTable(gameRound);
             printf("\n\t\tEMPATE!\n");
             printf("O jogo terminou em empate.\n");
             printf("Presione ENTER para voltar a tela inicial...");
@@ -1411,7 +1410,7 @@ int main()
             break;
 
         case PLAYER1_WINNER:
-            renderTable();
+            renderTable(gameRound);
             printf("\n\t\tVITÓRIA DE %s!\n", player1);
             printf("O player 1 deu Xeque-mate.\n");
             printf("Presione ENTER para voltar a tela inicial...");
@@ -1419,7 +1418,7 @@ int main()
             break;
 
         case PLAYER2_WINNER:
-            renderTable();
+            renderTable(gameRound);
             printf("\n\t\tVITÓRIA DE %s!\n", player2);
             printf("O player 2 deu Xeque-mate.\n");
             printf("Presione ENTER para voltar a tela inicial...");
