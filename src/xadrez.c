@@ -217,6 +217,7 @@ int checkVerify(int newRow, int newColumn, int player)
     //Verifica se torre ou rainha estão em posição de dar check ao rei inimigo:
     if (newRow != 8)
     {
+        //Vertical para baixo.
         for (count = newRow + 1; count <= 8; count++)
         {
             if (table[count][newColumn] != VOID_SQUARE)
@@ -234,6 +235,7 @@ int checkVerify(int newRow, int newColumn, int player)
     }
     if (newRow != 1)
     {
+        //Vertical para cima.
         for (count = newRow - 1; count >= 1; count--)
         {
             if (table[count][newColumn] != VOID_SQUARE)
@@ -251,6 +253,7 @@ int checkVerify(int newRow, int newColumn, int player)
     }
     if (newColumn != 8)
     {
+        //Horizontal para direita.
         for (count = newColumn + 1; count <= 8; count++)
         {
             if (table[newRow][count] != VOID_SQUARE)
@@ -268,6 +271,7 @@ int checkVerify(int newRow, int newColumn, int player)
     }
     if (newColumn != 1)
     {
+        //Horizontal para esquerda.
         for (count = newColumn - 1; count >= 1; count--)
         {
             if (table[newRow][count] != VOID_SQUARE)
@@ -1142,7 +1146,7 @@ void actionPiece(int player, int gameRound, char *playerName)
 //Verifica se é xeque, xeque-mate ou empate:
 int checkGameOver(int player)
 {
-    int kingRow, kingColumn, row, column, invalidPositions = 0, enemyAttack = 0;
+    int kingRow, kingColumn, row, column;
     //Procura a posição do rei no jogo:
     for (row = 0; row < NUMBER_OF_ROWS; row++)
     {
@@ -1165,114 +1169,15 @@ int checkGameOver(int player)
         }
     }
 
-    //Checa se rei se encontra em check na posição atual:
-    if (checkVerify(kingRow, kingColumn, player))
-    {
-        invalidPositions++;
-        enemyAttack++;
-    }
-
-    //Verifica se peça amiga bloqueia movimento do rei:
-    if (boolPlayerPiece(kingRow + 1, kingColumn, player))
-    {
-        invalidPositions++;
-    }
-    if (boolPlayerPiece(kingRow - 1, kingColumn, player))
-    {
-        invalidPositions++;
-    }
-    if (boolPlayerPiece(kingRow, kingColumn + 1, player))
-    {
-        invalidPositions++;
-    }
-    if (boolPlayerPiece(kingRow, kingColumn - 1, player))
-    {
-        invalidPositions++;
-    }
-    if (boolPlayerPiece(kingRow - 1, kingColumn - 1, player))
-    {
-        invalidPositions++;
-    }
-    if (boolPlayerPiece(kingRow + 1, kingColumn + 1, player))
-    {
-        invalidPositions++;
-    }
-    if (boolPlayerPiece(kingRow + 1, kingColumn - 1, player))
-    {
-        invalidPositions++;
-    }
-    if (boolPlayerPiece(kingRow - 1, kingColumn + 1, player))
-    {
-        invalidPositions++;
-    }
-
-    //Checa se rei se encontra em check em todas as posições em volta dele:
-    row = kingRow + 1;
-    column = kingColumn;
-    if (checkVerify(row, column, player) && table[row][column] == '-')
-    {
-        invalidPositions++;
-        enemyAttack++;
-    }
-    row = kingRow - 1;
-    column = kingColumn;
-    if (checkVerify(row, column, player) && table[row][column] == '-')
-    {
-        invalidPositions++;
-        enemyAttack++;
-    }
-    row = kingRow;
-    column = kingColumn + 1;
-    if (checkVerify(row, column, player) && table[row][column] == '-')
-    {
-        invalidPositions++;
-        enemyAttack++;
-    }
-    row = kingRow;
-    column = kingColumn - 1;
-    if (checkVerify(row, column, player) && table[row][column] == '-')
-    {
-        invalidPositions++;
-        enemyAttack++;
-    }
-    row = kingRow - 1;
-    column = kingColumn - 1;
-    if (checkVerify(row, column, player) && table[row][column] == '-')
-    {
-        invalidPositions++;
-        enemyAttack++;
-    }
-    row = kingRow + 1;
-    column = kingColumn + 1;
-    if (checkVerify(row, column, player) && table[row][column] == '-')
-    {
-        invalidPositions++;
-        enemyAttack++;
-    }
-    row = kingRow + 1;
-    column = kingColumn - 1;
-    if (checkVerify(row, column, player) && table[row][column] == '-')
-    {
-        invalidPositions++;
-        enemyAttack++;
-    }
-    row = kingRow - 1;
-    column = kingColumn + 1;
-    if (checkVerify(row, column, player) && table[row][column] == '-')
-    {
-        invalidPositions++;
-        enemyAttack++;
-    }
-
     //Retorna valores que significam XEQUE, XEQUE-MATE, EMPATE e JOGO EM ANDAMENTO:
-    if (invalidPositions == 9)
+    if (0)
     {
         if (player == PLAYER_1)
             return PLAYER2_WINNER;
         if (player == PLAYER_2)
             return PLAYER1_WINNER;
     }
-    if (invalidPositions > 0 && invalidPositions < 9 && enemyAttack > 0)
+    if (0)
     {
         return CHECK;
     }
