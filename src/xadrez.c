@@ -221,6 +221,9 @@ int checkVerify(int newRow, int newColumn, int player, char table[][10])
             {
                 if (!(boolPlayerPiece(count, newColumn, player, table)) && (toupper(table[count][newColumn]) == ROOK || toupper(table[count][newColumn]) == QUEEN))
                 {
+                    clear_screen();
+                    printf("%d %d", count, count2);
+                    getchar();
                     return 1;
                 }
                 else
@@ -239,6 +242,9 @@ int checkVerify(int newRow, int newColumn, int player, char table[][10])
             {
                 if (!(boolPlayerPiece(count, newColumn, player, table)) && (toupper(table[count][newColumn]) == ROOK || toupper(table[count][newColumn]) == QUEEN))
                 {
+                    clear_screen();
+                    printf("%d %d", count, count2);
+                    getchar();
                     return 1;
                 }
                 else
@@ -257,6 +263,9 @@ int checkVerify(int newRow, int newColumn, int player, char table[][10])
             {
                 if (!(boolPlayerPiece(newRow, count, player, table)) && (toupper(table[newRow][count]) == ROOK || toupper(table[newRow][count]) == QUEEN))
                 {
+                    clear_screen();
+                    printf("%d %d", count, count2);
+                    getchar();
                     return 1;
                 }
                 else
@@ -275,6 +284,9 @@ int checkVerify(int newRow, int newColumn, int player, char table[][10])
             {
                 if (!(boolPlayerPiece(newRow, count, player, table)) && (toupper(table[newRow][count]) == ROOK || toupper(table[newRow][count]) == QUEEN))
                 {
+                    clear_screen();
+                    printf("%d %d", count, count2);
+                    getchar();
                     return 1;
                 }
                 else
@@ -294,6 +306,9 @@ int checkVerify(int newRow, int newColumn, int player, char table[][10])
             {
                 if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == BISHOP || toupper(table[count][count2]) == QUEEN))
                 {
+                    clear_screen();
+                    printf("%d %d", count, count2);
+                    getchar();
                     return 1;
                 }
                 else
@@ -311,6 +326,9 @@ int checkVerify(int newRow, int newColumn, int player, char table[][10])
             {
                 if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == BISHOP || toupper(table[count][count2]) == QUEEN))
                 {
+                    clear_screen();
+                    printf("%d %d", count, count2);
+                    getchar();
                     return 1;
                 }
                 else
@@ -328,6 +346,9 @@ int checkVerify(int newRow, int newColumn, int player, char table[][10])
             {
                 if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == BISHOP || toupper(table[count][count2]) == QUEEN))
                 {
+                    clear_screen();
+                    printf("%d %d", count, count2);
+                    getchar();
                     return 1;
                 }
                 else
@@ -345,6 +366,9 @@ int checkVerify(int newRow, int newColumn, int player, char table[][10])
             {
                 if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == BISHOP || toupper(table[count][count2]) == QUEEN))
                 {
+                    clear_screen();
+                    printf("%d %d", count, count2);
+                    getchar();
                     return 1;
                 }
                 else
@@ -362,6 +386,9 @@ int checkVerify(int newRow, int newColumn, int player, char table[][10])
     if (table[count][count2] != VOID_SQUARE)
     {
         if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == HORSE))
+            clear_screen();
+            printf("%d %d", count, count2);
+            getchar();
             return 1;
     }
 
@@ -370,6 +397,9 @@ int checkVerify(int newRow, int newColumn, int player, char table[][10])
     if (table[count][count2] != VOID_SQUARE)
     {
         if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == HORSE))
+            clear_screen();
+            printf("%d %d", count, count2);
+            getchar();
             return 1;
     }
 
@@ -378,6 +408,9 @@ int checkVerify(int newRow, int newColumn, int player, char table[][10])
     if (table[count][count2] != VOID_SQUARE)
     {
         if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == HORSE))
+            clear_screen();
+            printf("%d %d", count, count2);
+            getchar();
             return 1;
     }
 
@@ -386,6 +419,9 @@ int checkVerify(int newRow, int newColumn, int player, char table[][10])
     if (table[count][count2] != VOID_SQUARE)
     {
         if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == HORSE))
+            clear_screen();
+            printf("%d %d", count, count2);
+            getchar();
             return 1;
     }
 
@@ -394,6 +430,9 @@ int checkVerify(int newRow, int newColumn, int player, char table[][10])
     if (table[count][count2] != VOID_SQUARE)
     {
         if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == HORSE))
+            clear_screen();
+            printf("%d %d", count, count2);
+            getchar();
             return 1;
     }
 
@@ -402,6 +441,9 @@ int checkVerify(int newRow, int newColumn, int player, char table[][10])
     if (table[count][count2] != VOID_SQUARE)
     {
         if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == HORSE))
+            clear_screen();
+            printf("%d %d", count, count2);
+            getchar();
             return 1;
     }
 
@@ -410,6 +452,9 @@ int checkVerify(int newRow, int newColumn, int player, char table[][10])
     if (table[count][count2] != VOID_SQUARE)
     {
         if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == HORSE))
+            clear_screen();
+            printf("%d %d", count, count2);
+            getchar();
             return 1;
     }
 
@@ -418,6 +463,9 @@ int checkVerify(int newRow, int newColumn, int player, char table[][10])
     if (table[count][count2] != VOID_SQUARE)
     {
         if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == HORSE))
+            clear_screen();
+            printf("%d %d", count, count2);
+            getchar();
             return 1;
     }
 
@@ -429,6 +477,9 @@ int checkVerify(int newRow, int newColumn, int player, char table[][10])
         if (table[count][count2] != VOID_SQUARE)
         {
             if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == PAWN))
+                clear_screen();
+                printf("%d %d", count, count2);
+                getchar();
                 return 1;
         }
 
@@ -437,6 +488,9 @@ int checkVerify(int newRow, int newColumn, int player, char table[][10])
         if (table[count][count2] != VOID_SQUARE)
         {
             if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == PAWN))
+                clear_screen();
+                printf("%d %d", count, count2);
+                getchar();
                 return 1;
         }
     }
@@ -447,6 +501,9 @@ int checkVerify(int newRow, int newColumn, int player, char table[][10])
         if (table[count][count2] != VOID_SQUARE)
         {
             if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == PAWN))
+                clear_screen();
+                printf("%d %d", count, count2);
+                getchar();
                 return 1;
         }
 
@@ -455,6 +512,9 @@ int checkVerify(int newRow, int newColumn, int player, char table[][10])
         if (table[count][count2] != VOID_SQUARE)
         {
             if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == PAWN))
+                clear_screen();
+                printf("%d %d", count, count2);
+                getchar();
                 return 1;
         }
     }
