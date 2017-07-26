@@ -15,7 +15,8 @@
 #define STALEMATE 1
 #define PLAYER1_WINNER 2
 #define PLAYER2_WINNER 3
-#define CHECK 4
+#define PLAYER1_CHECK 4
+#define PLAYER2_CHECK 5
 
 //Define constantes para as peças do jogo.
 #define PAWN 'P'
@@ -1028,53 +1029,70 @@ int kingVerify(int newRow, int newColumn, int player, char table[][10])
 }
 
 //Verifica se posição atribuida pelo player pode ser ocupada.
-int positionVerify(char piece, int oldRow, int oldColumn, int newRow, int newColumn, int player, char table[][10])
+int positionVerify(char piece, int oldRow, int oldColumn, int newRow, int newColumn, int player, char table[][10], int game_over)
 {
-    if ((newRow >= 1 && newRow <= 8) && (newColumn >= 1 && newColumn <= 8))
+    if ((player == PLAYER_1 && game_over != PLAYER1_CHECK) || (player == PLAYER_2 && game_over != PLAYER2_CHECK))
     {
-        switch (toupper(piece))
+        if ((newRow >= 1 && newRow <= 8) && (newColumn >= 1 && newColumn <= 8))
         {
-        case PAWN: //Peão
-            if (pawnVerify(oldRow, oldColumn, newRow, newColumn, player, table))
+            switch (toupper(piece))
             {
-                return 1;
+            case PAWN: //Peão
+                if (pawnVerify(oldRow, oldColumn, newRow, newColumn, player, table))
+                {
+                    return 1;
+                }
+                return 0;
+            case ROOK: //Torre
+                if (rookVerify(oldRow, oldColumn, newRow, newColumn, player, table))
+                {
+                    return 1;
+                }
+                return 0;
+            case BISHOP: //Bispo
+                if (bishopVerify(oldRow, oldColumn, newRow, newColumn, player, table))
+                {
+                    return 1;
+                }
+                return 0;
+            case HORSE: //Cavalo
+                if (horseVerify(newRow, newColumn, player, table))
+                {
+                    return 1;
+                }
+                return 0;
+            case QUEEN: //Rainha
+                if (queenVerify(oldRow, oldColumn, newRow, newColumn, player, table))
+                {
+                    return 1;
+                }
+                return 0;
+            case KING: //Rei
+                if (kingVerify(newRow, newColumn, player, table))
+                {
+                    return 1;
+                }
+                return 0;
+            default:
+                return 0;
             }
-            return 0;
-        case ROOK: //Torre
-            if (rookVerify(oldRow, oldColumn, newRow, newColumn, player, table))
-            {
-                return 1;
-            }
-            return 0;
-        case BISHOP: //Bispo
-            if (bishopVerify(oldRow, oldColumn, newRow, newColumn, player, table))
-            {
-                return 1;
-            }
-            return 0;
-        case HORSE: //Cavalo
-            if (horseVerify(newRow, newColumn, player, table))
-            {
-                return 1;
-            }
-            return 0;
-        case QUEEN: //Rainha
-            if (queenVerify(oldRow, oldColumn, newRow, newColumn, player, table))
-            {
-                return 1;
-            }
-            return 0;
-        case KING: //Rei
+        }
+    }
+    else
+    {
+        if (toupper(piece) == KING)
+        {
             if (kingVerify(newRow, newColumn, player, table))
             {
                 return 1;
             }
             return 0;
-        default:
+        }
+        else
+        {
             return 0;
         }
     }
-    return 0;
 }
 
 //Função que movimenta as peças no tabuleiro.
@@ -1085,7 +1103,7 @@ void movePiece(char piece, int oldRow, int oldColumn, int newRow, int newColumn,
 }
 
 //FUnção que gerencia todas as ações da peça do player.
-void actionPiece(int player, int gameRound, char *playerName, char table[][10])
+void actionPiece(int player, int gameRound, char *playerName, char table[][10], int game_over)
 {
     char piece;
     int newRow, newColumn, oldRow, oldColumn;
@@ -1158,7 +1176,7 @@ void actionPiece(int player, int gameRound, char *playerName, char table[][10])
 
             movePieceOk = 0;
 
-        } while (!(pieceMove(piece, oldRow, oldColumn, newRow, newColumn, player, table) && positionVerify(piece, oldRow, oldColumn, newRow, newColumn, player, table)));
+        } while (!(pieceMove(piece, oldRow, oldColumn, newRow, newColumn, player, table) && positionVerify(piece, oldRow, oldColumn, newRow, newColumn, player, table, game_over)));
     } while (movePieceOk);
 
     movePiece(piece, oldRow, oldColumn, newRow, newColumn, table);
@@ -1167,7 +1185,8 @@ void actionPiece(int player, int gameRound, char *playerName, char table[][10])
 //Verifica se é xeque, xeque-mate ou empate:
 int checkGameOver(int player, char table[][10])
 {
-    int kingRow, kingColumn, row, column;
+    int kingRow, kingColumn, row, column, boolCheck = 0;
+
     //Procura a posição do rei no jogo:
     for (row = 0; row < NUMBER_OF_ROWS; row++)
     {
@@ -1177,17 +1196,19 @@ int checkGameOver(int player, char table[][10])
             {
                 kingRow = row;
                 kingColumn = column;
-                column = 10;
-                break;
             }
             if (player == PLAYER_2 && table[row][column] == 'k')
             {
                 kingRow = row;
                 kingColumn = column;
-                column = 10;
-                break;
             }
         }
+    }
+
+    // Verifica se rei se encontra em cheque na posição atual.
+    if (checkVerify(kingRow, kingColumn, player, table))
+    {
+        boolCheck = 1;
     }
 
     //Retorna valores que significam XEQUE, XEQUE-MATE, EMPATE e JOGO EM ANDAMENTO:
@@ -1200,7 +1221,14 @@ int checkGameOver(int player, char table[][10])
     }
     if (0)
     {
-        return CHECK;
+        return STALEMATE;
+    }
+    if (boolCheck)
+    {
+        if (player == PLAYER_1)
+            return PLAYER1_CHECK;
+        if (player == PLAYER_2)
+            return PLAYER2_CHECK;
     }
     return GAME_ON_GOING;
 }
@@ -1289,22 +1317,24 @@ int main()
             clear_screen();
 
             //PLAYER 1 MOVER PEÇA.
-            actionPiece(PLAYER_1, gameRound, player1, table);
-            //CHECAR SE PLAYER 1 VENCEU/EMPATOU.
-            game_over = checkGameOver(PLAYER_1, table);
+            actionPiece(PLAYER_1, gameRound, player1, table, game_over);
+            //CHECAR SE PLAYER 1 VENCEU/EMPATOU/DEIXOU PLAYER INIMIGO EM CHECK.
+            game_over = checkGameOver(PLAYER_2, table);
 
             //Caso o jogo acabe na rodada do player 1.
-            if (game_over != GAME_ON_GOING)
+            if (game_over != GAME_ON_GOING && game_over != PLAYER1_CHECK && game_over != PLAYER2_CHECK)
+            {
                 break;
+            }
 
             clear_screen();
 
             //PLAYER 2 MOVER PEÇA.
-            actionPiece(PLAYER_2, gameRound, player2, table);
-            //CHECAR SE PLAYER 2 VENCEU/EMPATOU.
-            game_over = checkGameOver(PLAYER_2, table);
+            actionPiece(PLAYER_2, gameRound, player2, table, game_over);
+            //CHECAR SE PLAYER 2 VENCEU/EMPATOU/DEIXOU PLAYER INIMIGO EM CHECK.
+            game_over = checkGameOver(PLAYER_1, table);
 
-        } while (game_over == GAME_ON_GOING);
+        } while (game_over == GAME_ON_GOING || game_over == PLAYER1_CHECK || game_over == PLAYER2_CHECK);
 
         clear_screen();
         switch (game_over)
