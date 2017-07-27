@@ -132,30 +132,43 @@ void drawTable(char table[][10])
 //Exibe SOBRE no DOS.
 void about()
 {
+    FILE *file;
+    char row[100];
+
     clear_screen();
 
-    printf("\t\t\t########## SOBRE ##########\n");
-    printf("Jogo de xadrez desenvolvido para a disciplina de introdução a lógica de programação.\n\n");
-    printf("\t\t\t########## EQUIPE ########\n");
-    printf("Abraão Lima Xavier Evangelista\n");
-    printf("Bruno Correia Arvan\n");
-    printf("Danilo Leone Di Paolo Martinelli Silva\n");
-    printf("Stephanie Oliveira da Rocha\n\n\n");
-    printf("Pressione ENTER para voltar.");
+    file = fopen("assets/about.txt", "rt");
+    if (file == NULL)
+        exit(EXIT_FAILURE);
+
+    while (!feof(file))
+    {
+        fgets(row, 100, file);
+        printf("%s", row);
+    }
+
+    printf("\n\nPressione ENTER para voltar.");
     getchar();
 }
 
 //Exibe AJUDA no DOS.
 void help()
 {
+    FILE *file;
+    char row[100];
+
     clear_screen();
 
-    printf("\t\t\t########## Ajuda ##########\n\n");
-    printf("Player 1 são as peças brancasna linha 8 e 7, Player 2 as peças na linha 1 e 2.\n");
-    printf("O Jogue trabalha sempre a partir da LINHA digitada e COLUNA digitada.\n");
-    printf("\tExemplo:\n");
-    printf("\t\tCavalo se encontra na linha 6, coluna 4. É necessário digitar: 6 4\n");
-    printf("O mesmo é necessário para escolher para onde vai ser movimentar.\n");
+    file = fopen("assets/help.txt", "rt");
+    if (file == NULL)
+        exit(EXIT_FAILURE);
+
+    while (!feof(file))
+    {
+        fgets(row, 100, file);
+        printf("%s", row);
+    }
+
     printf("\n\nPressione ENTER para voltar.");
     getchar();
 }
@@ -1170,10 +1183,14 @@ void actionPiece(int player, int gameRound, char *playerName, char table[][10], 
             printf("Player: %s\n", playerName);
             printf("Você selecionou: %s (%d, %d)\n", prettyPieceStr, oldRow, oldColumn);
 
-            if (countAuxPieceMove >= 1){
-                if (game_over != PLAYER1_CHECK && game_over != PLAYER2_CHECK) {
+            if (countAuxPieceMove >= 1)
+            {
+                if (game_over != PLAYER1_CHECK && game_over != PLAYER2_CHECK)
+                {
                     errorMsg(WRONG_PIECE_MOVIMENT);
-                } else {
+                }
+                else
+                {
                     errorMsg(KING_CHECK);
                 }
             }

@@ -1,0 +1,8 @@
+########## SOBRE ##########
+Jogo de xadrez desenvolvido para a disciplina de introdução a lógica de programação
+
+Equipe:
+Abraão Lima Xavier Evangelista
+Bruno Correia Arvan
+Danilo Leone Di Paolo Martinelli Silva
+Stephanie Oliveira da Rocha
