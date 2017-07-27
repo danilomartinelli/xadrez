@@ -27,9 +27,15 @@
 #define KING 'K'
 #define VOID_SQUARE '-'
 
-//Variaveis para gerenciar o tabuleiro;
+//Variáveis para gerenciar o tabuleiro:
 #define NUMBER_OF_ROWS 10
 #define NUMBER_OF_COLUMNS 10
+
+//Variáveis para os erros:
+#define WRONG_PIECE_POSITION 95
+#define WRONG_PIECE_MOVIMENT 96
+#define ERROR_MENU_CHOOSE 97
+#define KING_CHECK 98
 
 // Função para limpar tela
 void clear_screen()
@@ -39,6 +45,28 @@ void clear_screen()
 #else
     system("clear");
 #endif
+}
+
+void errorMsg(int err)
+{
+    switch (err)
+    {
+    case WRONG_PIECE_POSITION:
+        printf("Você digitou uma posição inválida.\n");
+        break;
+    case WRONG_PIECE_MOVIMENT:
+        printf("Movimento inválido.\n");
+        break;
+    case ERROR_MENU_CHOOSE:
+        printf("Digite uma opção válida.\n");
+        break;
+    case KING_CHECK:
+        printf("O rei está em cheque!\n");
+        break;
+    default:
+        printf("Comando inválido. \n");
+        break;
+    }
 }
 
 void drawTable(char table[][10])
@@ -1121,14 +1149,8 @@ void actionPiece(int player, int gameRound, char *playerName, char table[][10], 
             renderTable(gameRound, table);
             printf("Player: %s", playerName);
             if (countErro >= 1)
-            {
-                printf("Você digitou uma posição inválida.\n");
-                printf("Digite a posição da peça a ser movida (LINHA COLUNA): ");
-            }
-            else
-            {
-                printf("Digite a posição da peça a ser movida (LINHA COLUNA): ");
-            }
+                errorMsg(WRONG_PIECE_POSITION);
+            printf("Digite a posição da peça a ser movida (LINHA COLUNA): ");
             scanf("%d %d", &oldRow, &oldColumn);
             getchar(); //Consumir Enter.
             piece = table[oldRow][oldColumn];
@@ -1147,15 +1169,16 @@ void actionPiece(int player, int gameRound, char *playerName, char table[][10], 
             renderTable(gameRound, table);
             printf("Player: %s\n", playerName);
             printf("Você selecionou: %s (%d, %d)\n", prettyPieceStr, oldRow, oldColumn);
-            if (countAuxPieceMove >= 1)
-            {
-                printf("Movimento inválido.\n");
-                printf("Digite 0 0 para selecionar outra peça.\n");
+
+            if (countAuxPieceMove >= 1){
+                if (game_over != PLAYER1_CHECK && game_over != PLAYER2_CHECK) {
+                    errorMsg(WRONG_PIECE_MOVIMENT);
+                } else {
+                    errorMsg(KING_CHECK);
+                }
             }
-            else
-            {
-                printf("Digite 0 0 para selecionar outra peça.\n");
-            }
+
+            printf("Digite 0 0 para selecionar outra peça.\n");
             printf("Digite para qual posição você deseja movimentar a peça: ");
             scanf("%d %d", &newRow, &newColumn);
             getchar(); //Consumir Enter.
@@ -1271,10 +1294,10 @@ int main()
             printf("2. Ajuda\n");
             printf("3. Sobre\n");
             printf("4. Sair\n\n");
+
             if (trueOption == 1)
-            {
-                printf("Digite uma opção válida. \n");
-            }
+                errorMsg(ERROR_MENU_CHOOSE);
+
             printf("Selecione o número correspondente a opção do menu: ");
             scanf("%d", &optionsMenu);
             getchar(); //Consumir Enter.
