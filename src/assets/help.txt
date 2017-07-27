@@ -1,8 +1,16 @@
-########## AJUDA ##########
+# Ajuda
 
-Player 1 são as peças brancasna linha 8 e 7, Player 2 as peças na linha 1 e 2.
-O Jogue trabalha sempre a partir da LINHA digitada e COLUNA digitada.
+Documentação e Instruções do jogo.
 
-Exemplo:
-    Cavalo se encontra na linha 6, coluna 4. É necessário digitar: 6 4
-    O mesmo é necessário para escolher para onde vai ser movimentar.
+## Regras gerais
+O jogo segue as regrais normais do jogo de xadrez de tabuleiro.
+
+## Controles
+
+### Seleção e Movimentação de peças
+É necessário primeiramente digitar a linha e a coluna da peça que deseja movimentar.
+Após isso é necessário digitar para onde você deseja movimentar.
+
+### Exemplo
+Digite 2 3 para selecionar uma peça na linha 2 e coluna 3.
+Logo após digite 4 4 para movimentar essa peça para a linha 4, coluna 4.
