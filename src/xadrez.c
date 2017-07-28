@@ -18,8 +18,7 @@ int main () {
 
     switch(menu){
         case 1:
-
-            printf("jogue");
+            system("cls");
             break;
 
 
@@ -51,6 +50,7 @@ int main () {
                     system("cls");
                     break;}
         case 4:
+
              exit(0);
              break;
 
@@ -59,5 +59,7 @@ int main () {
        }
     }while(menu!=4);
 
-return 0;
+
+    return 0;
+
 }
