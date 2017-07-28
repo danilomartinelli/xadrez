@@ -3,10 +3,6 @@
 #include <ctype.h>
 #include <string.h>
 #include <locale.h>
-#define jogar 1
-#define ajuda 2
-#define sobre 3
-#define sair 4
 
 
 int main () {
@@ -53,6 +49,7 @@ int main () {
              exit(0);
              break;
     }
+
 
 return 0;
 }
