@@ -23,21 +23,21 @@ int main () {
 
 
         case 2:
-             printf("Player 1 são as peças brancas, Player 2 as peças Pretas.\n");
+             printf("Player 1 sÃ£o as peÃ§as brancas, Player 2 as peÃ§as Pretas.\n");
              printf("O jogo segue todas as regras oficiais. Exceto que:\n");
-             printf("\nNão é possível fazer movimentos especiais como o roque.\n\n");
-             printf("Para jogar é necessário digitar a letra correspondente a peça que deseja movimentar.\n");
-             printf("\nLogo depois digitar a linha e a coluna para qual você deseja se movimentar.\n\n");
+             printf("\nNÃ£o Ã© possÃ­vel fazer movimentos especiais como o roque.\n\n");
+             printf("Para jogar Ã© necessÃ¡rio digitar a letra correspondente a peÃ§a que deseja movimentar.\n");
+             printf("\nLogo depois digitar a linha e a coluna para qual vocÃª deseja se movimentar.\n\n");
              printf("Pressione ENTER para voltar.");
              getchar();
              break;
 
         case 3:
              printf("\t\t\t########## SOBRE ##########\n");
-             printf("Jogo de xadrez desenvolvido para a disciplina de introdução a lógica de programação.\n\n");
+             printf("Jogo de xadrez desenvolvido para a disciplina de introduÃ§Ã£o a lÃ³gica de programaÃ§Ã£o.\n\n");
              printf("\t\t\t########## EQUIPE ########\n");
-             printf("Abraão Lima Xavier Evangelista\n");
-             printf("Bruno Corrêa Arvan\n");
+             printf("AbraÃ£o Lima Xavier Evangelista\n");
+             printf("Bruno CorrÃªa Arvan\n");
              printf("Danilo Leone Di Paolo Martinelli Silva\n");
              printf("Stephanie Oliveira da Rocha\n\n\n");
              printf("Pressione ENTER para voltar.");
