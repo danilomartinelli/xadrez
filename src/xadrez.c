@@ -6,38 +6,44 @@
 
 
 int main () {
-    setlocale(LC_ALL, "portuguese");
+
+    int menu;
+    setlocale(LC_ALL,"portuguese");
+    do{
     printf("###################################\n");
     printf("\t Jogo de Xadrez\n\n\n");
-    printf("\t1-Jogar\n\n \t2-Ajuda\n\n \t3-Sobre o jogo\n\n \t4-Sair\n");
+    printf("\t1-Jogar\n\n \t2-Ajuda\n\n \t3-Sobre o jogo\n\n \t4-Sair\n\n");
     printf("###################################\n");
-    int menu;
     scanf("%d", &menu);
     system("cls");
 
     //menu
+
     switch(menu){
         case 1:
+
             printf("jogue");
             break;
 
 
         case 2:
-             printf("Player 1 s„o as peÁas brancas, Player 2 as peÁas Pretas.\n");
+             system("cls");
+             printf("Player 1 s√£o as pe√ßas brancas, Player 2 as pe√ßas Pretas");
              printf("O jogo segue todas as regras oficiais. Exceto que:\n");
-             printf("\nN„o È possÌvel fazer movimentos especiais como o roque.\n\n");
-             printf("Para jogar È necess·rio digitar a letra correspondente a peÁa que deseja movimentar.\n");
-             printf("\nLogo depois digitar a linha e a coluna para qual vocÍ deseja se movimentar.\n\n");
+             printf("\n      N√£o √© poss√≠vel fazer movimentos especiais como o roque.\n");
+             printf("Para jogar √© necess√°rio digitar a letra correspondente a pe√ßa que deseja movimentar.\n");
+             printf("\nLogo depois digitar a linha e a coluna para qual voc√™ deseja se movimentar.\n\n");
              printf("Pressione ENTER para voltar.");
              getchar();
              break;
 
         case 3:
+             system("cls");
              printf("\t\t\t########## SOBRE ##########\n");
-             printf("Jogo de xadrez desenvolvido para a disciplina de introduÁ„o a lÛgica de programaÁ„o.\n\n");
+             printf("Jogo de xadrez desenvolvido para a disciplina de introdu√ß√£o a l√≥gica de programa√ß√£o");
              printf("\t\t\t########## EQUIPE ########\n");
-             printf("Abra„o Lima Xavier Evangelista\n");
-             printf("Bruno CorrÍa Arvan\n");
+             printf("Abra√£o Lima Xavier Evangelista\n");
+             printf("Bruno Corr√™a Arvan\n");
              printf("Danilo Leone Di Paolo Martinelli Silva\n");
              printf("Stephanie Oliveira da Rocha\n\n\n");
              printf("Pressione ENTER para voltar.");
@@ -48,7 +54,11 @@ int main () {
         case 4:
              exit(0);
              break;
-    }
+
+        default:
+             printf("Op√ß√£o inv√°lida");
+       }
+    }while(menu!=4);
 
 
 return 0;
