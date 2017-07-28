@@ -97,7 +97,7 @@ void drawTable(char table[][10])
     {
         for (column = 1; column <= 8; column++)
         {
-            table[row][column] = '-';
+            table[row][column] = VOID_SQUARE;
         }
     }
 
