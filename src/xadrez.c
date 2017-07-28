@@ -1231,7 +1231,7 @@ void actionPiece(int player, int gameRound, char *playerName, char table[][10], 
 int checkGameOver(int player, char table[][10])
 {
     //Declarar variáveis auxiliares:
-    int kingRow, kingColumn, row, column, boolCheck = 0, boolCheckMate = 0;
+    int kingRow, kingColumn, row, column, boolCheck = 0, boolCheckMate = 0, stalemateVerify = 0;
 
     //Procura a posição do rei no jogo:
     for (row = 0; row < NUMBER_OF_ROWS; row++)
@@ -1272,6 +1272,7 @@ int checkGameOver(int player, char table[][10])
         if (checkVerify(row, column, player, table))
         {
             boolCheckMate++;
+            stalemateVerify++;
         }
     }
 
@@ -1287,13 +1288,14 @@ int checkGameOver(int player, char table[][10])
         if (checkVerify(row, column, player, table))
         {
             boolCheckMate++;
+            stalemateVerify++;
         }
     }
 
     //CIMA-DIREITA
     row = kingRow - 1;
     column = kingColumn + 1;
-    if ((kingRow == 1 || boolPlayerPiece(row, column, player, table)) && table[row][column] != VOID_SQUARE)
+    if (kingRow == 1 || boolPlayerPiece(row, column, player, table))
     {
         boolCheckMate++;
     }
@@ -1302,6 +1304,7 @@ int checkGameOver(int player, char table[][10])
         if (checkVerify(row, column, player, table))
         {
             boolCheckMate++;
+            stalemateVerify++;
         }
     }
 
@@ -1317,6 +1320,7 @@ int checkGameOver(int player, char table[][10])
         if (checkVerify(row, column, player, table))
         {
             boolCheckMate++;
+            stalemateVerify++;
         }
     }
 
@@ -1332,6 +1336,7 @@ int checkGameOver(int player, char table[][10])
         if (checkVerify(row, column, player, table))
         {
             boolCheckMate++;
+            stalemateVerify++;
         }
     }
 
@@ -1347,6 +1352,7 @@ int checkGameOver(int player, char table[][10])
         if (checkVerify(row, column, player, table))
         {
             boolCheckMate++;
+            stalemateVerify++;
         }
     }
 
@@ -1362,6 +1368,7 @@ int checkGameOver(int player, char table[][10])
         if (checkVerify(row, column, player, table))
         {
             boolCheckMate++;
+            stalemateVerify++;
         }
     }
 
@@ -1377,6 +1384,7 @@ int checkGameOver(int player, char table[][10])
         if (checkVerify(row, column, player, table))
         {
             boolCheckMate++;
+            stalemateVerify++;
         }
     }
 
@@ -1388,7 +1396,7 @@ int checkGameOver(int player, char table[][10])
         if (player == PLAYER_2)
             return PLAYER1_WINNER;
     }
-    if (boolCheckMate == 8 && boolCheck == 0)
+    if (stalemateVerify == 8 && boolCheck == 0)
     {
         return STALEMATE;
     }
@@ -1519,7 +1527,7 @@ int main()
 
         case PLAYER1_WINNER:
             renderTable(gameRound, table);
-            printf("\n\t\tVITÓRIA DE %s!\n", player1);
+            printf("\n\t\tVITÓRIA DE %s\n", player1);
             printf("O player 1 deu Xeque-mate.\n");
             printf("Presione ENTER para voltar a tela inicial...");
             getchar();
@@ -1527,7 +1535,7 @@ int main()
 
         case PLAYER2_WINNER:
             renderTable(gameRound, table);
-            printf("\n\t\tVITÓRIA DE %s!\n", player2);
+            printf("\n\t\tVITÓRIA DE %s\n", player2);
             printf("O player 2 deu Xeque-mate.\n");
             printf("Presione ENTER para voltar a tela inicial...");
             getchar();
