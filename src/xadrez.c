@@ -47,6 +47,7 @@ void clear_screen()
 #endif
 }
 
+//Controla as mensagens de erro do jogo:
 void errorMsg(int err)
 {
     switch (err)
@@ -132,15 +133,17 @@ void drawTable(char table[][10])
 //Exibe SOBRE no DOS.
 void about()
 {
-    FILE *file;
+    FILE *file; //Declara Struct do tipo FILE.
     char row[100];
 
     clear_screen();
 
+    //Verifica se existe arquivo:
     file = fopen("assets/about.txt", "rt");
     if (file == NULL)
         exit(EXIT_FAILURE);
 
+    //Printa as linhas do arquivo no DOS.
     while (!feof(file))
     {
         fgets(row, 100, file);
@@ -154,15 +157,17 @@ void about()
 //Exibe AJUDA no DOS.
 void help()
 {
-    FILE *file;
+    FILE *file; //Declara Struct do tipo FILE.
     char row[100];
 
     clear_screen();
 
+    //Verifica se existe arquivo:
     file = fopen("assets/help.txt", "rt");
     if (file == NULL)
         exit(EXIT_FAILURE);
 
+    //Printa as linhas do arquivo no DOS.
     while (!feof(file))
     {
         fgets(row, 100, file);
@@ -1225,7 +1230,8 @@ void actionPiece(int player, int gameRound, char *playerName, char table[][10], 
 //Verifica se é xeque, xeque-mate ou empate:
 int checkGameOver(int player, char table[][10])
 {
-    int kingRow, kingColumn, row, column, boolCheck = 0;
+    //Declarar variáveis auxiliares:
+    int kingRow, kingColumn, row, column, boolCheck = 0, boolCheckMate = 0;
 
     //Procura a posição do rei no jogo:
     for (row = 0; row < NUMBER_OF_ROWS; row++)
@@ -1249,21 +1255,144 @@ int checkGameOver(int player, char table[][10])
     if (checkVerify(kingRow, kingColumn, player, table))
     {
         boolCheck = 1;
+        boolCheckMate++;
+    }
+
+    // Verifica se é possível andar para todas as posições:
+
+    //CIMA
+    row = kingRow - 1;
+    column = kingColumn;
+    if (kingRow == 1 || boolPlayerPiece(row, column, player, table))
+    {
+        boolCheckMate++;
+    }
+    else
+    {
+        if (checkVerify(row, column, player, table))
+        {
+            boolCheckMate++;
+        }
+    }
+
+    //CIMA-ESQUERDA
+    row = kingRow - 1;
+    column = kingColumn - 1;
+    if (kingRow == 1 || boolPlayerPiece(row, column, player, table))
+    {
+        boolCheckMate++;
+    }
+    else
+    {
+        if (checkVerify(row, column, player, table))
+        {
+            boolCheckMate++;
+        }
+    }
+
+    //CIMA-DIREITA
+    row = kingRow - 1;
+    column = kingColumn + 1;
+    if ((kingRow == 1 || boolPlayerPiece(row, column, player, table)) && table[row][column] != VOID_SQUARE)
+    {
+        boolCheckMate++;
+    }
+    else
+    {
+        if (checkVerify(row, column, player, table))
+        {
+            boolCheckMate++;
+        }
+    }
+
+    //ESQUERDA
+    row = kingRow;
+    column = kingColumn - 1;
+    if (kingColumn == 1 || boolPlayerPiece(row, column, player, table))
+    {
+        boolCheckMate++;
+    }
+    else
+    {
+        if (checkVerify(row, column, player, table))
+        {
+            boolCheckMate++;
+        }
+    }
+
+    //DIREITA
+    row = kingRow;
+    column = kingColumn + 1;
+    if (kingColumn == 8 || boolPlayerPiece(row, column, player, table))
+    {
+        boolCheckMate++;
+    }
+    else
+    {
+        if (checkVerify(row, column, player, table))
+        {
+            boolCheckMate++;
+        }
+    }
+
+    //BAIXO
+    row = kingRow + 1;
+    column = kingColumn;
+    if (kingRow == 8 || boolPlayerPiece(row, column, player, table))
+    {
+        boolCheckMate++;
+    }
+    else
+    {
+        if (checkVerify(row, column, player, table))
+        {
+            boolCheckMate++;
+        }
+    }
+
+    //BAIXO-ESQUERDA
+    row = kingRow + 1;
+    column = kingColumn - 1;
+    if (kingRow == 8 || boolPlayerPiece(row, column, player, table))
+    {
+        boolCheckMate++;
+    }
+    else
+    {
+        if (checkVerify(row, column, player, table))
+        {
+            boolCheckMate++;
+        }
+    }
+
+    //BAIXO-DIREITA
+    row = kingRow + 1;
+    column = kingColumn + 1;
+    if (kingRow == 8 || boolPlayerPiece(row, column, player, table))
+    {
+        boolCheckMate++;
+    }
+    else
+    {
+        if (checkVerify(row, column, player, table))
+        {
+            boolCheckMate++;
+        }
     }
 
     //Retorna valores que significam XEQUE, XEQUE-MATE, EMPATE e JOGO EM ANDAMENTO:
-    if (0)
+    if (boolCheckMate == 9)
     {
         if (player == PLAYER_1)
             return PLAYER2_WINNER;
         if (player == PLAYER_2)
             return PLAYER1_WINNER;
     }
-    if (0)
+    if (boolCheckMate == 8 && boolCheck == 0)
     {
         return STALEMATE;
     }
-    if (boolCheck)
+    if (boolCheck == 1 && boolCheckMate < 9)
     {
         if (player == PLAYER_1)
             return PLAYER1_CHECK;
