@@ -12,11 +12,12 @@
 int main () {
     setlocale(LC_ALL, "portuguese");
     printf("###################################\n");
-    printf("\t Jogo de Xadrez\n\n\n\n");
+    printf("\t Jogo de Xadrez\n\n\n");
     printf("\t1-Jogar\n\n \t2-Ajuda\n\n \t3-Sobre o jogo\n\n \t4-Sair\n");
     printf("###################################\n");
     int menu;
-    scanf("%d", menu);
+    scanf("%d", &menu);
+    system("cls");
 
     //menu
     switch(menu){
@@ -28,9 +29,9 @@ int main () {
         case 2:
              printf("Player 1 são as peças brancas, Player 2 as peças Pretas.\n");
              printf("O jogo segue todas as regras oficiais. Exceto que:\n");
-             printf("\t\tNão é possível fazer movimentos especiais como o roque.\n\n");
+             printf("\nNão é possível fazer movimentos especiais como o roque.\n\n");
              printf("Para jogar é necessário digitar a letra correspondente a peça que deseja movimentar.\n");
-             printf("Logo depois digitar a linha e a coluna para qual você deseja se movimentar.\n\n");
+             printf("\nLogo depois digitar a linha e a coluna para qual você deseja se movimentar.\n\n");
              printf("Pressione ENTER para voltar.");
              getchar();
              break;
