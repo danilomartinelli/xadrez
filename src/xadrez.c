@@ -83,6 +83,58 @@ int main () {
 }
 
 
+
+PARTE DO TABULEIRO
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+#include <windows.h>
+#include <time.h>
+#define espacos_vazios "-"
+
+int main () {
+    int linha, coluna;
+
+char tabuleiro[10][10];
+
+    for (linha=1; linha<9; linha++){
+        coluna=0;
+        tabuleiro[linha][coluna] = linha+48;
+    }
+    for (linha=1; linha<9; linha++){
+        coluna=9;
+        tabuleiro[linha][coluna] = linha+48;
+    }
+    for (coluna=1; coluna<9; coluna++){
+        linha=0;
+        tabuleiro[linha][coluna] = coluna+48;
+    }
+    for (coluna=1; coluna<9; coluna++){
+        linha=9;
+        tabuleiro[linha][coluna] = coluna+48;
+    }
+    for (linha=1; linha<9; linha++){
+        for (coluna=1; coluna<9; coluna++){
+            tabuleiro[linha][coluna] = '-';
+        }
+    }
+
+    for (linha=0; linha<10; linha++){
+        for (coluna=0; coluna<10; coluna++){
+            if (linha==0 && coluna==0 || linha==0 && coluna==9 || linha==9 && coluna==0 || linha==9 && coluna==9){
+               tabuleiro[linha][coluna] = '|';
+            }
+        printf("%3c\t",tabuleiro[linha][coluna]);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
+
+
+
 PARTE DO TABULEIRO
 
 #include <stdio.h>
