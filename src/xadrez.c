@@ -3,9 +3,9 @@
 #include <ctype.h>
 #include <string.h>
 
+// Desenhar tabuleiro na tela:
 void drawTable(char tabuleiro[][10])
 {
-
     int linha, coluna;
 
     for (linha = 1; linha < 9; linha++)
