@@ -2,27 +2,28 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
-#include <locale.h>
 
 
 int main () {
-    setlocale(LC_ALL, "portuguese");
+    int menu,v;
+    do{
     printf("###################################\n");
     printf("\t Jogo de Xadrez\n\n\n");
-    printf("\t1-Jogar\n\n \t2-Ajuda\n\n \t3-Sobre o jogo\n\n \t4-Sair\n");
+    printf("\t1-Jogar\n\n \t2-Ajuda\n\n \t3-Sobre o jogo\n\n \t4-Sair\n\n");
     printf("###################################\n");
-    int menu;
     scanf("%d", &menu);
     system("cls");
 
     //menu
+
     switch(menu){
         case 1:
-            printf("jogue");
+            system("cls");
             break;
 
 
         case 2:
+<<<<<<< HEAD
              printf("Player 1 são as peças brancas, Player 2 as peças Pretas.\n");
              printf("O jogo segue todas as regras oficiais. Exceto que:\n");
              printf("\nNão é possível fazer movimentos especiais como o roque.\n\n");
@@ -31,27 +32,54 @@ int main () {
              printf("Pressione ENTER para voltar.");
              getchar();
              break;
+=======
+             system("cls");
+             printf("Player 1 controla as pecas brancas e Player 2 as pecas Pretas.");
+             printf(" O jogo segue todas as regras oficiais. Exceto que:\n");
+             printf("\n    - Nao e possivel fazer movimentos especiais como o roque.\n");
+             printf("\nPara jogar, basta digitar a letra correspondente a peca que deseja movimentar.\n");
+             printf("\nLogo depois, deve-se digitar a linha e a coluna para qual voce deseja se movimentar.\n\n");
+             printf("Pressione 5 para voltar.\n");
+             scanf("%d",&v);
+             if(v==5){
+                    system("cls");
+                    break;}
+>>>>>>> master
 
         case 3:
+             system("cls");
              printf("\t\t\t########## SOBRE ##########\n");
+<<<<<<< HEAD
              printf("Jogo de xadrez desenvolvido para a disciplina de introdução a lógica de programação.\n\n");
              printf("\t\t\t########## EQUIPE ########\n");
              printf("Abraão Lima Xavier Evangelista\n");
              printf("Bruno Corrêa Arvan\n");
+=======
+             printf("Jogo de xadrez desenvolvido para a disciplina de introducao a logica de programacao");
+             printf("\n\t\t\t########## EQUIPE ########\n");
+             printf("Abraao Lima Xavier Evangelista\n");
+             printf("Bruno Correa Arvan\n");
+>>>>>>> master
              printf("Danilo Leone Di Paolo Martinelli Silva\n");
              printf("Stephanie Oliveira da Rocha\n\n\n");
-             printf("Pressione ENTER para voltar.");
-             getchar();
-              break;
-
-
+             printf("Pressione 5 para voltar.\n");
+             scanf("%d",&v);
+             if(v==5){
+                    system("cls");
+                    break;}
         case 4:
+
              exit(0);
              break;
-    }
+
+        default:
+             printf("Opcao invalida!\n");
+       }
+    }while(menu!=4);
 
 
-return 0;
+    return 0;
+
 }
 
 
