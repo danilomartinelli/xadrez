@@ -24,6 +24,7 @@ void drawTable(char tabuleiro[][10])
         tabuleiro[linha][coluna] = coluna + 48;
     }
 
+
     for (linha = 3; linha < 7; linha++)
     {
         for (coluna = 1; coluna < 9; coluna++)
@@ -89,8 +90,10 @@ int main()
 
         //menu
 
-        switch (menu)
-        {
+
+    switch(menu){
+
+
         case 1:
             system("cls");
             drawTable(tabuleiro);
@@ -110,6 +113,7 @@ int main()
                 system("cls");
                 break;
             }
+
 
         case 3:
             system("cls");
