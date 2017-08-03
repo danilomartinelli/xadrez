@@ -98,8 +98,8 @@ int main()
         case 1:
             system("cls");
             drawTable(tabuleiro);
-            scanf{"%c", &z);
-            if(strcmp(z,'27')==1)
+            scanf("%c", &z);
+            if(strcmp(z, 27)==1)
                 break;
             }
 
