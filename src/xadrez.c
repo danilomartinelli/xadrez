@@ -85,19 +85,19 @@ int main()
         printf("\t1-Jogar\n\n \t2-Ajuda\n\n \t3-Sobre o jogo\n\n \t4-Sair\n\n");
         printf("###################################\n");
         scanf("%d", &menu);
-        system("cls");
+        system("clear");
 
         //menu
 
         switch (menu)
         {
         case 1:
-            system("cls");
+            system("clear");
             drawTable(tabuleiro);
             break;
 
         case 2:
-            system("cls");
+            system("clear");
             printf("Player 1 controla as pecas brancas e Player 2 as pecas Pretas.");
             printf(" O jogo segue todas as regras oficiais. Exceto que:\n");
             printf("\n    - Nao e possivel fazer movimentos especiais como o roque.\n");
@@ -107,12 +107,12 @@ int main()
             scanf("%d", &v);
             if (v == 5)
             {
-                system("cls");
+                system("clear");
                 break;
             }
 
         case 3:
-            system("cls");
+            system("clear");
             printf("\t\t\t########## SOBRE ##########\n");
             printf("Jogo de xadrez desenvolvido para a disciplina de introducao a logica de programacao");
             printf("\n\t\t\t########## EQUIPE ########\n");
@@ -124,7 +124,7 @@ int main()
             scanf("%d", &v);
             if (v == 5)
             {
-                system("cls");
+                system("clear");
                 break;
             }
         case 4:
@@ -135,7 +135,7 @@ int main()
         default:
             printf("Opcao invalida!\n");
         }
-    } while (menu != 4);
+    } while (menu != 4 || menu != 1);
 
     return 0;
 }
