@@ -1265,6 +1265,10 @@ int checkGameOver(int player, char table[][10])
     column = kingColumn;
     if (kingRow == 1 || boolPlayerPiece(row, column, player, table))
     {
+        if (kingRow == 1)
+        {
+            stalemateVerify++;
+        }
         boolCheckMate++;
     }
     else
@@ -1281,6 +1285,10 @@ int checkGameOver(int player, char table[][10])
     column = kingColumn - 1;
     if (kingRow == 1 || boolPlayerPiece(row, column, player, table))
     {
+        if (kingRow == 1)
+        {
+            stalemateVerify++;
+        }
         boolCheckMate++;
     }
     else
@@ -1297,6 +1305,10 @@ int checkGameOver(int player, char table[][10])
     column = kingColumn + 1;
     if (kingRow == 1 || boolPlayerPiece(row, column, player, table))
     {
+        if (kingRow == 1)
+        {
+            stalemateVerify++;
+        }
         boolCheckMate++;
     }
     else
@@ -1313,6 +1325,10 @@ int checkGameOver(int player, char table[][10])
     column = kingColumn - 1;
     if (kingColumn == 1 || boolPlayerPiece(row, column, player, table))
     {
+        if (kingColumn == 1)
+        {
+            stalemateVerify++;
+        }
         boolCheckMate++;
     }
     else
@@ -1329,6 +1345,10 @@ int checkGameOver(int player, char table[][10])
     column = kingColumn + 1;
     if (kingColumn == 8 || boolPlayerPiece(row, column, player, table))
     {
+        if (kingColumn == 8)
+        {
+            stalemateVerify++;
+        }
         boolCheckMate++;
     }
     else
@@ -1345,6 +1365,10 @@ int checkGameOver(int player, char table[][10])
     column = kingColumn;
     if (kingRow == 8 || boolPlayerPiece(row, column, player, table))
     {
+        if (kingRow == 8)
+        {
+            stalemateVerify++;
+        }
         boolCheckMate++;
     }
     else
@@ -1361,6 +1385,10 @@ int checkGameOver(int player, char table[][10])
     column = kingColumn - 1;
     if (kingRow == 8 || boolPlayerPiece(row, column, player, table))
     {
+        if (kingRow == 8)
+        {
+            stalemateVerify++;
+        }
         boolCheckMate++;
     }
     else
@@ -1377,6 +1405,10 @@ int checkGameOver(int player, char table[][10])
     column = kingColumn + 1;
     if (kingRow == 8 || boolPlayerPiece(row, column, player, table))
     {
+        if (kingRow == 8)
+        {
+            stalemateVerify++;
+        }
         boolCheckMate++;
     }
     else
