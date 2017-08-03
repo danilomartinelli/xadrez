@@ -78,7 +78,6 @@ int main()
 {
     int menu, v;
     char tabuleiro[10][10];
-    char z;
 
     do
     {
@@ -97,12 +96,8 @@ int main()
 
         case 1:
             system("clear");
-            drawTable(tabuleiro);
-            scanf("%c", &z);
-            if(strcmp(z, 27)==1)
-                break;
-            }
-
+            drawTable(tabuleiro);    
+            break;
 
         case 2:
             system("clear");
