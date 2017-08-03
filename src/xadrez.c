@@ -24,6 +24,7 @@ void drawTable(char tabuleiro[][10])
         tabuleiro[linha][coluna] = coluna + 48;
     }
 
+
     for (linha = 3; linha < 7; linha++)
     {
         for (coluna = 1; coluna < 9; coluna++)
@@ -77,6 +78,7 @@ int main()
 {
     int menu, v;
     char tabuleiro[10][10];
+    char z;
 
     do
     {
@@ -89,12 +91,18 @@ int main()
 
         //menu
 
-        switch (menu)
-        {
+
+    switch(menu){
+
+
         case 1:
             system("clear");
             drawTable(tabuleiro);
-            break;
+            scanf("%c", &z);
+            if(strcmp(z, 27)==1)
+                break;
+            }
+
 
         case 2:
             system("clear");
@@ -110,6 +118,7 @@ int main()
                 system("clear");
                 break;
             }
+
 
         case 3:
             system("clear");
