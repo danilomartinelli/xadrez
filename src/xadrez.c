@@ -4,7 +4,7 @@
 #include <string.h>
 
 // Desenhar tabuleiro na tela:
-void drawTable(char tabuleiro[][10])
+void drawTable(char tabuleiro[10][10])
 {
     int linha, coluna;
 
@@ -77,7 +77,7 @@ void drawTable(char tabuleiro[][10])
 int main()
 {
     int menu, v;
-    char tabuleiro[10][10];
+    char tabuleiro[10][10], c;
 
     do
     {
@@ -86,7 +86,7 @@ int main()
         printf("\t1-Jogar\n\n \t2-Ajuda\n\n \t3-Sobre o jogo\n\n \t4-Sair\n\n");
         printf("###################################\n");
         scanf("%d", &menu);
-        system("clear");
+        system("cls");
 
         //menu
 
@@ -95,28 +95,27 @@ int main()
 
 
         case 1:
-            system("clear");
-            drawTable(tabuleiro);    
-            break;
+           // system("cls");
+            drawTable(tabuleiro);
+                break;
+
+
 
         case 2:
-            system("clear");
+          //  system("cls");
             printf("Player 1 controla as pecas brancas e Player 2 as pecas Pretas.");
             printf(" O jogo segue todas as regras oficiais. Exceto que:\n");
             printf("\n    - Nao e possivel fazer movimentos especiais como o roque.\n");
             printf("\nPara jogar, basta digitar a letra correspondente a peca que deseja movimentar.\n");
             printf("\nLogo depois, deve-se digitar a linha e a coluna para qual voce deseja se movimentar.\n\n");
-            printf("Pressione 5 para voltar.\n");
-            scanf("%d", &v);
-            if (v == 5)
-            {
-                system("clear");
-                break;
-            }
+            printf("Pressione qualquer tecla para voltar ao menu");
+            getchar();
+            break;
+
 
 
         case 3:
-            system("clear");
+           // system("clear");
             printf("\t\t\t########## SOBRE ##########\n");
             printf("Jogo de xadrez desenvolvido para a disciplina de introducao a logica de programacao");
             printf("\n\t\t\t########## EQUIPE ########\n");
@@ -124,13 +123,10 @@ int main()
             printf("Bruno Correa Arvan\n");
             printf("Danilo Leone Di Paolo Martinelli Silva\n");
             printf("Stephanie Oliveira da Rocha\n\n\n");
-            printf("Pressione 5 para voltar.\n");
-            scanf("%d", &v);
-            if (v == 5)
-            {
-                system("clear");
-                break;
-            }
+            printf("Pressione qualquer tecla para voltar ao menu");
+            getchar();
+            break;
+
         case 4:
 
             exit(0);
