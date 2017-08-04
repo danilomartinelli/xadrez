@@ -13,6 +13,7 @@ int main()
 
     do
     {
+        //printar o menu
         printf("###################################\n");
         printf("\t Jogo de Xadrez\n\n\n");
         printf("\t1-Jogar\n\n \t2-Ajuda\n\n \t3-Sobre o jogo\n\n \t4-Sair\n\n");
@@ -20,9 +21,8 @@ int main()
         scanf("%d", &menu);
         system("cls");
 
-        //menu
 
-
+        // opções do menu
     switch(menu){
         case 1:
             tabuleiro_em_tela(tabuleiro);
@@ -34,9 +34,10 @@ int main()
             printf("\n    - Nao e possivel fazer movimentos especiais como o roque.\n");
             printf("\nPara jogar, basta digitar a letra correspondente a peca que deseja movimentar.\n");
             printf("\nLogo depois, deve-se digitar a linha e a coluna para qual voce deseja se movimentar.\n\n");
-            printf("Pressione qualquer tecla para voltar ao menu");
-            getchar();
+            system("pause");
+            system("cls");
             break;
+
 
         case 3:
             printf("\t\t\t########## SOBRE ##########\n");
@@ -46,9 +47,10 @@ int main()
             printf("Bruno Correa Arvan\n");
             printf("Danilo Leone Di Paolo Martinelli Silva\n");
             printf("Stephanie Oliveira da Rocha\n\n\n");
-            printf("Pressione qualquer tecla para voltar ao menu");
-            getchar();
+            system("pause");
+            system("cls");
             break;
+
 
         case 4:
             exit(0);
@@ -62,7 +64,7 @@ int main()
     return 0;
 }
 
-
+//função criar tabuleiro
 void tabuleiro_em_tela(char tabuleiro[10][10]){
     int linha, coluna;
 
@@ -90,7 +92,7 @@ void tabuleiro_em_tela(char tabuleiro[10][10]){
             tabuleiro[linha][coluna] = '-';
         }
     }
-    //Colocando peças do jogador de cims
+    //Colocando peças do jogador de cima, branca
     tabuleiro[1][1] = 'T';
     tabuleiro[1][2] = 'C';
     tabuleiro[1][3] = 'B';
@@ -99,6 +101,8 @@ void tabuleiro_em_tela(char tabuleiro[10][10]){
     tabuleiro[1][6] = 'B';
     tabuleiro[1][7] = 'C';
     tabuleiro[1][8] = 'T';
+
+    //colocando os peões brancos
     for (coluna = 1; coluna < 9; coluna++)
     {
         tabuleiro[2][coluna] = 'P';
@@ -113,11 +117,14 @@ void tabuleiro_em_tela(char tabuleiro[10][10]){
     tabuleiro[8][6] = 'b';
     tabuleiro[8][7] = 'c';
     tabuleiro[8][8] = 't';
+
+    //colocar os peões pretos
     for (coluna = 1; coluna < 9; coluna++)
     {
         tabuleiro[7][coluna] = 'p';
     }
 
+    //colocando as barras da quina
     for (linha = 0; linha < 10; linha++)
     {
         for (coluna = 0; coluna < 10; coluna++)
@@ -126,7 +133,7 @@ void tabuleiro_em_tela(char tabuleiro[10][10]){
             {
                 tabuleiro[linha][coluna] = '|';
             }
-            printf("%3c\t", tabuleiro[linha][coluna]);
+            printf("%c\t", tabuleiro[linha][coluna]);
         }
         printf("\n");
     }
