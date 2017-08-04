@@ -99,26 +99,13 @@ void selecao_peca(char tabuleiro[10][10])
         scanf("%d %d", &linha, &coluna);
 
         // AQUI EU VERIFICO SE A LINHA E A COLUNA ESTÃO ENTRE 1 E 8, CASO ESTEJAM. A VARIAVEL PECA_VALIDA FICA 1
-        if ((linha <= 8 && linha >= 1) && (coluna <= 8 && coluna >= 1))
-        {
+        if ((linha <= 8 && linha >= 1) && (coluna <= 8 && coluna >= 1)){
             peca_valida = 1;
         }
-        else
-        {
+        else{
             peca_valida = 0;
         }
-
-        // MERDA Q MÔ E ABRA FIZERAM:
-        // if((tabuleiro[linha][coluna]!='-') || (tabuleiro[linha][coluna]!='|') || (tabuleiro[linha][coluna]!='1') || (tabuleiro[linha][coluna]!='2') || (tabuleiro[linha][coluna]!='3') || (tabuleiro[linha][coluna]!='4') || (tabuleiro[linha][coluna]!='5') || (tabuleiro[linha][coluna]!='6') || (tabuleiro[linha][coluna]!='7') || (tabuleiro[linha][coluna]!='8')|| (tabuleiro[linha][coluna]!='9')){
-        //     peca_valida=0;
-        // }
-        // else{
-        //     peca_valida=1;
-        // }
-
-        // CASO A PEÇA SEJA VÁLIDA:
-        if (peca_valida)
-        {
+        if (peca_valida){
             switch (tabuleiro[linha][coluna])
             {
 
@@ -185,6 +172,9 @@ void selecao_peca(char tabuleiro[10][10])
             default:
                 printf("Peca invalida.");
             }
+        }
+        else {
+            printf("Peca invalida.\n");
         }
     } while (peca_valida == 0);
 }
