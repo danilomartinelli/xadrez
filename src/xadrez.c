@@ -24,17 +24,11 @@ int main()
 
 
     switch(menu){
-
-
         case 1:
-           // system("cls");
             tabuleiro_em_tela(tabuleiro);
-                break;
-
-
+            break;
 
         case 2:
-          //  system("cls");
             printf("Player 1 controla as pecas brancas e Player 2 as pecas Pretas.");
             printf(" O jogo segue todas as regras oficiais. Exceto que:\n");
             printf("\n    - Nao e possivel fazer movimentos especiais como o roque.\n");
@@ -44,10 +38,7 @@ int main()
             getchar();
             break;
 
-
-
         case 3:
-           // system("clear");
             printf("\t\t\t########## SOBRE ##########\n");
             printf("Jogo de xadrez desenvolvido para a disciplina de introducao a logica de programacao");
             printf("\n\t\t\t########## EQUIPE ########\n");
@@ -60,7 +51,6 @@ int main()
             break;
 
         case 4:
-
             exit(0);
             break;
 
