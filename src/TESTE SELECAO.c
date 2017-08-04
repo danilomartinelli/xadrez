@@ -85,62 +85,83 @@ int main(){
 }
 
 void selecao_peca (char tabuleiro[10][10]){
-    int linha, coluna;
-    printf("Digite uma peça a ser movida (linha x coluna)");
-   scanf("%d %d", &linha, &coluna);
-    switch(tabuleiro[linha][coluna]){
-        case'p':
-            printf("Voce selecionou o Peao!\n");
-            break;
+   int linha, coluna, peca_valida;
 
-        case 'P':
-            printf("Voce selecionou o Peao!\n");
-            break;
+   do{
+        printf("Digite uma peca a ser movida (linha x coluna)");
+        scanf("%d %d", &linha, &coluna);
+        if((tabuleiro[linha][coluna]!='-') || (tabuleiro[linha][coluna]!='|') || (tabuleiro[linha][coluna]!='1') || (tabuleiro[linha][coluna]!='2') || (tabuleiro[linha][coluna]!='3') || (tabuleiro[linha][coluna]!='4') || (tabuleiro[linha][coluna]!='5') || (tabuleiro[linha][coluna]!='6') || (tabuleiro[linha][coluna]!='7') || (tabuleiro[linha][coluna]!='8')|| (tabuleiro[linha][coluna]!='9')){
+            peca_valida=0;
+        }
+        else{
+            peca_valida=1;
+        }
+        switch(tabuleiro[linha][coluna]){
 
-        case 't':
-            printf("Voce selecionou a Torre!\n");
-            break;
+           case'p':
+                printf("Voce selecionou o Peao!\n");
+                peca_valida=1;
+                break;
 
-        case 'T':
-            printf("Voce selecionou a Torre!\n");
-            break;
+            case 'P':
+                printf("Voce selecionou o Peao!\n");
+                peca_valida=1;
+                break;
 
-        case'b':
-            printf("Voce selecionou o Bispo!\n");
-            break;
+            case 't':
+                printf("Voce selecionou a Torre!\n");
+                peca_valida=1;
+                break;
 
-        case'B':
-            printf("Voce selecionou o Bispo!\n");
-            break;
+            case 'T':
+                printf("Voce selecionou a Torre!\n");
+                peca_valida=1;
+                break;
 
-        case'c':
-            printf("Voce selecionou o Cavalo!\n");
-            break;
+            case'b':
+                printf("Voce selecionou o Bispo!\n");
+                peca_valida=1;
+                break;
 
-        case'C':
-            printf("Voce selecionou o Cavalo!\n");
-            break;
+            case'B':
+                printf("Voce selecionou o Bispo!\n");
+                peca_valida=1;
+                break;
 
-        case'R':
-            printf("Voce selecionou o Rei!\n");
-            break;
+            case'c':
+                printf("Voce selecionou o Cavalo!\n");
+                peca_valida=1;
+                break;
 
-        case'r':
-            printf("Voce selecionou o Rei!\n");
-            break;
+            case'C':
+                printf("Voce selecionou o Cavalo!\n");
+                peca_valida=1;
+                break;
 
-        case'A':
-            printf("Voce selecionou a Rainha!\n");
-            break;
+            case'R':
+                printf("Voce selecionou o Rei!\n");
+                peca_valida=1;
+                break;
 
-        case'a':
-            printf("Voce selecionou a Rainha!\n");
-            break;
+            case'r':
+                printf("Voce selecionou o Rei!\n");
+                peca_valida=1;
+                break;
 
-        default:
-            printf("Peca invalida.");
-    }
+            case'A':
+                printf("Voce selecionou a Rainha!\n");
+                peca_valida=1;
+                break;
 
+            case'a':
+                printf("Voce selecionou a Rainha!\n");
+                peca_valida=1;
+                break;
+
+            default:
+                printf("Peca invalida.");
+        }
+    } while (peca_valida==0);
 }
 
 
