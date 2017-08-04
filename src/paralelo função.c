@@ -3,7 +3,7 @@
 #include <ctype.h>
 #include <string.h>
 
-//T√≠tulo das fun√ß√µes que ser√£o necess√°rias
+//TÌtulo das funÁıes que ser„o necess·rias
 void tabuleiro_em_tela(char tabuleiro[10][10]);
 void selecao_peca (char tabuleiro[10][10]);
 
@@ -13,7 +13,7 @@ int main(){
     tabuleiro_em_tela(tabuleiro);
     selecao_peca (tabuleiro);
 }
-//Fun√ß√£o para montar e mostrar o tabuleiro.
+//FunÁ„o para montar e mostrar o tabuleiro.
 
     void tabuleiro_em_tela(char tabuleiro[10][10]){
     int linha, coluna;
@@ -38,7 +38,7 @@ int main(){
         tabuleiro[linha][coluna] = coluna + 48;
     }
 
-//Adicionando os espa√ßos vazios
+//Adicionando os espaÁos vazios
     for (linha = 3; linha < 7; linha++)
     {
         for (coluna = 1; coluna < 9; coluna++)
@@ -46,7 +46,7 @@ int main(){
             tabuleiro[linha][coluna] = '-';
         }
     }
-//Colocando pe√ßas do jogador de cima
+//Colocando peÁas do jogador de cima
     tabuleiro[1][1] = 'T';
     tabuleiro[1][2] = 'C';
     tabuleiro[1][3] = 'B';
@@ -60,7 +60,7 @@ int main(){
         tabuleiro[2][coluna] = 'P';
     }
 
-//Colocando pe√ßas do jogador de baixo
+//Colocando peÁas do jogador de baixo
     tabuleiro[8][1] = 't';
     tabuleiro[8][2] = 'c';
     tabuleiro[8][3] = 'b';
@@ -162,3 +162,4 @@ void selecao_peca (char tabuleiro[10][10]){
                 printf("Peca invalida.");
         }
     } while (peca_valida==0);
+}
