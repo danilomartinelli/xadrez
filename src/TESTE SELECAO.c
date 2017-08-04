@@ -12,6 +12,8 @@ int main(){
     char tabuleiro[10][10];
     tabuleiro_em_tela(tabuleiro);
     selecao_peca (tabuleiro);
+
+    return 0;
 }
 //Função para montar e mostrar o tabuleiro.
 
