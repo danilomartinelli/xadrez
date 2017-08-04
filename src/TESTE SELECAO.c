@@ -91,21 +91,21 @@ void tabuleiro_em_tela(char tabuleiro[10][10])
 
 void selecao_peca(char tabuleiro[10][10])
 {
-    int linha, coluna, peca_valida = 0; // BOA PRATICA INICIAR VARIAVEIS DE TRUE E FALSE COM FALSE;
+    int linha, coluna, peca_valida = 0; // iniciação da variável booleana;
 
     do
     {
         printf("Digite uma peca a ser movida (linha x coluna)");
         scanf("%d %d", &linha, &coluna);
 
-        // AQUI EU VERIFICO SE A LINHA E A COLUNA ESTÃO ENTRE 1 E 8, CASO ESTEJAM. A VARIAVEL PECA_VALIDA FICA 1
+        // verificação se a linha e a coluna estão entre 1 e 8 e, caso estejam, a variável peca_valida fica 1
         if ((linha <= 8 && linha >= 1) && (coluna <= 8 && coluna >= 1)){
             peca_valida = 1;
         }
         else{
             peca_valida = 0;
         }
-        if (peca_valida){
+        if (peca_valida==1){ //identificação da peça escolhida
             switch (tabuleiro[linha][coluna])
             {
 
