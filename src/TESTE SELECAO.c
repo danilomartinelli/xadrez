@@ -162,3 +162,4 @@ void selecao_peca (char tabuleiro[10][10]){
                 printf("Peca invalida.");
         }
     } while (peca_valida==0);
+}
