@@ -90,6 +90,9 @@ void selecao_peca (char tabuleiro[10][10]){
    do{
         printf("Digite uma peca a ser movida (linha x coluna)");
         scanf("%d %d", &linha, &coluna);
+        if(linha>=9 || coluna >=9){
+            peca_valida=1;
+        }
         if((tabuleiro[linha][coluna]!='-') || (tabuleiro[linha][coluna]!='|') || (tabuleiro[linha][coluna]!='1') || (tabuleiro[linha][coluna]!='2') || (tabuleiro[linha][coluna]!='3') || (tabuleiro[linha][coluna]!='4') || (tabuleiro[linha][coluna]!='5') || (tabuleiro[linha][coluna]!='6') || (tabuleiro[linha][coluna]!='7') || (tabuleiro[linha][coluna]!='8')|| (tabuleiro[linha][coluna]!='9')){
             peca_valida=0;
         }
