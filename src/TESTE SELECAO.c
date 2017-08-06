@@ -5,22 +5,21 @@
 
 //Título das funções que serão necessárias
 void tabuleiro_em_tela(char tabuleiro[10][10]);
-void selecao_peca(char tabuleiro[10][10]);
+void selecao_peca (char tabuleiro[10][10]);
 
-int main()
-{
+int main(){
     int linha, coluna;
     char tabuleiro[10][10];
     tabuleiro_em_tela(tabuleiro);
-    selecao_peca(tabuleiro);
+    selecao_peca (tabuleiro);
 }
 //Função para montar e mostrar o tabuleiro.
 
-void tabuleiro_em_tela(char tabuleiro[10][10])
-{
+    void tabuleiro_em_tela(char tabuleiro[10][10]){
     int linha, coluna;
 
-    //Criando a coluna auxiliar
+
+//Criando a coluna auxiliar
 
     for (linha = 1; linha < 9; linha++)
     {
@@ -29,7 +28,7 @@ void tabuleiro_em_tela(char tabuleiro[10][10])
         coluna = 9;
         tabuleiro[linha][coluna] = linha + 48;
     }
-    //Criando a linha auxiliar
+//Criando a linha auxiliar
 
     for (coluna = 1; coluna < 9; coluna++)
     {
@@ -39,7 +38,7 @@ void tabuleiro_em_tela(char tabuleiro[10][10])
         tabuleiro[linha][coluna] = coluna + 48;
     }
 
-    //Adicionando os espaços vazios
+//Adicionando os espaços vazios
     for (linha = 3; linha < 7; linha++)
     {
         for (coluna = 1; coluna < 9; coluna++)
@@ -47,7 +46,7 @@ void tabuleiro_em_tela(char tabuleiro[10][10])
             tabuleiro[linha][coluna] = '-';
         }
     }
-    //Colocando peças do jogador de cima
+//Colocando peças do jogador de cima
     tabuleiro[1][1] = 'T';
     tabuleiro[1][2] = 'C';
     tabuleiro[1][3] = 'B';
@@ -61,7 +60,7 @@ void tabuleiro_em_tela(char tabuleiro[10][10])
         tabuleiro[2][coluna] = 'P';
     }
 
-    //Colocando peças do jogador de baixo
+//Colocando peças do jogador de baixo
     tabuleiro[8][1] = 't';
     tabuleiro[8][2] = 'c';
     tabuleiro[8][3] = 'b';
@@ -70,17 +69,13 @@ void tabuleiro_em_tela(char tabuleiro[10][10])
     tabuleiro[8][6] = 'b';
     tabuleiro[8][7] = 'c';
     tabuleiro[8][8] = 't';
-    for (coluna = 1; coluna < 9; coluna++)
-    {
+    for (coluna = 1; coluna < 9; coluna++){
         tabuleiro[7][coluna] = 'p';
     }
-    //Preenchendo barras laterais
-    for (linha = 0; linha < 10; linha++)
-    {
-        for (coluna = 0; coluna < 10; coluna++)
-        {
-            if (linha == 0 && coluna == 0 || linha == 0 && coluna == 9 || linha == 9 && coluna == 0 || linha == 9 && coluna == 9)
-            {
+//Preenchendo barras laterais
+    for (linha = 0; linha < 10; linha++){
+        for (coluna = 0; coluna < 10; coluna++){
+            if (linha == 0 && coluna == 0 || linha == 0 && coluna == 9 || linha == 9 && coluna == 0 || linha == 9 && coluna == 9){
                 tabuleiro[linha][coluna] = '|';
             }
             printf("%3c\t", tabuleiro[linha][coluna]);
@@ -89,92 +84,94 @@ void tabuleiro_em_tela(char tabuleiro[10][10])
     }
 }
 
-void selecao_peca(char tabuleiro[10][10])
-{
-    int linha, coluna, peca_valida = 0; // iniciação da variável booleana;
+void selecao_peca (char tabuleiro[10][10]){
+   int linha, coluna, peca_valida;
 
-    do
-    {
+   do{
         printf("Digite uma peca a ser movida (linha x coluna)");
         scanf("%d %d", &linha, &coluna);
+        getchar();
 
-        // verificação se a linha e a coluna estão entre 1 e 8 e, caso estejam, a variável peca_valida fica 1
-        if ((linha <= 8 && linha >= 1) && (coluna <= 8 && coluna >= 1)){
-            peca_valida = 1;
-        }
-        else{
-            peca_valida = 0;
-        }
-        if (peca_valida==1){ //identificação da peça escolhida
-            switch (tabuleiro[linha][coluna])
-            {
-
-            case 'p':
-                printf("Voce selecionou o Peao!\n");
-                peca_valida = 1;
-                break;
-
-            case 'P':
-                printf("Voce selecionou o Peao!\n");
-                peca_valida = 1;
-                break;
-
-            case 't':
-                printf("Voce selecionou a Torre!\n");
-                peca_valida = 1;
-                break;
-
-            case 'T':
-                printf("Voce selecionou a Torre!\n");
-                peca_valida = 1;
-                break;
-
-            case 'b':
-                printf("Voce selecionou o Bispo!\n");
-                peca_valida = 1;
-                break;
-
-            case 'B':
-                printf("Voce selecionou o Bispo!\n");
-                peca_valida = 1;
-                break;
-
-            case 'c':
-                printf("Voce selecionou o Cavalo!\n");
-                peca_valida = 1;
-                break;
-
-            case 'C':
-                printf("Voce selecionou o Cavalo!\n");
-                peca_valida = 1;
-                break;
-
-            case 'R':
-                printf("Voce selecionou o Rei!\n");
-                peca_valida = 1;
-                break;
-
-            case 'r':
-                printf("Voce selecionou o Rei!\n");
-                peca_valida = 1;
-                break;
-
-            case 'A':
-                printf("Voce selecionou a Rainha!\n");
-                peca_valida = 1;
-                break;
-
-            case 'a':
-                printf("Voce selecionou a Rainha!\n");
-                peca_valida = 1;
-                break;
-
-            default:
-                printf("Peca invalida.");
+        if((linha <= 8 && linha >= 1) && (coluna <= 8 && coluna >= 1)){
+            if (tabuleiro[linha][coluna]=='-'){
+                peca_valida=0;
+            }
+            else{
+                peca_valida=1;
             }
         }
-        else {
+        else{
+            peca_valida=0;
+        }
+        if (peca_valida==1){
+            switch(tabuleiro[linha][coluna]){
+
+               case'p':
+                    printf("Voce selecionou o Peao!\n");
+                    peca_valida=1;
+                    break;
+
+                case 'P':
+                    printf("Voce selecionou o Peao!\n");
+                    peca_valida=1;
+                    break;
+
+                case 't':
+                    printf("Voce selecionou a Torre!\n");
+                    peca_valida=1;
+                    break;
+
+                case 'T':
+                    printf("Voce selecionou a Torre!\n");
+                    peca_valida=1;
+                    break;
+
+                case'b':
+                    printf("Voce selecionou o Bispo!\n");
+                    peca_valida=1;
+                    break;
+
+                case'B':
+                    printf("Voce selecionou o Bispo!\n");
+                    peca_valida=1;
+                    break;
+
+                case'c':
+                    printf("Voce selecionou o Cavalo!\n");
+                    peca_valida=1;
+                    break;
+
+                case'C':
+                    printf("Voce selecionou o Cavalo!\n");
+                    peca_valida=1;
+                    break;
+
+                case'R':
+                    printf("Voce selecionou o Rei!\n");
+                    peca_valida=1;
+                    break;
+
+                case'r':
+                    printf("Voce selecionou o Rei!\n");
+                    peca_valida=1;
+                    break;
+
+                case'A':
+                    printf("Voce selecionou a Rainha!\n");
+                    peca_valida=1;
+                    break;
+
+                case'a':
+                    printf("Voce selecionou a Rainha!\n");
+                    peca_valida=1;
+                    break;
+
+                default:
+                    printf("Peca invalida.\n");
+            }
+        }
+        else{
             printf("Peca invalida.\n");
         }
-    } while (peca_valida == 0);
+    } while (peca_valida==0);
 }
