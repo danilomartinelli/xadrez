@@ -225,13 +225,20 @@ printf("\t\t\t`````````````````````````;+#@,#@..:@@@@+;.````````````````````````
 
 //função selecao peca
 void selecao_peca (char tabuleiro[10][10]){
-   int linha, coluna, peca_valida;
+   int linha, coluna, peca_valida, cont;
 
-   do{
-        printf("Digite uma peca a ser movida (linha x coluna)");
+   //loop infinito
+   for(cont=0;;cont++){
+
+
+        // verificação de peca para player 1
+        if(cont%2==0){
+                //laço para fazer com que o player selecione uma peca valida
+                 do{
+        printf("Player 1 digite uma peca a ser movida (linha x coluna)\n");
         scanf("%d %d", &linha, &coluna);
-        getchar();
-        //verificando se o player selecionou os espaços vazios
+
+        //verificando se o player 1 selecionou os espaços vazios
         if((linha <= 8 && linha >= 1) && (coluna <= 8 && coluna >= 1)){
             if (tabuleiro[linha][coluna]=='-'){
                 peca_valida=0;//peca_valida=o segnifica invalida
@@ -240,7 +247,7 @@ void selecao_peca (char tabuleiro[10][10]){
                 peca_valida=1;//peca valida=1 significa valida
             }
         }
-        //verifica se o player selecionou as coordenadas ou estrapolou a matriz
+        //verifica se o player 1 selecionou as coordenadas auxiliares ou estrapolou a matriz
         else{
             peca_valida=0;
         }
@@ -315,5 +322,118 @@ void selecao_peca (char tabuleiro[10][10]){
         else{
             printf("Peca invalida.\n");
         }
-    } while (peca_valida==0);
+        //fecha o Do While
+        }while (peca_valida==0);
+
+        }
+
+
+        //player 2
+        else{
+             do{
+
+        printf("Player 2 digite uma peca a ser movida (linha x coluna)\n");
+        scanf("%d %d", &linha, &coluna);
+         getchar();
+        //verificando se o player 2 selecionou os espaços vazios
+        if((linha <= 8 && linha >= 1) && (coluna <= 8 && coluna >= 1)){
+            if (tabuleiro[linha][coluna]=='-'){
+                peca_valida=0;//peca_valida=o segnifica invalida
+            }
+            else{
+                peca_valida=1;//peca valida=1 significa valida
+            }
+        }
+        //verifica se o player 2 selecionou as coordenadas ou estrapolou a matriz
+        else{
+            peca_valida=0;
+        }
+
+        //se o player 2 escolheu uma peca valida, colocar o nome da peça
+        if (peca_valida==1){
+            switch(tabuleiro[linha][coluna]){
+
+               case'p':
+                    printf("Voce selecionou o Peao!\n");
+                    peca_valida=1;
+                    break;
+
+                case 'P':
+                    printf("Voce selecionou o Peao!\n");
+                    peca_valida=1;
+                    break;
+
+                case 't':
+                    printf("Voce selecionou a Torre!\n");
+                    peca_valida=1;
+                    break;
+
+                case 'T':
+                    printf("Voce selecionou a Torre!\n");
+                    peca_valida=1;
+                    break;
+
+                case'b':
+                    printf("Voce selecionou o Bispo!\n");
+                    peca_valida=1;
+                    break;
+
+                case'B':
+                    printf("Voce selecionou o Bispo!\n");
+                    peca_valida=1;
+                    break;
+
+                case'c':
+                    printf("Voce selecionou o Cavalo!\n");
+                    peca_valida=1;
+                    break;
+
+                case'C':
+                    printf("Voce selecionou o Cavalo!\n");
+                    peca_valida=1;
+                    break;
+
+                case'R':
+                    printf("Voce selecionou o Rei!\n");
+                    peca_valida=1;
+                    break;
+
+                case'r':
+                    printf("Voce selecionou o Rei!\n");
+                    peca_valida=1;
+                    break;
+
+                case'A':
+                    printf("Voce selecionou a Rainha!\n");
+                    peca_valida=1;
+                    break;
+
+                case'a':
+                    printf("Voce selecionou a Rainha!\n");
+                    peca_valida=1;
+                    break;
+
+                default:
+                    printf("Peca invalida.\n");
+            }
+        }
+        else{
+            printf("Peca invalida.\n");
+        }
+
+        //fecha o Do While
+        }while (peca_valida==0);
+
+        //mover_peca(tabuleiro);
+
+    //fecha o else
+    }
+  //fecha o for
+  }
+//fecha a função
+}
+
+void mover_peca(char tabuleiro[10][10]){
+
+
 }
