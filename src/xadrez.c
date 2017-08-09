@@ -9,6 +9,8 @@ void tabuleiro_em_tela(char tabuleiro[10][10]);
 void printar_menu(char tabuleiro[10][10]);
 //Selecionar a peça
 void selecao_peca (char tabuleiro[10][10]);
+//Mover peca
+void mover_peca(char tabuleiro[10][10]);
 
 //Função principal
 int main()
@@ -185,6 +187,7 @@ printf("\t\t\t`````````````````````````;+#@,#@..:@@@@+;.````````````````````````
         case 1:
             tabuleiro_em_tela(tabuleiro);
             selecao_peca(tabuleiro);
+
             break;
 
         case 2:
@@ -224,8 +227,9 @@ printf("\t\t\t`````````````````````````;+#@,#@..:@@@@+;.````````````````````````
 
 
 //função selecao peca
-void selecao_peca (char tabuleiro[10][10]){
-   int linha, coluna, peca_valida, cont;
+void selecao_peca (char tabuleiro[10][10]){ //int *ppeca){
+   int linha, coluna, peca_valida, cont, *ppeca;
+   char peca;
 
    //loop infinito
    for(cont=0;;cont++){
@@ -233,10 +237,14 @@ void selecao_peca (char tabuleiro[10][10]){
 
         // verificação de peca para player 1
         if(cont%2==0){
-                //laço para fazer com que o player selecione uma peca valida
+                //laço para fazer com que o player 1 selecione uma peca valida
                  do{
         printf("Player 1 digite uma peca a ser movida (linha x coluna)\n");
         scanf("%d %d", &linha, &coluna);
+        //guardar peca
+        peca=tabuleiro[linha][coluna];
+        //guardar o local da peca
+        ppeca=&peca;
 
         //verificando se o player 1 selecionou os espaços vazios
         if((linha <= 8 && linha >= 1) && (coluna <= 8 && coluna >= 1)){
@@ -325,16 +333,21 @@ void selecao_peca (char tabuleiro[10][10]){
         //fecha o Do While
         }while (peca_valida==0);
 
+        //fecha o if que verifica se é o player1
         }
-
 
         //player 2
         else{
+            //laço para fazer com que o player 2 selecione uma peca valida
              do{
 
         printf("Player 2 digite uma peca a ser movida (linha x coluna)\n");
         scanf("%d %d", &linha, &coluna);
-         getchar();
+        //guardar a peca
+        peca=tabuleiro[linha][coluna];
+        //guardar o local desta peca
+        ppeca=&peca;
+
         //verificando se o player 2 selecionou os espaços vazios
         if((linha <= 8 && linha >= 1) && (coluna <= 8 && coluna >= 1)){
             if (tabuleiro[linha][coluna]=='-'){
@@ -424,7 +437,6 @@ void selecao_peca (char tabuleiro[10][10]){
         //fecha o Do While
         }while (peca_valida==0);
 
-        //mover_peca(tabuleiro);
 
     //fecha o else
     }
@@ -433,7 +445,7 @@ void selecao_peca (char tabuleiro[10][10]){
 //fecha a função
 }
 
-void mover_peca(char tabuleiro[10][10]){
+//void mover_peca(char tabuleiro[10][10], int *ppeca){
 
 
-}
+//}
