@@ -824,7 +824,7 @@ int rookVerify(int oldRow, int oldColumn, int newRow, int newColumn, int player,
     {
         for (aux = (oldColumn + 1); aux <= newColumn; aux++)
         {
-            tempPiece = table[aux][newColumn];
+            tempPiece = table[newRow][aux];
 
             if (tempPiece != VOID_SQUARE)
             {
@@ -853,7 +853,7 @@ int rookVerify(int oldRow, int oldColumn, int newRow, int newColumn, int player,
     {
         for (aux = (oldColumn - 1); aux >= newColumn; aux--)
         {
-            tempPiece = table[aux][newColumn];
+            tempPiece = table[newRow][aux];
 
             if (tempPiece != VOID_SQUARE)
             {
