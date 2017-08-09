@@ -105,8 +105,8 @@ void drawTable(char table[][10])
     table[8][1] = 'T';
     table[8][2] = 'C';
     table[8][3] = 'B';
-    table[8][4] = 'K';
-    table[8][5] = 'Q';
+    table[8][4] = 'Q';
+    table[8][5] = 'K';
     table[8][6] = 'B';
     table[8][7] = 'C';
     table[8][8] = 'T';
@@ -119,8 +119,8 @@ void drawTable(char table[][10])
     table[1][1] = 't';
     table[1][2] = 'c';
     table[1][3] = 'b';
-    table[1][4] = 'k';
-    table[1][5] = 'q';
+    table[1][4] = 'q';
+    table[1][5] = 'k';
     table[1][6] = 'b';
     table[1][7] = 'c';
     table[1][8] = 't';
