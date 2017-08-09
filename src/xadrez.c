@@ -187,7 +187,7 @@ printf("\t\t\t`````````````````````````;+#@,#@..:@@@@+;.````````````````````````
     switch(opcoes){
         case 1:
             tabuleiro_em_tela(tabuleiro);
-            selecao_peca(tabuleiro, ppeca);
+            selecao_peca(tabuleiro, &ppeca);
 
             break;
 
@@ -334,7 +334,7 @@ void selecao_peca (char tabuleiro[10][10], char *ppeca){
         //fecha o Do While
         }while (peca_valida==0);
 
-        mover_peca(tabuleiro[10][10], ppeca);
+        mover_peca(tabuleiro, ppeca);
 
         //fecha o if que verifica se é o player1
         }
@@ -454,9 +454,6 @@ void mover_peca(char tabuleiro[10][10], char *ppeca){
     char peca;
     printf("Digite a linha e a coluna para onde voce quer mover a peca");
     scanf("%d %d", &linha, &coluna);
-    printf("saçgkaçsç asjashg %c",*ppeca);
-    peca=ppeca;
-    tabuleiro[linha][coluna]=peca;
-
-
+    peca = *ppeca;
+    tabuleiro[linha][coluna] = peca;
 }
