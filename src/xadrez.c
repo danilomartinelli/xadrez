@@ -268,11 +268,7 @@ int checkVerify(int newRow, int newColumn, int player, char table[][10])
             {
                 if (!(boolPlayerPiece(count, newColumn, player, table)) && (toupper(table[count][newColumn]) == ROOK || toupper(table[count][newColumn]) == QUEEN))
                 {
-<<<<<<< HEAD
                     return 1;
-=======
-                    check++;
->>>>>>> parent of 85086b0... add pointer for checkPiece
                 }
                 else
                 {
@@ -290,11 +286,7 @@ int checkVerify(int newRow, int newColumn, int player, char table[][10])
             {
                 if (!(boolPlayerPiece(count, newColumn, player, table)) && (toupper(table[count][newColumn]) == ROOK || toupper(table[count][newColumn]) == QUEEN))
                 {
-<<<<<<< HEAD
                     return 1;
-=======
-                    check++;
->>>>>>> parent of 85086b0... add pointer for checkPiece
                 }
                 else
                 {
@@ -312,11 +304,7 @@ int checkVerify(int newRow, int newColumn, int player, char table[][10])
             {
                 if (!(boolPlayerPiece(newRow, count, player, table)) && (toupper(table[newRow][count]) == ROOK || toupper(table[newRow][count]) == QUEEN))
                 {
-<<<<<<< HEAD
                     return 1;
-=======
-                    check++;
->>>>>>> parent of 85086b0... add pointer for checkPiece
                 }
                 else
                 {
@@ -334,11 +322,7 @@ int checkVerify(int newRow, int newColumn, int player, char table[][10])
             {
                 if (!(boolPlayerPiece(newRow, count, player, table)) && (toupper(table[newRow][count]) == ROOK || toupper(table[newRow][count]) == QUEEN))
                 {
-<<<<<<< HEAD
                     return 1;
-=======
-                    check++;
->>>>>>> parent of 85086b0... add pointer for checkPiece
                 }
                 else
                 {
@@ -357,11 +341,7 @@ int checkVerify(int newRow, int newColumn, int player, char table[][10])
             {
                 if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == BISHOP || toupper(table[count][count2]) == QUEEN))
                 {
-<<<<<<< HEAD
                     return 1;
-=======
-                    check++;
->>>>>>> parent of 85086b0... add pointer for checkPiece
                 }
                 else
                 {
@@ -378,11 +358,7 @@ int checkVerify(int newRow, int newColumn, int player, char table[][10])
             {
                 if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == BISHOP || toupper(table[count][count2]) == QUEEN))
                 {
-<<<<<<< HEAD
                     return 1;
-=======
-                    check++;
->>>>>>> parent of 85086b0... add pointer for checkPiece
                 }
                 else
                 {
@@ -399,11 +375,7 @@ int checkVerify(int newRow, int newColumn, int player, char table[][10])
             {
                 if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == BISHOP || toupper(table[count][count2]) == QUEEN))
                 {
-<<<<<<< HEAD
                     return 1;
-=======
-                    check++;
->>>>>>> parent of 85086b0... add pointer for checkPiece
                 }
                 else
                 {
@@ -420,11 +392,7 @@ int checkVerify(int newRow, int newColumn, int player, char table[][10])
             {
                 if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == BISHOP || toupper(table[count][count2]) == QUEEN))
                 {
-<<<<<<< HEAD
                     return 1;
-=======
-                    check++;
->>>>>>> parent of 85086b0... add pointer for checkPiece
                 }
                 else
                 {
@@ -442,11 +410,7 @@ int checkVerify(int newRow, int newColumn, int player, char table[][10])
     {
         if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == HORSE))
         {
-<<<<<<< HEAD
             return 1;
-=======
-            check++;
->>>>>>> parent of 85086b0... add pointer for checkPiece
         }
     }
 
@@ -456,11 +420,7 @@ int checkVerify(int newRow, int newColumn, int player, char table[][10])
     {
         if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == HORSE))
         {
-<<<<<<< HEAD
             return 1;
-=======
-            check++;
->>>>>>> parent of 85086b0... add pointer for checkPiece
         }
     }
 
@@ -470,11 +430,7 @@ int checkVerify(int newRow, int newColumn, int player, char table[][10])
     {
         if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == HORSE))
         {
-<<<<<<< HEAD
             return 1;
-=======
-            check++;
->>>>>>> parent of 85086b0... add pointer for checkPiece
         }
     }
 
@@ -484,11 +440,7 @@ int checkVerify(int newRow, int newColumn, int player, char table[][10])
     {
         if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == HORSE))
         {
-<<<<<<< HEAD
             return 1;
-=======
-            check++;
->>>>>>> parent of 85086b0... add pointer for checkPiece
         }
     }
 
@@ -498,11 +450,7 @@ int checkVerify(int newRow, int newColumn, int player, char table[][10])
     {
         if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == HORSE))
         {
-<<<<<<< HEAD
             return 1;
-=======
-            check++;
->>>>>>> parent of 85086b0... add pointer for checkPiece
         }
     }
 
@@ -512,11 +460,7 @@ int checkVerify(int newRow, int newColumn, int player, char table[][10])
     {
         if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == HORSE))
         {
-<<<<<<< HEAD
             return 1;
-=======
-            check++;
->>>>>>> parent of 85086b0... add pointer for checkPiece
         }
     }
 
@@ -526,11 +470,7 @@ int checkVerify(int newRow, int newColumn, int player, char table[][10])
     {
         if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == HORSE))
         {
-<<<<<<< HEAD
             return 1;
-=======
-            check++;
->>>>>>> parent of 85086b0... add pointer for checkPiece
         }
     }
 
@@ -540,11 +480,7 @@ int checkVerify(int newRow, int newColumn, int player, char table[][10])
     {
         if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == HORSE))
         {
-<<<<<<< HEAD
             return 1;
-=======
-            check++;
->>>>>>> parent of 85086b0... add pointer for checkPiece
         }
     }
 
@@ -557,11 +493,7 @@ int checkVerify(int newRow, int newColumn, int player, char table[][10])
         {
             if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == PAWN))
             {
-<<<<<<< HEAD
                 return 1;
-=======
-                check++;
->>>>>>> parent of 85086b0... add pointer for checkPiece
             }
         }
 
@@ -571,11 +503,7 @@ int checkVerify(int newRow, int newColumn, int player, char table[][10])
         {
             if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == PAWN))
             {
-<<<<<<< HEAD
                 return 1;
-=======
-                check++;
->>>>>>> parent of 85086b0... add pointer for checkPiece
             }
         }
     }
@@ -587,11 +515,7 @@ int checkVerify(int newRow, int newColumn, int player, char table[][10])
         {
             if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == PAWN))
             {
-<<<<<<< HEAD
                 return 1;
-=======
-                check++;
->>>>>>> parent of 85086b0... add pointer for checkPiece
             }
         }
 
@@ -601,11 +525,7 @@ int checkVerify(int newRow, int newColumn, int player, char table[][10])
         {
             if (!(boolPlayerPiece(count, count2, player, table)) && (toupper(table[count][count2]) == PAWN))
             {
-<<<<<<< HEAD
                 return 1;
-=======
-                check++;
->>>>>>> parent of 85086b0... add pointer for checkPiece
             }
         }
     }
@@ -1332,16 +1252,7 @@ int checkGameOver(int player, char table[][10])
     }
 
     // Verifica se rei se encontra em cheque na posição atual.
-<<<<<<< HEAD
     if (checkVerify(kingRow, kingColumn, player, table))
-=======
-    if (checkVerify(kingRow, kingColumn, player, table) == 1)
-    {
-        boolCheck = 1;
-        boolCheckMate++;
-    }
-    else if ((checkVerify(kingRow, kingColumn, player, table) == 2) && !isPieceSaveKing()) // Se rei puder ser salvo, não é considerado cheque-mate.
->>>>>>> parent of 85086b0... add pointer for checkPiece
     {
         boolCheck = 1;
         boolCheckMate++;
