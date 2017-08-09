@@ -454,7 +454,8 @@ void mover_peca(char tabuleiro[10][10], char *ppeca){
     char peca;
     printf("Digite a linha e a coluna para onde voce quer mover a peca");
     scanf("%d %d", &linha, &coluna);
-    peca=*ppeca;
+    printf("saçgkaçsç asjashg %c",*ppeca);
+    peca=ppeca;
     tabuleiro[linha][coluna]=peca;
 
 
