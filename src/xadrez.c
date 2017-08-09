@@ -10,7 +10,7 @@ void printar_menu(char tabuleiro[10][10]);
 //Selecionar a peça
 void selecao_peca (char tabuleiro[10][10]);
 //Mover peca
-void mover_peca(char tabuleiro[10][10]);
+void mover_peca(char tabuleiro[10][10], int *ppeca);
 
 //Função principal
 int main()
@@ -185,8 +185,9 @@ printf("\t\t\t`````````````````````````;+#@,#@..:@@@@+;.````````````````````````
     // opções do menu
     switch(opcoes){
         case 1:
+            char peca;
             tabuleiro_em_tela(tabuleiro);
-            selecao_peca(tabuleiro);
+            selecao_peca(tabuleiro, &peca);
 
             break;
 
@@ -227,8 +228,8 @@ printf("\t\t\t`````````````````````````;+#@,#@..:@@@@+;.````````````````````````
 
 
 //função selecao peca
-void selecao_peca (char tabuleiro[10][10]){ //int *ppeca){
-   int linha, coluna, peca_valida, cont, *ppeca;
+void selecao_peca (char tabuleiro[10][10], int *ppeca){ //int *ppeca){ obs coloque no titulo da função
+   int linha, coluna, peca_valida, cont;
    char peca;
 
    //loop infinito
