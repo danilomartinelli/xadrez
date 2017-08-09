@@ -8,9 +8,9 @@ void tabuleiro_em_tela(char tabuleiro[10][10]);
 // Desenhar a funçãso na tela
 void printar_menu(char tabuleiro[10][10]);
 //Selecionar a peça
-void selecao_peca (char tabuleiro[10][10]);
+void selecao_peca (char tabuleiro[10][10], char *ppeca);
 //Mover peca
-void mover_peca(char tabuleiro[10][10], int *ppeca);
+void mover_peca(char tabuleiro[10][10], char *ppeca);
 
 //Função principal
 int main()
@@ -180,14 +180,14 @@ printf("\t\t\t`````````````````````````;+#@,#@..:@@@@+;.````````````````````````
         printf("######################################################################################################################################\n");
         scanf("%d", &opcoes);
         system("cls");
+        char ppeca;
 
 
     // opções do menu
     switch(opcoes){
         case 1:
-            char peca;
             tabuleiro_em_tela(tabuleiro);
-            selecao_peca(tabuleiro, &peca);
+            selecao_peca(tabuleiro, ppeca);
 
             break;
 
@@ -228,7 +228,7 @@ printf("\t\t\t`````````````````````````;+#@,#@..:@@@@+;.````````````````````````
 
 
 //função selecao peca
-void selecao_peca (char tabuleiro[10][10], int *ppeca){ //int *ppeca){ obs coloque no titulo da função
+void selecao_peca (char tabuleiro[10][10], char *ppeca){
    int linha, coluna, peca_valida, cont;
    char peca;
 
@@ -260,7 +260,7 @@ void selecao_peca (char tabuleiro[10][10], int *ppeca){ //int *ppeca){ obs coloq
         else{
             peca_valida=0;
         }
-        //se o player escolheu uma peca valida, colocar o nome da peça
+        //se o player 1 escolheu uma peca valida, colocar o nome da peça
         if (peca_valida==1){
             switch(tabuleiro[linha][coluna]){
 
@@ -334,6 +334,8 @@ void selecao_peca (char tabuleiro[10][10], int *ppeca){ //int *ppeca){ obs coloq
         //fecha o Do While
         }while (peca_valida==0);
 
+        mover_peca(tabuleiro[10][10], ppeca);
+
         //fecha o if que verifica se é o player1
         }
 
@@ -357,6 +359,7 @@ void selecao_peca (char tabuleiro[10][10], int *ppeca){ //int *ppeca){ obs coloq
             else{
                 peca_valida=1;//peca valida=1 significa valida
             }
+
         }
         //verifica se o player 2 selecionou as coordenadas ou estrapolou a matriz
         else{
@@ -438,15 +441,21 @@ void selecao_peca (char tabuleiro[10][10], int *ppeca){ //int *ppeca){ obs coloq
         //fecha o Do While
         }while (peca_valida==0);
 
-
     //fecha o else
     }
   //fecha o for
   }
+
 //fecha a função
 }
 
-//void mover_peca(char tabuleiro[10][10], int *ppeca){
+void mover_peca(char tabuleiro[10][10], char *ppeca){
+    int linha, coluna;
+    char peca;
+    printf("Digite a linha e a coluna para onde voce quer mover a peca");
+    scanf("%d %d", &linha, &coluna);
+    peca=*ppeca;
+    tabuleiro[linha][coluna]=peca;
 
 
-//}
+}
