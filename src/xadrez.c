@@ -10,7 +10,7 @@ void printar_menu(char tabuleiro[10][10]);
 //Selecionar a peça
 void selecao_peca (char tabuleiro[10][10], char *ppeca);
 //Mover peca
-void mover_peca(char tabuleiro[10][10], char *ppeca);
+void atualizar_tela ( char tabuleiro[10][10], int rodada);
 
 //Função principal
 int main()
@@ -93,7 +93,7 @@ void tabuleiro_em_tela(char tabuleiro[10][10]){
             }
             printf("%c\t", tabuleiro[linha][coluna]);
         }
-        printf("\n");
+        printf("\n\n\n\n");
     }
 }
 
@@ -229,19 +229,20 @@ printf("\t\t\t`````````````````````````;+#@,#@..:@@@@+;.````````````````````````
 
 //função selecao peca
 void selecao_peca (char tabuleiro[10][10], char *ppeca){
-   int linha, coluna, peca_valida, cont;
+   int linha, coluna, peca_valida, rodada, linhavelha, colunavelha;
    char peca;
 
    //loop infinito
-   for(cont=0;;cont++){
-
+   for(rodada=0;;rodada++){
 
         // verificação de peca para player 1
-        if(cont%2==0){
+        if(rodada%2==0){
                 //laço para fazer com que o player 1 selecione uma peca valida
                  do{
         printf("Player 1 digite uma peca a ser movida (linha x coluna)\n");
         scanf("%d %d", &linha, &coluna);
+        linhavelha=linha;
+        colunavelha=coluna;
         //guardar peca
         peca=tabuleiro[linha][coluna];
         //guardar o local da peca
@@ -334,7 +335,7 @@ void selecao_peca (char tabuleiro[10][10], char *ppeca){
         //fecha o Do While
         }while (peca_valida==0);
 
-        mover_peca(tabuleiro, ppeca);
+        mover_peca(tabuleiro, ppeca, rodada, linhavelha, colunavelha);
 
         //fecha o if que verifica se é o player1
         }
@@ -441,6 +442,8 @@ void selecao_peca (char tabuleiro[10][10], char *ppeca){
         //fecha o Do While
         }while (peca_valida==0);
 
+        mover_peca(tabuleiro, ppeca, rodada, linhavelha, colunavelha);
+
     //fecha o else
     }
   //fecha o for
@@ -449,11 +452,34 @@ void selecao_peca (char tabuleiro[10][10], char *ppeca){
 //fecha a função
 }
 
-void mover_peca(char tabuleiro[10][10], char *ppeca){
+void mover_peca(char tabuleiro[10][10], char *ppeca,int rodada,int linhavelha , int colunavelha){
     int linha, coluna;
     char peca;
     printf("Digite a linha e a coluna para onde voce quer mover a peca");
     scanf("%d %d", &linha, &coluna);
+
     peca = *ppeca;
     tabuleiro[linha][coluna] = peca;
+    tabuleiro[linhavelha][colunavelha] = '-';
+    atualizar_tela(tabuleiro,rodada);
+
+
+}
+
+void atualizar_tela ( char tabuleiro[10][10], int rodada){
+    int linha, coluna;
+
+    printf("\t\t\t#################Partida %d#################\n\n\n",&rodada);
+    system("cls");
+
+    for(linha=0;linha<10;linha++){
+        for(coluna=0;coluna<10;coluna++){
+            printf("%c\t",tabuleiro[linha][coluna]);
+            //tabuleiro[linhavelha][colunavelha]='-';
+            //printf("%c\t",tabuleiro[linhavelha][colunavelha]);
+
+        }
+        printf("\n\n\n\n");
+    }
+
 }
