@@ -103,7 +103,9 @@ void printar_menu(char tabuleiro[10][10]){
 
     do
     {
-        //printar o menu
+    //printar o menu
+
+        //PRINTAR UM BELO DE UM NOME
         printf("######################################################################################################################################\n");
         printf("\n\n\n");
 printf("XXXXXXX       XXXXXXX               AAA               DDDDDDDDDDDDD      RRRRRRRRRRRRRRRRR   EEEEEEEEEEEEEEEEEEEEEEZZZZZZZZZZZZZZZZZZZ\n");
@@ -123,6 +125,7 @@ printf("X:::::X       X:::::X  A:::::A               A:::::A  D:::::::::::::::DD
 printf("X:::::X       X:::::X A:::::A                 A:::::A D::::::::::::DDD   R::::::R     R:::::RE::::::::::::::::::::EZ:::::::::::::::::Z\n");
 printf("XXXXXXX       XXXXXXXAAAAAAA                   AAAAAAADDDDDDDDDDDDD      RRRRRRRR     RRRRRRREEEEEEEEEEEEEEEEEEEEEEZZZZZZZZZZZZZZZZZZZ\n");
 
+//printa um BELO DE UM CAVALO. MUITO BELO. ROBUSTO. COMO O PROFESSOR QUERIA
 printf("\t\t\t```````````````````````````+++@@@@@@@;````````````````````````````````````````\n");
 printf("\t\t\t``````````````````````````++#@'#'#@@@;.```````````````````````````````````````\n");
 printf("\t\t\t`````````````````````````;+#@,#@..:@@@@+;.````````````````````````````````````\n");
@@ -186,7 +189,9 @@ printf("\t\t\t`````````````````````````;+#@,#@..:@@@@+;.````````````````````````
     // opções do menu
     switch(opcoes){
         case 1:
+            //printa o menu na tela
             tabuleiro_em_tela(tabuleiro);
+            //seleciona a peça. As funções restantes estão dentro desta
             selecao_peca(tabuleiro, &ppeca);
 
             break;
@@ -222,8 +227,9 @@ printf("\t\t\t`````````````````````````;+#@,#@..:@@@@+;.````````````````````````
         default:
             printf("Opcao invalida!\n");
         }
+    //fecha o Do while. Fica no laço enquanto o usuario não selecionar a opção 4(sair) ou 1(jogar)
     } while (opcoes != 4 || opcoes != 1);
-
+//fecha o laço que cria a menu
 }
 
 
@@ -233,28 +239,38 @@ void selecao_peca (char tabuleiro[10][10], char *ppeca){
    char peca;
 
    //loop infinito
+   //rodada=vez de cada player
    for(rodada=0;;rodada++){
 
         // verificação de peca para player 1
         if(rodada%2==0){
                 //laço para fazer com que o player 1 selecione uma peca valida
                  do{
-        printf("Player 1 digite uma peca a ser movida (linha x coluna)\n");
+        printf("Player 1 digite uma peca a ser movida(minusculas) (linha x coluna)\n");
         scanf("%d %d", &linha, &coluna);
+        //guardar a linha de onde a peca saiu
         linhavelha=linha;
+        //guardar a coluna de onde a peca saiu
         colunavelha=coluna;
         //guardar peca
         peca=tabuleiro[linha][coluna];
         //guardar o local da peca
         ppeca=&peca;
 
-        //verificando se o player 1 selecionou os espaços vazios
+        //verificando se o player 1 selecionou os espaços internos da matrix
         if((linha <= 8 && linha >= 1) && (coluna <= 8 && coluna >= 1)){
+             //verificando se o player 1 selecionou os espaços vazios
             if (tabuleiro[linha][coluna]=='-'){
                 peca_valida=0;//peca_valida=o segnifica invalida
             }
             else{
-                peca_valida=1;//peca valida=1 significa valida
+                //verifica se o player 1 selecinou a peca minuscula
+                if (isupper(peca)!=1) {
+                    peca_valida=1;//peca valida=1 significa valida
+
+                } else {
+                    peca_valida=0;//peca_valida=o segnifica invalida
+                }
             }
         }
         //verifica se o player 1 selecionou as coordenadas auxiliares ou estrapolou a matriz
@@ -334,7 +350,7 @@ void selecao_peca (char tabuleiro[10][10], char *ppeca){
         }
         //fecha o Do While
         }while (peca_valida==0);
-
+        //chama a função que move a peca da posição original para a nova posição
         mover_peca(tabuleiro, ppeca, rodada, linhavelha, colunavelha);
 
         //fecha o if que verifica se é o player1
@@ -345,23 +361,36 @@ void selecao_peca (char tabuleiro[10][10], char *ppeca){
             //laço para fazer com que o player 2 selecione uma peca valida
              do{
 
-        printf("Player 2 digite uma peca a ser movida (linha x coluna)\n");
+        printf("Player 2 digite uma peca a ser movida(maiusculas) (linha x coluna)\n");
         scanf("%d %d", &linha, &coluna);
+        //guardar a linha de onde a peca saiu
+        linhavelha=linha;
+        //guardar a coluna de onde a peca saiu
+        colunavelha=coluna;
         //guardar a peca
         peca=tabuleiro[linha][coluna];
         //guardar o local desta peca
         ppeca=&peca;
 
-        //verificando se o player 2 selecionou os espaços vazios
+        //verifica se o player 2 selecionou os espaços dentro da matriz
         if((linha <= 8 && linha >= 1) && (coluna <= 8 && coluna >= 1)){
+            //verificando se o player 2 selecionou os espaços vazios
             if (tabuleiro[linha][coluna]=='-'){
                 peca_valida=0;//peca_valida=o segnifica invalida
             }
             else{
-                peca_valida=1;//peca valida=1 significa valida
+                //verifica se o player 2 selecionou a peca maiscula
+                //isupper()=0 significa que não a variavel não é maiuscula
+                 if (isupper(peca)!=0 ) {
+                    peca_valida=1;//peca valida=1 significa valida
+                } else {
+                    peca_valida=0;//peca_valida=o segnifica invalida
+                }
             }
 
+        //fim do se que verifica se a peca escolhida esta dentro da matrix
         }
+
         //verifica se o player 2 selecionou as coordenadas ou estrapolou a matriz
         else{
             peca_valida=0;
@@ -439,9 +468,9 @@ void selecao_peca (char tabuleiro[10][10], char *ppeca){
             printf("Peca invalida.\n");
         }
 
-        //fecha o Do While
+        //fecha o Do While. Realiza o laço enquanto ele tenha escolhido uma peça invalida
         }while (peca_valida==0);
-
+        // chama a função que move a peça da posição original para uma nova posição
         mover_peca(tabuleiro, ppeca, rodada, linhavelha, colunavelha);
 
     //fecha o else
@@ -452,34 +481,51 @@ void selecao_peca (char tabuleiro[10][10], char *ppeca){
 //fecha a função
 }
 
+// função que move a peca da posição antiga para a nova
+// tabuleiro[10][10]=tabuleiro que fica salva as pecas
+// *ppeca=ponteiro que indica para a peça escolhida
+// rodada=vez de cada jogador
+// linhavelha=linha original da peca que irá ser movida
+// colunavelha=coluna original da peca que irá ser movida
 void mover_peca(char tabuleiro[10][10], char *ppeca,int rodada,int linhavelha , int colunavelha){
+    //linha=linha que a peça será movida
+    //coluna=coluna que a peça será movida
     int linha, coluna;
+    //peca=peca que será movida
     char peca;
     printf("Digite a linha e a coluna para onde voce quer mover a peca");
     scanf("%d %d", &linha, &coluna);
-
+    //peca=a variavel para onde o ponteiro aponta que é justamente a peca escolhida pelo jogador
     peca = *ppeca;
+    //atribuindo que na posição escolhida pelo jogador será colocado a peca escolhida pelo jogador
     tabuleiro[linha][coluna] = peca;
+    //atribuindo que na posição de onde a peca escolhida saiu será substituida por um espaço vazio
     tabuleiro[linhavelha][colunavelha] = '-';
+    //chama a função que apaga a matrix antiga e desenha a nova matrix
     atualizar_tela(tabuleiro,rodada);
-
 
 }
 
+// tabuleiro[10][10]=tabuleiro
+// rodada=vez de cada jogador
 void atualizar_tela ( char tabuleiro[10][10], int rodada){
+    //linha=linha que irá ser usada para construir a nova matrix(tabuleiro)
+    //coluna=coluna que irá ser usada para construir a nova matrix(tabuleiro)
     int linha, coluna;
-
     printf("\t\t\t#################Partida %d#################\n\n\n",&rodada);
+    //limpar a matrix(tabuleiro) anterior
     system("cls");
-
+    //printar a matriz na tela
+    //varrer as linhas da matrix
     for(linha=0;linha<10;linha++){
+        //varrer as colunas da matrix
         for(coluna=0;coluna<10;coluna++){
             printf("%c\t",tabuleiro[linha][coluna]);
-            //tabuleiro[linhavelha][colunavelha]='-';
-            //printf("%c\t",tabuleiro[linhavelha][colunavelha]);
 
         }
+        //pular as linhas entre as peças
         printf("\n\n\n\n");
+    //fecha  o laço
     }
-
+//fecha a função
 }
