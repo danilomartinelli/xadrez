@@ -13,7 +13,7 @@ return 0;
 void movimento_bispo (char tabuleiro[10][10], int linha, int coluna, int linhaNova, int colunaNova){
     int movimento_valido;
     do {
-        if(colunaNova-coluna == linhaNova-linha || colunaNova-coluna==((linhaNova-linha)*(-1))){
+        if((colunaNova-coluna == linhaNova-linha) || (colunaNova-coluna==linha-linhaNova)){
             movimento_valido=1;
         }
         else {
@@ -32,7 +32,7 @@ void movimento_bispo (char tabuleiro[10][10], int linha, int coluna, int linhaNo
 void movimento_rainha (char tabuleiro[10][10], int linha, int colunam, int linhaNova, int colunaNova){
     int movimento_valido;
     do {
-    if(colunaNova-coluna == linhaNova-linha || colunaNova-coluna==((linhaNova-linha)*(-1)) || (coluna==colunaNova && linhanova!= linha) || (linha==linhaNova && colunaNova!=coluna)){
+    if((colunaNova-coluna==linhaNova-linha) || (colunaNova-coluna==linha-linhaNova) || ((coluna==colunaNova) && (linhanova!=linha)) || ((linha==linhaNova) && (colunaNova!=coluna))){
         movimento_valido=1;
     }
     else {
@@ -51,7 +51,7 @@ void movimento_rainha (char tabuleiro[10][10], int linha, int colunam, int linha
 void movimento_torre (char tauleiro[10][10], int linha, int coluna, int linhaNova, int colunaNova){
     int movimento_valido;
     do {
-        if((coluna==colunaNova && linhanova!= linha) || (linha==linhaNova && colunaNova!=coluna)){
+        if((coluna==colunaNova) && (linhanova!= linha)) || ((linha==linhaNova) && (colunaNova!=coluna))){
             movimento_valido=1;
         }
         else {
@@ -66,3 +66,22 @@ void movimento_torre (char tauleiro[10][10], int linha, int coluna, int linhaNov
         }
         while (movimento_valido==0);
     }
+
+void movimento_cavalo (char tabuleiro[10][10], int linha, int coluna, int linhaNova, int colunaNova){
+    int movimento_valido;
+    do {
+        if(colunaNova-coluna == linhaNova-linha || colunaNova-coluna==((linhaNova-linha)*(-1))){
+            movimento_valido=1;
+        }
+        else {
+            movimento_valido=0;
+        }
+        if (movimento_valido==1){
+            printf("Movimento valido");
+        }
+        else {
+            printf("Movimento invalido");
+        }
+    }
+    while (movimento_valido==0);
+}
