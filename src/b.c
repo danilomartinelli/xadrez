@@ -67,10 +67,10 @@ void movimento_torre (char tauleiro[10][10], int linha, int coluna, int linhaNov
         while (movimento_valido==0);
     }
 
-void movimento_cavalo (char tabuleiro[10][10], int linha, int coluna, int linhaNova, int colunaNova){
+void movimento_cavalo (char tabuleiro[10][10], int linhavelha, int colunavelha, int linha, int coluna){
     int movimento_valido;
     do {
-        if(colunaNova-coluna == linhaNova-linha || colunaNova-coluna==((linhaNova-linha)*(-1))){
+        if(((linhavelha-linha==2)&&(colunavelha-coluna==1)) || ((linhavelha-linha==1)&&(colunavelha-coluna==2)) || ((linha-linhavelha==1)&&(colunavelha-coluna==2)) || ((linha-linhavelha==2)&&(colunavelha-coluna==1)) || ((linhavelha-linha==2)&&(coluna-colunavelha==1)) || ((linhavelha-linha==1)&&(coluna-colunavelha==2)) || ((linha-linhavelha==1)&&(coluna-colunavelha==2)) || ((linha-linhavelha==2)&&(coluna-colunavelha==1))){
             movimento_valido=1;
         }
         else {
