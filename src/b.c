@@ -29,7 +29,7 @@ void movimento_bispo (char tabuleiro[10][10], int linha, int coluna, int linhaNo
     while (movimento_valido==0);
 }
 
-void movimento_rainha (char tabuleiro[10][10], int linha, int colunam int linhaNova, int colunaNova){
+void movimento_rainha (char tabuleiro[10][10], int linha, int colunam, int linhaNova, int colunaNova){
     int movimento_valido;
     do {
     if(colunaNova-coluna == linhaNova-linha || colunaNova-coluna==((linhaNova-linha)*(-1)) || (coluna==colunaNova && linhanova!= linha) || (linha==linhaNova && colunaNova!=coluna)){
