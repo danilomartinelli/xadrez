@@ -11,8 +11,10 @@ void printar_menu(char tabuleiro[10][10]);
 void selecao_peca (char tabuleiro[10][10], char *ppeca);
 //Mover peca
 void atualizar_tela ( char tabuleiro[10][10], int rodada);
-
+//Funcão pra chamar os jogadores pelo nome
+void nome_jogadores (char *nomeJogador1, char *nomeJogador2);
 //Função principal
+
 int main()
 {
     int menu;
@@ -182,6 +184,7 @@ printf("\t\t\t`````````````````````````;+#@,#@..:@@@@+;.````````````````````````
         printf("\n\n\t\t\t\t\t\t1-Jogar\n\n \t\t\t\t\t\t2-Ajuda\n\n \t\t\t\t\t\t3-Sobre o jogo\n\n \t\t\t\t\t\t4-Sair\n\n");
         printf("######################################################################################################################################\n");
         scanf("%d", &opcoes);
+        getchar();
         system("cls");
         char ppeca;
 
@@ -236,7 +239,11 @@ printf("\t\t\t`````````````````````````;+#@,#@..:@@@@+;.````````````````````````
 //função selecao peca
 void selecao_peca (char tabuleiro[10][10], char *ppeca){
    int linha, coluna, peca_valida, rodada, linhavelha, colunavelha;
-   char peca;
+   char peca, nomeJogador1[20], nomeJogador2[20];
+   printf("Digite o nome do jogador 1\n");
+   gets(nomeJogador1);
+   printf("Digite o nome do jogador 2\n");
+   gets(nomeJogador2);
 
    //loop infinito
    //rodada=vez de cada player
@@ -246,7 +253,7 @@ void selecao_peca (char tabuleiro[10][10], char *ppeca){
         if(rodada%2==0){
                 //laço para fazer com que o player 1 selecione uma peca valida
                  do{
-        printf("Player 1 digite uma peca a ser movida(minusculas) (linha x coluna)\n");
+        printf("%s (Player 1) digite uma peca a ser movida(minusculas) (linha x coluna)\n",&nomeJogador1);
         scanf("%d %d", &linha, &coluna);
         //guardar a linha de onde a peca saiu
         linhavelha=linha;
@@ -361,7 +368,7 @@ void selecao_peca (char tabuleiro[10][10], char *ppeca){
             //laço para fazer com que o player 2 selecione uma peca valida
              do{
 
-        printf("Player 2 digite uma peca a ser movida(maiusculas) (linha x coluna)\n");
+        printf("%s (Player 2) digite uma peca a ser movida(minusculas) (linha x coluna)\n",&nomeJogador2);
         scanf("%d %d", &linha, &coluna);
         //guardar a linha de onde a peca saiu
         linhavelha=linha;
