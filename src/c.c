@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <locale.h>
 #include <string.h>
-
+//Funcão pra chamar os jogadores pelo nome
 void nome_jogadores (char *nomeJogador1, char *nomeJogador2);
 
 int main () {
