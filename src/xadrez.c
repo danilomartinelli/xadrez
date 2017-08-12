@@ -200,7 +200,7 @@ printf("\t\t\t`````````````````````````;+#@,#@..:@@@@+;.````````````````````````
             break;
 
         case 2:
-            printf("Player 1 controla as pecas brancas e Player 2 as pecas Pretas.");
+            printf("Player 1 controla as pecas minusculas e Player 2 as pecas maiusculas.");
             printf(" O jogo segue todas as regras oficiais. Exceto que:\n");
             printf("\n    - Nao e possivel fazer movimentos especiais como o roque.\n");
             printf("\nPara jogar, basta digitar a letra correspondente a peca que deseja movimentar.\n");
