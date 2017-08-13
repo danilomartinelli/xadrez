@@ -21,6 +21,12 @@ void movimento_cavalo (char tabuleiro[10][10], int linha, int coluna, int linhav
 void movimento_torre (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
 //função do movimento da rainha
 void movimento_rainha (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
+//função do movimento do rei
+void movimento_rei (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
+//função do movimento do peão minusculo
+void movimento_peaop (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
+//função do movimento do peão maisculo
+void movimento_peaoP (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
 
 //Função principal
 int main()
@@ -434,7 +440,7 @@ void selecao_peca (char tabuleiro[10][10], char *ppeca){
 // rodada=vez de cada jogador
 // linhavelha=linha original da peca que irá ser movida
 // colunavelha=coluna original da peca que irá ser movida
-void mover_peca(char tabuleiro[10][10], char *ppeca,int rodada,int linhavelha , int colunavelha, int *movimento_valido){
+void mover_peca(char tabuleiro[10][10], char *ppeca, int rodada, int linhavelha , int colunavelha, int *movimento_valido){
     //linha=linha que a peça será movida
     //coluna=coluna que a peça será movida
     int linha, coluna;
@@ -452,6 +458,7 @@ void mover_peca(char tabuleiro[10][10], char *ppeca,int rodada,int linhavelha , 
         switch(peca){
 
             case'p':
+                movimento_peaop (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
                 if(*movimento_valido==1){
                     //atribuindo que na posição escolhida pelo jogador será colocado a peca escolhida pelo jogador
                     tabuleiro[linha][coluna] = peca;
@@ -499,7 +506,7 @@ void mover_peca(char tabuleiro[10][10], char *ppeca,int rodada,int linhavelha , 
                 break;
 
             case'r':
-
+                movimento_rei (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
                 if(*movimento_valido==1){
                     //atribuindo que na posição escolhida pelo jogador será colocado a peca escolhida pelo jogador
                     tabuleiro[linha][coluna] = peca;
@@ -523,6 +530,7 @@ void mover_peca(char tabuleiro[10][10], char *ppeca,int rodada,int linhavelha , 
                 break;
 
             case 'P':
+                movimento_peaoP (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
                 if(*movimento_valido==1){
                     //atribuindo que na posição escolhida pelo jogador será colocado a peca escolhida pelo jogador
                     tabuleiro[linha][coluna] = peca;
@@ -571,7 +579,7 @@ void mover_peca(char tabuleiro[10][10], char *ppeca,int rodada,int linhavelha , 
                 break;
 
             case'R':
-
+                movimento_rei (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
                 if(*movimento_valido==1){
                     //atribuindo que na posição escolhida pelo jogador será colocado a peca escolhida pelo jogador
                     tabuleiro[linha][coluna] = peca;
@@ -690,6 +698,44 @@ void movimento_rainha (char tabuleiro[10][10], int linha, int coluna, int linhav
 
 }
 
+void movimento_rei (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
 
+
+        if(((coluna-colunavelha==1) && (linha-linhavelha==1)) || ((colunavelha-coluna==1) && (linha-linhavelha)==1) || ((colunavelha-coluna==1) && (linha-linhavelha==1)) || ((colunavelha-coluna==1) && (linhavelha-linha==1)) || ((linha-linhavelha==1) && (coluna==colunavelha)) || ((linhavelha-linha==1) && (coluna==colunavelha)) || ((linhavelha==linha) && (colunavelha-coluna==1)) || ((linhavelha==linha) && (coluna-colunavelha==1))){
+            *movimento_valido=1;
+            printf("\nMovimento valido\n");
+        }
+        else {
+            *movimento_valido=0;
+            printf("\nMovimento invalido\n");
+        }
+
+}
+
+void movimento_peaoP (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha, int *movimento_valido){
+
+        if((coluna==colunavelha) && (linha-linhavelha==1) || (((colunavelha-coluna==1) && (linhavelha-linha==1) /*&& (validar_movimento_peao==1)*/)) || (((coluna-colunavelha==1) && (linha-linhavelha==1)/* && (validar_movimento_peao==1)*/)){
+            movimento_valido=1;
+            printf("Movimento valido");
+        }
+        else {
+            movimento_valido=0;
+            printf("Movimento invalido");
+        }
+
+}
+
+void movimento_peaop (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
+
+        if((coluna==colunavelha) && (linhavelha-linha==1) || (((colunavelha-coluna==1) && (linha-linhavelha==1) && (validar_movimento_peao==1))) || (((coluna-colunavelha==1) && (linhavelha-linha==1) && (validar_movimento_peao==1))){
+            *movimento_valido=1;
+            printf("Movimento valido");
+        }
+        else {
+            *movimento_valido=0;
+            printf("Movimento invalido");
+        }
+
+}
 
 
