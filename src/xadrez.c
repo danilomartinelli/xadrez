@@ -333,6 +333,7 @@ void selecao_peca (char tabuleiro[10][10], char *ppeca){
                     }
                     else{
                         printf("Peca invalida.\n");
+
                     }
                     //fecha o Do While
               //chama a função que move a peca da posição original para a nova posição
@@ -418,6 +419,7 @@ void selecao_peca (char tabuleiro[10][10], char *ppeca){
         }
         else{
             printf("Peca invalida.\n");
+
         }
         // chama a função que move a peça da posição original para uma nova posição
 
@@ -453,7 +455,7 @@ void mover_peca(char tabuleiro[10][10], char *ppeca, int rodada, int linhavelha 
         printf("\nDigite a linha e a coluna para onde voce quer mover a peca\n");
         //linha e coluna para aonde a peç será movida
         scanf("%d %d", &linha, &coluna);
-        getchar();
+        //getchar();
         //função para realizar os movimentos distintos de cada peça
         switch(peca){
 
@@ -714,7 +716,7 @@ void movimento_rei (char tabuleiro[10][10], int linha, int coluna, int linhavelh
 
 void movimento_peaoP (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha, int *movimento_valido){
 
-        if((coluna==colunavelha) && (linha-linhavelha==1) || (((colunavelha-coluna==1) && (linhavelha-linha==1) /*&& (validar_movimento_peao==1)*/)) || (((coluna-colunavelha==1) && (linha-linhavelha==1)/* && (validar_movimento_peao==1)*/)){
+        if((coluna==colunavelha) && (linha-linhavelha==1) || (((colunavelha-coluna==1) && (linhavelha-linha==1) /*&& (validar_movimento_peao==1)*/)) || (((coluna-colunavelha==1) && (linha-linhavelha==1)/* && (validar_movimento_peao==1)*/))){
             movimento_valido=1;
             printf("Movimento valido");
         }
@@ -727,7 +729,7 @@ void movimento_peaoP (char tabuleiro[10][10], int linha, int coluna, int linhave
 
 void movimento_peaop (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
 
-        if((coluna==colunavelha) && (linhavelha-linha==1) || (((colunavelha-coluna==1) && (linha-linhavelha==1) && (validar_movimento_peao==1))) || (((coluna-colunavelha==1) && (linhavelha-linha==1) && (validar_movimento_peao==1))){
+        if((coluna==colunavelha) && (linhavelha-linha==1) || (((colunavelha-coluna==1) && (linha-linhavelha==1) /*&& (validar_movimento_peao==1)*/)) || (((coluna-colunavelha==1) && (linhavelha-linha==1) /*&& (validar_movimento_peao==1)*/))){
             *movimento_valido=1;
             printf("Movimento valido");
         }
