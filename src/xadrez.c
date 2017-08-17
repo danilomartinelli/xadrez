@@ -31,8 +31,7 @@ void movimento_peaoP (char tabuleiro[10][10], int linha, int coluna, int linhave
 void mover_peca(char tabuleiro[10][10], char *ppeca, int *rodada, int linhavelha , int colunavelha, int *movimento_valido);
 
 //Função principal
-int main()
-{
+int main(){
     int menu;
     char tabuleiro[10][10];
     printar_menu(tabuleiro);
@@ -251,7 +250,6 @@ printf("\t\t\t`````````````````````````;+#@,#@..:@@@@+;.````````````````````````
 //fecha o laço que cria a menu
 }
 
-
 //função selecao peca
 void selecao_peca (char tabuleiro[10][10], char *ppeca){
    int linha, coluna, peca_valida, rodada, linhavelha, colunavelha;
@@ -460,6 +458,7 @@ void mover_peca(char tabuleiro[10][10], char *ppeca, int *rodada, int linhavelha
 
         if((linha==0)&&(coluna==0)){
             *rodada=*rodada-1;
+            *movimento_valido=1;
 
            }
 
