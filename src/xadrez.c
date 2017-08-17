@@ -178,6 +178,26 @@ void help()
     getchar();
 }
 
+void imgIntro()
+{
+    FILE *file; //Declara Struct do tipo FILE.
+    char row[100];
+
+    clear_screen();
+
+    //Verifica se existe arquivo:
+    file = fopen("assets/imgIntro.txt", "rt");
+    if (file == NULL)
+        exit(EXIT_FAILURE);
+
+    //Printa as linhas do arquivo no DOS.
+    while (!feof(file))
+    {
+        fgets(row, 100, file);
+        printf("%s", row);
+    }
+}
+
 //Deixa o nome da peça mais amigavel para o usuário.
 const char *prettyPiece(char piece)
 {
@@ -1473,8 +1493,8 @@ int main()
         do
         {
             clear_screen();
-
-            printf("\t\t\t########## XADREZ ########\n\n\n");
+            imgIntro();
+            printf("\n\n\n\t\t\t########## XADREZ ########\n\n\n");
             printf("\t\t\t########## MENU ##########\n");
             printf("1. Novo Jogo\n");
             printf("2. Ajuda\n");
