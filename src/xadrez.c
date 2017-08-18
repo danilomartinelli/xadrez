@@ -24,9 +24,9 @@ void movimento_rainha (char tabuleiro[10][10], int linha, int coluna, int linhav
 //função do movimento do rei
 void movimento_rei (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
 //função do movimento do peão minusculo
-void validar_movimento_peaop (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
+void movimento_peaop (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
 //função do movimento do peão maisculo
-void validar_movimento_peaoP (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
+void movimento_peaoP (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
 //função que move a peca
 void mover_peca(char tabuleiro[10][10], char *ppeca, int *rodada, int linhavelha , int colunavelha, int *movimento_valido);
 
@@ -82,7 +82,6 @@ void tabuleiro_em_tela(char tabuleiro[10][10]){
     {
         tabuleiro[2][coluna] = 'P';
     }
-
     //Colocando peças do jogador de baixo
     tabuleiro[8][1] = 't';
     tabuleiro[8][2] = 'c';
@@ -475,7 +474,7 @@ void mover_peca(char tabuleiro[10][10], char *ppeca, int *rodada, int linhavelha
         switch(peca){
 
             case'p':
-                validar_movimento_peaop (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
+                movimento_peaop (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
                 if(*movimento_valido==1){
                     //atribuindo que na posição escolhida pelo jogador será colocado a peca escolhida pelo jogador
                     tabuleiro[linha][coluna] = peca;
@@ -547,7 +546,7 @@ void mover_peca(char tabuleiro[10][10], char *ppeca, int *rodada, int linhavelha
                 break;
 
             case 'P':
-                validar_movimento_peaoP (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
+                movimento_peaoP (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
                 if(*movimento_valido==1){
                     //atribuindo que na posição escolhida pelo jogador será colocado a peca escolhida pelo jogador
                     tabuleiro[linha][coluna] = peca;
@@ -661,7 +660,6 @@ void atualizar_tela ( char tabuleiro[10][10], int *rodada){
 }
 
 void movimento_bispo (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
-
         if(coluna-colunavelha == linha-linhavelha || coluna-colunavelha==((linha-linhavelha)*(-1))){
             *movimento_valido=1;
         }
@@ -678,7 +676,6 @@ void movimento_bispo (char tabuleiro[10][10], int linha, int coluna, int linhave
 }
 
 void movimento_cavalo (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
-
         if(((linhavelha-linha==2)&&(colunavelha-coluna==1)) || ((linhavelha-linha==1)&&(colunavelha-coluna==2)) || ((linha-linhavelha==1)&&(colunavelha-coluna==2)) || ((linha-linhavelha==2)&&(colunavelha-coluna==1)) || ((linhavelha-linha==2)&&(coluna-colunavelha==1)) || ((linhavelha-linha==1)&&(coluna-colunavelha==2)) || ((linha-linhavelha==1)&&(coluna-colunavelha==2)) || ((linha-linhavelha==2)&&(coluna-colunavelha==1))){
             printf("\nMovimento valido\n");
             *movimento_valido=1;
@@ -691,7 +688,6 @@ void movimento_cavalo (char tabuleiro[10][10], int linha, int coluna, int linhav
 }
 
 void movimento_torre (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
-
         if(((colunavelha==coluna) && (linha!= linhavelha)) || ((linhavelha==linhavelha) && (coluna!=colunavelha))){
             *movimento_valido=1;
         }
@@ -708,7 +704,6 @@ void movimento_torre (char tabuleiro[10][10], int linha, int coluna, int linhave
 }
 
 void movimento_rainha (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
-
     if((coluna-colunavelha==linha-linhavelha) || (coluna-colunavelha==linhavelha-linha) || ((colunavelha==coluna) && (linha!=linhavelha)) || ((linhavelha==linha) && (colunavelha!=coluna))){
         *movimento_valido=1;
     }
@@ -736,99 +731,29 @@ void movimento_rei (char tabuleiro[10][10], int linha, int coluna, int linhavelh
 
 }
 
-void validar_movimento_peaoP (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha, int *movimento_valido){
-    int NaoEntraMais=0;
-    printf("%d, %d, %d, %d", linha, linhavelha, coluna, colunavelha);
-    getchar();
-    if((colunavelha-coluna==1) && (linha-linhavelha==1) && (NaoEntraMais==0)){
-        if(isalpha(tabuleiro[linha][coluna])==1){
-            if(islower(tabuleiro[linha][coluna])==1){
-                *movimento_valido=1;
-                printf("Movimento Valido.\n");
-            }
-            else{
-                printf("Movimento invalido\n");
-            }
+void movimento_peaoP (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha, int *movimento_valido){
+        if((coluna==colunavelha) && (linha-linhavelha==1) || (((colunavelha-coluna==1) && (linhavelha-linha==1) /*&& (validar_movimento_peao==1)*/)) || (((coluna-colunavelha==1) && (linha-linhavelha==1)/* && (validar_movimento_peao==1)*/))){
+            movimento_valido=1;
+            printf("/nMovimento valido/n");
         }
-        if(tabuleiro[linha][coluna]=='-'){
+        else {
+            movimento_valido=0;
+            printf("/nMovimento invalido/n");
+        }
+
+}
+
+void movimento_peaop (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
+        if((coluna==colunavelha) && (linhavelha-linha==1) || (((colunavelha-coluna==1) && (linha-linhavelha==1) /*&& (validar_movimento_peao==1)*/)) || (((coluna-colunavelha==1) && (linhavelha-linha==1) /*&& (validar_movimento_peao==1)*/))){
             *movimento_valido=1;
-            printf("Movimento Valido.\n");
+            printf("/nMovimento valido/n");
         }
-        NaoEntraMais=1;
-    }
-    if((coluna-colunavelha==1) && (linha-linhavelha==1) && (NaoEntraMais==0)){
-        if(isalpha(tabuleiro[linha][coluna])==1){
-            if(islower(tabuleiro[linha][coluna])==1){
-                *movimento_valido=1;
-                printf("Movimento Valido.\n");
-            }
-            else{
-                printf("Movimento invalido\n");
-            }
-        }
-        if(tabuleiro[linha][coluna]=='-'){
-            *movimento_valido=1;
-            printf("Movimento Valido.\n");
-        }
-        NaoEntraMais=1;
-    }
-    if ((coluna==colunavelha) && (linha-linhavelha==1) && (NaoEntraMais==0)){
-        if(isalpha(tabuleiro[linha][coluna])==1){
+        else {
             *movimento_valido=0;
-            printf("Movimento invalido.\n");
-            }
-        if(tabuleiro[linha][coluna]=='-'){
-            *movimento_valido=1;
-            printf("Movimento Valido.\n");
+            printf("/nMovimento invalido/n");
         }
-        NaoEntraMais=1;
-    }
+
 }
 
 
-void validar_movimento_peaop (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha, int *movimento_valido){
-   int NaoEntraMais=0;
-    if((coluna-colunavelha==1) && (linhavelha-linha==1) && (NaoEntraMais==0)){
-        if(isalpha(tabuleiro[linha][coluna])==1){
-            if((islower(tabuleiro[linha][coluna])==1)){
-                *movimento_valido=1;
-                printf("Movimento Valido.\n");
-            }
-            else{
-                printf("Movimento invalido\n");
-            }
-        }
-        if(tabuleiro[linha][coluna]=='-'){
-            *movimento_valido=1;
-            printf("Movimento Valido.\n");
-        }
-        NaoEntraMais=1;
-    }
-    if((colunavelha-coluna==1) && (linhavelha-linha==1) && (NaoEntraMais==0)){
-        if(isalpha(tabuleiro[linha][coluna])==1){
-            if((islower(tabuleiro[linha][coluna])==1)){
-                *movimento_valido=1;
-                printf("Movimento Valido.\n");
-            }
-            else{
-                printf("Movimento invalido\n");
-            }
-        }
-        if(tabuleiro[linha][coluna]=='-'){
-            *movimento_valido=1;
-            printf("Movimento Valido.\n");
-        }
-        NaoEntraMais=1;
-    }
-    if ((coluna==colunavelha) && (linhavelha-linha==1) && (NaoEntraMais==0)){
-        if(isalpha(tabuleiro[linha][coluna])==1){
-            *movimento_valido=0;
-            printf("Movimento invalido.\n");
-            }
-        if(tabuleiro[linha][coluna]=='-'){
-            *movimento_valido=1;
-            printf("Movimento Valido.\n");
-        }
-        NaoEntraMais=1;
-    }
-}
+
