@@ -10,7 +10,7 @@ void printar_menu(char tabuleiro[10][10]);
 //Selecionar a peça
 void selecao_peca (char tabuleiro[10][10], char *ppeca);
 //Mover peca
-void atualizar_tela ( char tabuleiro[10][10], int rodada);
+void atualizar_tela ( char tabuleiro[10][10], int *rodada);
 //Funcão pra chamar os jogadores pelo nome
 void nome_jogadores (char *nomeJogador1, char *nomeJogador2);
 //função do movimento do bispo
@@ -332,8 +332,9 @@ void selecao_peca (char tabuleiro[10][10], char *ppeca){
                         }
                     }
                     else{
-                        printf("Peca invalida.\n");
 
+                        atualizar_tela(tabuleiro,rodada);
+                        printf("Peca invalida.\n");
                     }
                     //fecha o Do While
               //chama a função que move a peca da posição original para a nova posição
@@ -417,8 +418,8 @@ void selecao_peca (char tabuleiro[10][10], char *ppeca){
                     }
                 }
                 else{
-                    printf("Peca invalida.\n");
-
+                     atualizar_tela(tabuleiro,rodada);
+                     printf("Peca invalida.\n");
                 }
                 // chama a função que move a peça da posição original para uma nova posição
 
@@ -450,22 +451,25 @@ void mover_peca(char tabuleiro[10][10], char *ppeca, int *rodada, int linhavelha
     //peca=a variavel para onde o ponteiro aponta que é justamente a peca escolhida pelo jogador
     peca = *ppeca;
     // laço para fazer com que os jogadores coloquem as peças nos locais certos
+
     do{
-        printf("Digite 0 e 0 para selecionar outra peca");
+        printf("Digite 0 e 0 para selecionar outra peca ou");
         printf("\nDigite a linha e a coluna para onde voce quer mover a peca\n");
         //linha e coluna para aonde a peç será movida
         scanf("%d %d", &linha, &coluna);
 
+        //Se o player digitar 0 e 0 a função retorna para o laço de seleção de peça
         if((linha==0)&&(coluna==0)){
+            //para evitar que quando volte para a função de seleção de peca, não vá para o jogador seguinte
             *rodada=*rodada-1;
             *movimento_valido=1;
+            atualizar_tela(tabuleiro,rodada);
 
            }
 
         else{
 
-        //getchar();
-        //função para realizar os movimentos distintos de cada peça
+        // realizar os movimentos distintos de cada peça
         switch(peca){
 
             case'p':
@@ -481,7 +485,7 @@ void mover_peca(char tabuleiro[10][10], char *ppeca, int *rodada, int linhavelha
                 break;
 
             case 't':
-                movimento_torre (tabuleiro, linha, coluna, linhavelha, colunavelha,movimento_valido);
+                movimento_torre (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
                 if(*movimento_valido==1){
                     //atribuindo que na posição escolhida pelo jogador será colocado a peca escolhida pelo jogador
                     tabuleiro[linha][coluna] = peca;
@@ -625,13 +629,20 @@ void mover_peca(char tabuleiro[10][10], char *ppeca, int *rodada, int linhavelha
 
 // tabuleiro[10][10]=tabuleiro do jogo
 // rodada=vez de cada jogador
-void atualizar_tela ( char tabuleiro[10][10], int rodada){
+void atualizar_tela ( char tabuleiro[10][10], int *rodada){
     //linha=linha que irá ser usada para construir a nova matrix(tabuleiro)
     //coluna=coluna que irá ser usada para construir a nova matrix(tabuleiro)
     int linha, coluna;
-    printf("\t\t\t#################Partida %d#################\n\n\n",&rodada);
     //limpar a matrix(tabuleiro) anterior
     system("cls");
+    if(rodada<=0){
+        printf("\t\t\t#################Rodada 0#################\n\n\n");
+
+    }
+    else{
+        printf("\t\t\t#################Rodada %d#################\n\n\n", *rodada);
+
+    }
     //printar a matriz na tela
     //varrer as linhas da matrix
     for(linha=0;linha<10;linha++){
@@ -729,11 +740,11 @@ void movimento_peaoP (char tabuleiro[10][10], int linha, int coluna, int linhave
 
         if((coluna==colunavelha) && (linha-linhavelha==1) || (((colunavelha-coluna==1) && (linhavelha-linha==1) /*&& (validar_movimento_peao==1)*/)) || (((coluna-colunavelha==1) && (linha-linhavelha==1)/* && (validar_movimento_peao==1)*/))){
             movimento_valido=1;
-            printf("Movimento valido");
+            printf("/nMovimento valido/n");
         }
         else {
             movimento_valido=0;
-            printf("Movimento invalido");
+            printf("/nMovimento invalido/n");
         }
 
 }
@@ -742,11 +753,11 @@ void movimento_peaop (char tabuleiro[10][10], int linha, int coluna, int linhave
 
         if((coluna==colunavelha) && (linhavelha-linha==1) || (((colunavelha-coluna==1) && (linha-linhavelha==1) /*&& (validar_movimento_peao==1)*/)) || (((coluna-colunavelha==1) && (linhavelha-linha==1) /*&& (validar_movimento_peao==1)*/))){
             *movimento_valido=1;
-            printf("Movimento valido");
+            printf("/nMovimento valido/n");
         }
         else {
             *movimento_valido=0;
-            printf("Movimento invalido");
+            printf("/nMovimento invalido/n");
         }
 
 }
