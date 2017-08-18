@@ -803,7 +803,7 @@ void validar_movimento_peaop (char tabuleiro[10][10], int linha, int coluna, int
     }
     if((coluna-colunavelha==1) && (linhavelha-linha==1) && (NaoEntraMais==0)){
         if(isalpha(tabuleiro[linha][coluna])!=0){
-            if((islower(tabuleiro[linha][coluna])!=0)){
+            if((isupper(tabuleiro[linha][coluna])!=0)){
                 *movimento_valido=1;
             }
             else{
