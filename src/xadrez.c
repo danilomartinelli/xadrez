@@ -783,7 +783,7 @@ void validar_movimento_peaoP (char tabuleiro[10][10], int linha, int coluna, int
     }
 }
 
-
+//função do peao pequeno
 void validar_movimento_peaop (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha, int *movimento_valido){
    int NaoEntraMais=0;
    *movimento_valido=0;
