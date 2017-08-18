@@ -333,6 +333,7 @@ void selecao_peca (char tabuleiro[10][10], char *ppeca){
                     }
                     else{
 
+                        //atualizar o tabuleiro
                         atualizar_tela(tabuleiro,rodada);
                         printf("Peca invalida.\n");
                     }
@@ -418,6 +419,7 @@ void selecao_peca (char tabuleiro[10][10], char *ppeca){
                     }
                 }
                 else{
+                     //atualizar o tabuleiro
                      atualizar_tela(tabuleiro,rodada);
                      printf("Peca invalida.\n");
                 }
@@ -636,11 +638,11 @@ void atualizar_tela ( char tabuleiro[10][10], int *rodada){
     //limpar a matrix(tabuleiro) anterior
     system("cls");
     if(rodada<=0){
-        printf("\t\t\t#################Rodada 0#################\n\n\n");
+        printf("\t\t#################Rodada 0#################\n\n\n");
 
     }
     else{
-        printf("\t\t\t#################Rodada %d#################\n\n\n", *rodada);
+        printf("\t\t#################Rodada %d#################\n\n\n", *rodada);
 
     }
     //printar a matriz na tela
