@@ -797,7 +797,7 @@ void validar_movimento_peaop (char tabuleiro[10][10], int linha, int coluna, int
             }
         }
         if(tabuleiro[linha][coluna]=='-'){
-            *movimento_valido=1;
+            *movimento_valido=0;
         }
         NaoEntraMais=1;
     }
@@ -811,7 +811,7 @@ void validar_movimento_peaop (char tabuleiro[10][10], int linha, int coluna, int
             }
         }
         if(tabuleiro[linha][coluna]=='-'){
-            *movimento_valido=1;
+            *movimento_valido=0;
         }
         NaoEntraMais=1;
     }
@@ -835,5 +835,4 @@ void validar_movimento_peaop (char tabuleiro[10][10], int linha, int coluna, int
         printf("\nMovimento invalido\n");
     }
 }
-
 
