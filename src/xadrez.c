@@ -688,7 +688,7 @@ void movimento_cavalo (char tabuleiro[10][10], int linha, int coluna, int linhav
 }
 
 void movimento_torre (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
-        if(((colunavelha==coluna) && (linha!= linhavelha)) || ((linhavelha==linhavelha) && (coluna!=colunavelha))){
+        if(((colunavelha==coluna) && (linhavelha!= linha)) || ((linhavelha==linha) && (colunavelha!=coluna))){
             *movimento_valido=1;
         }
         else {
