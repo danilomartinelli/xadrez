@@ -29,6 +29,8 @@ void validar_movimento_peaop (char tabuleiro[10][10], int linha, int coluna, int
 void validar_movimento_peaoP (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha, int *movimento_valido);
 //função que move a peca
 void mover_peca(char tabuleiro[10][10], char *ppeca, int *rodada, int linhavelha , int colunavelha, int *movimento_valido);
+//funçõa que dá check mate
+void check_mate (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha, int *movimento_valido);
 
 //Função principal
 int main(){
@@ -622,6 +624,7 @@ void mover_peca(char tabuleiro[10][10], char *ppeca, int *rodada, int linhavelha
             default:
                 printf("\nPeca invalida.\n");
             }
+            check_mate (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
 
         }
         }while(*movimento_valido==0);
@@ -783,7 +786,7 @@ void validar_movimento_peaoP (char tabuleiro[10][10], int linha, int coluna, int
     }
 }
 
-//função do peao pequeno
+
 void validar_movimento_peaop (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha, int *movimento_valido){
    int NaoEntraMais=0;
    *movimento_valido=0;
@@ -797,13 +800,13 @@ void validar_movimento_peaop (char tabuleiro[10][10], int linha, int coluna, int
             }
         }
         if(tabuleiro[linha][coluna]=='-'){
-            *movimento_valido=0;
+            *movimento_valido=1;
         }
         NaoEntraMais=1;
     }
     if((coluna-colunavelha==1) && (linhavelha-linha==1) && (NaoEntraMais==0)){
         if(isalpha(tabuleiro[linha][coluna])!=0){
-            if((isupper(tabuleiro[linha][coluna])!=0)){
+            if((islower(tabuleiro[linha][coluna])!=0)){
                 *movimento_valido=1;
             }
             else{
@@ -811,7 +814,7 @@ void validar_movimento_peaop (char tabuleiro[10][10], int linha, int coluna, int
             }
         }
         if(tabuleiro[linha][coluna]=='-'){
-            *movimento_valido=0;
+            *movimento_valido=1;
         }
         NaoEntraMais=1;
     }
@@ -836,4 +839,42 @@ void validar_movimento_peaop (char tabuleiro[10][10], int linha, int coluna, int
     }
 }
 
+//função que verifica o fim do jogo
+void check_mate (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha, int *movimento_valido){
+    int rei_vivo=0, Rei_vivo=0;
+    char peca;
 
+    for (linha=0;linha<10;linha++){
+        for(coluna=0;coluna<10;coluna++){
+            peca=tabuleiro[linha][coluna];
+            if(peca=='r'){
+                rei_vivo=1;
+
+            }
+
+            if(peca=='R'){
+                Rei_vivo=1;
+
+            }
+
+            if(rei_vivo==0){
+                system("cls");
+                printf("\nPlayer 1 perdeu. Check Mate\n");
+                printf("Game Over");
+                system("pause");
+                printar_menu(tabuleiro);
+
+            }
+            if(Rei_vivo==0){
+                system("cls");
+                printf("\nPlayer 2 perdeu. Check Mate\n");
+                printf("Game Over");
+                system("pause");
+                printar_menu(tabuleiro);
+
+
+            }
+        }
+    }
+
+}
