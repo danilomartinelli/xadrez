@@ -14,15 +14,15 @@ void atualizar_tela ( char tabuleiro[10][10], int *rodada);
 //Funcão pra chamar os jogadores pelo nome
 void nome_jogadores (char *nomeJogador1, char *nomeJogador2);
 //função do movimento do bispo
-void movimento_bispo (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
+void validar_movimento_bispo (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
 //função do movimento do cavalo
-void movimento_cavalo (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
+void validar_movimento_cavalo (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
 //função do movimento da torre
-void movimento_torre (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
+void validar_movimento_torre (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha, int *movimento_valido);
 //função do movimento da rainha
-void movimento_rainha (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
+void validar_movimento_rainha (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
 //função do movimento do rei
-void movimento_rei (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
+void validar_movimento_rei (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
 //função do movimento do peão minusculo
 void validar_movimento_peaop (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha, int *movimento_valido);
 //função do movimento do peão maisculo
@@ -462,7 +462,7 @@ void mover_peca(char tabuleiro[10][10], char *ppeca, int *rodada, int linhavelha
         //Se o player digitar 0 e 0 a função retorna para o laço de seleção de peça
         if((linha==0)&&(coluna==0)){
             //para evitar que quando volte para a função de seleção de peca, não vá para o jogador seguinte
-            *rodada=*rodada-1;
+            *rodada=*rodada+1;
             *movimento_valido=1;
             atualizar_tela(tabuleiro,rodada);
 
@@ -486,7 +486,7 @@ void mover_peca(char tabuleiro[10][10], char *ppeca, int *rodada, int linhavelha
                 break;
 
             case 't':
-                movimento_torre (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
+                validar_movimento_torre (tabuleiro, linha, coluna, linhavelha, colunavelha, *movimento_valido);
                 if(*movimento_valido==1){
                     //atribuindo que na posição escolhida pelo jogador será colocado a peca escolhida pelo jogador
                     tabuleiro[linha][coluna] = peca;
@@ -498,7 +498,7 @@ void mover_peca(char tabuleiro[10][10], char *ppeca, int *rodada, int linhavelha
                 break;
 
             case'b':
-                validar_movimento_peaoP (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
+                validar_movimento_bispo (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
                 if(*movimento_valido==1){
                     //atribuindo que na posição escolhida pelo jogador será colocado a peca escolhida pelo jogador
                     tabuleiro[linha][coluna] = peca;
@@ -510,7 +510,7 @@ void mover_peca(char tabuleiro[10][10], char *ppeca, int *rodada, int linhavelha
                 break;
 
             case'c':
-                movimento_cavalo (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
+                validar_movimento_cavalo (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
                 if(*movimento_valido==1){
                     //atribuindo que na posição escolhida pelo jogador será colocado a peca escolhida pelo jogador
                     tabuleiro[linha][coluna] = peca;
@@ -522,7 +522,7 @@ void mover_peca(char tabuleiro[10][10], char *ppeca, int *rodada, int linhavelha
                 break;
 
             case'r':
-                movimento_rei (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
+                validar_movimento_rei (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
                 if(*movimento_valido==1){
                     //atribuindo que na posição escolhida pelo jogador será colocado a peca escolhida pelo jogador
                     tabuleiro[linha][coluna] = peca;
@@ -534,7 +534,7 @@ void mover_peca(char tabuleiro[10][10], char *ppeca, int *rodada, int linhavelha
                 break;
 
             case'a':
-                movimento_rainha (tabuleiro, linha, coluna,  linhavelha, colunavelha, movimento_valido);
+                validar_movimento_rainha (tabuleiro, linha, coluna,  linhavelha, colunavelha, movimento_valido);
                 if(*movimento_valido==1){
                     //atribuindo que na posição escolhida pelo jogador será colocado a peca escolhida pelo jogador
                     tabuleiro[linha][coluna] = peca;
@@ -558,7 +558,7 @@ void mover_peca(char tabuleiro[10][10], char *ppeca, int *rodada, int linhavelha
                 break;
 
             case 'T':
-                movimento_torre (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
+                validar_movimento_torre (tabuleiro, linha, coluna, linhavelha, colunavelha, *movimento_valido);
                 if(*movimento_valido==1){
                     //atribuindo que na posição escolhida pelo jogador será colocado a peca escolhida pelo jogador
                     tabuleiro[linha][coluna] = peca;
@@ -571,7 +571,7 @@ void mover_peca(char tabuleiro[10][10], char *ppeca, int *rodada, int linhavelha
 
             case'B':
                 //função que rege o movimento do bispo
-                movimento_bispo (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
+                validar_movimento_bispo (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
                 if(*movimento_valido==1){
                     //atribuindo que na posição escolhida pelo jogador será colocado a peca escolhida pelo jogador
                     tabuleiro[linha][coluna] = peca;
@@ -583,7 +583,7 @@ void mover_peca(char tabuleiro[10][10], char *ppeca, int *rodada, int linhavelha
                 break;
 
             case'C':
-                movimento_cavalo (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
+                validar_movimento_cavalo (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
                 if(*movimento_valido==1){
                     //atribuindo que na posição escolhida pelo jogador será colocado a peca escolhida pelo jogador
                     tabuleiro[linha][coluna] = peca;
@@ -595,7 +595,7 @@ void mover_peca(char tabuleiro[10][10], char *ppeca, int *rodada, int linhavelha
                 break;
 
             case'R':
-                movimento_rei (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
+                validar_movimento_rei (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
                 if(*movimento_valido==1){
                     //atribuindo que na posição escolhida pelo jogador será colocado a peca escolhida pelo jogador
                     tabuleiro[linha][coluna] = peca;
@@ -607,7 +607,7 @@ void mover_peca(char tabuleiro[10][10], char *ppeca, int *rodada, int linhavelha
                 break;
 
             case'A':
-                movimento_rainha (tabuleiro, linha, coluna,  linhavelha, colunavelha, movimento_valido);
+                validar_movimento_rainha (tabuleiro, linha, coluna,  linhavelha, colunavelha, movimento_valido);
                 if(*movimento_valido==1){
                     //atribuindo que na posição escolhida pelo jogador será colocado a peca escolhida pelo jogador
                     tabuleiro[linha][coluna] = peca;
@@ -620,6 +620,7 @@ void mover_peca(char tabuleiro[10][10], char *ppeca, int *rodada, int linhavelha
                 break;
 
             default:
+                atualizar_tela(tabuleiro,rodada);
                 printf("\nPeca invalida.\n");
             }
 
@@ -636,7 +637,8 @@ void atualizar_tela ( char tabuleiro[10][10], int *rodada){
     int linha, coluna;
     //limpar a matrix(tabuleiro) anterior
     system("cls");
-    if(rodada<=0){
+
+    if(*rodada<=0){
         printf("\t\t#################Rodada 0#################\n\n\n");
 
     }
@@ -659,7 +661,7 @@ void atualizar_tela ( char tabuleiro[10][10], int *rodada){
 //fecha a função
 }
 
-void movimento_bispo (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
+void validar_movimento_bispo (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
         if(coluna-colunavelha == linha-linhavelha || coluna-colunavelha==((linha-linhavelha)*(-1))){
             *movimento_valido=1;
         }
@@ -675,7 +677,7 @@ void movimento_bispo (char tabuleiro[10][10], int linha, int coluna, int linhave
 
 }
 
-void movimento_cavalo (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
+void validar_movimento_cavalo (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
         if(((linhavelha-linha==2)&&(colunavelha-coluna==1)) || ((linhavelha-linha==1)&&(colunavelha-coluna==2)) || ((linha-linhavelha==1)&&(colunavelha-coluna==2)) || ((linha-linhavelha==2)&&(colunavelha-coluna==1)) || ((linhavelha-linha==2)&&(coluna-colunavelha==1)) || ((linhavelha-linha==1)&&(coluna-colunavelha==2)) || ((linha-linhavelha==1)&&(coluna-colunavelha==2)) || ((linha-linhavelha==2)&&(coluna-colunavelha==1))){
             printf("\nMovimento valido\n");
             *movimento_valido=1;
@@ -687,23 +689,62 @@ void movimento_cavalo (char tabuleiro[10][10], int linha, int coluna, int linhav
 
 }
 
-void movimento_torre (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
-        if(((colunavelha==coluna) && (linhavelha!= linha)) || ((linhavelha==linha) && (colunavelha!=coluna))){
-            *movimento_valido=1;
+void validar_movimento_torre (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
+    int cont;
+    *movimento_valido=0;
+    if ((colunavelha==coluna) && (linhavelha!= linha)){
+        if (linhavelha<linha){
+            for (cont=linhavelha; cont<=linha; cont++){
+                if(tabuleiro[cont][coluna]!='-'){
+                    *movimento_valido=0;
+                }
+                else{
+                    *movimento_valido=1;
+                }
+            }
         }
-        else {
-            *movimento_valido=0;
+    }
+        if (linha<linhavelha){
+            for (cont=linha; cont<=linhavelha; cont++){
+                if(tabuleiro[cont][coluna]!='-'){
+                    *movimento_valido=0;
+                }
+                else{
+                    *movimento_valido=1;
+                }
+            }
+    }
+    if((linhavelha==linha) && (colunavelha!=coluna)){
+        if (colunavelha<coluna){
+            for (cont=colunavelha; cont<=coluna; cont++){
+                if(tabuleiro[cont][coluna]!='-'){
+                    *movimento_valido=0;
+                }
+                else{
+                    *movimento_valido=1;
+                }
+            }
         }
-        if (*movimento_valido==1){
-            printf("\nMovimento valido\n");
+    }
+    if (coluna<colunavelha){
+            for (cont=coluna; cont<=colunavelha; cont++){
+                if(tabuleiro[cont][coluna]!='-'){
+                    *movimento_valido=0;
+                }
+                else{
+                    *movimento_valido=1;
+                }
+            }
         }
-        else {
-            printf("\nMovimento invalido\n");
-        }
-
+    if (*movimento_valido==1){
+        printf("\nMovimento valido\n");
+    }
+    else{
+        printf("\nMovimento invalido\n");
+    }
 }
 
-void movimento_rainha (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
+void validar_movimento_rainha (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
     if((coluna-colunavelha==linha-linhavelha) || (coluna-colunavelha==linhavelha-linha) || ((colunavelha==coluna) && (linha!=linhavelha)) || ((linhavelha==linha) && (colunavelha!=coluna))){
         *movimento_valido=1;
     }
@@ -719,7 +760,7 @@ void movimento_rainha (char tabuleiro[10][10], int linha, int coluna, int linhav
 
 }
 
-void movimento_rei (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
+void validar_movimento_rei (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
         if(((coluna-colunavelha==1) && (linha-linhavelha==1)) || ((colunavelha-coluna==1) && (linha-linhavelha)==1) || ((colunavelha-coluna==1) && (linha-linhavelha==1)) || ((colunavelha-coluna==1) && (linhavelha-linha==1)) || ((linha-linhavelha==1) && (coluna==colunavelha)) || ((linhavelha-linha==1) && (coluna==colunavelha)) || ((linhavelha==linha) && (colunavelha-coluna==1)) || ((linhavelha==linha) && (coluna-colunavelha==1))){
             *movimento_valido=1;
             printf("\nMovimento valido\n");
@@ -731,48 +772,65 @@ void movimento_rei (char tabuleiro[10][10], int linha, int coluna, int linhavelh
 
 }
 
+//função para mover o peao grande
 void validar_movimento_peaoP (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha, int *movimento_valido){
-    int NaoEntraMais=0;
+    int NaoEntraMais=0;//variavel criada para evitar que a função entre em todos os laços se uma opção inicial for falsa
     *movimento_valido=0;
+    //quando o peão se desloca na diagonal esquerda
     if((colunavelha-coluna==1) && (linha-linhavelha==1) && (NaoEntraMais==0)){
+        // para um local que tenha uma letra
         if(isalpha(tabuleiro[linha][coluna])!=0){
+            // se essa letra for minuscula
             if(islower(tabuleiro[linha][coluna])!=0){
-                *movimento_valido=1;
+                *movimento_valido=1;//significa que ele pode andar e comer a peca do adversario
             }
             else{
-                *movimento_valido=0;
+                *movimento_valido=0;//significa que ele não pode andar e comer a peca do adversario
             }
         }
+        // se não for uma letra e sim um espaço vazio, ele só pode andar para frente
         if(tabuleiro[linha][coluna]=='-'){
             *movimento_valido=0;
         }
+        // a função não entra nas condiçoes subsequentes
         NaoEntraMais=1;
+
     }
+    //quando o peão se desloca na diagonal direita
     if((coluna-colunavelha==1) && (linha-linhavelha==1) && (NaoEntraMais==0)){
+        // para um local que tenha uma letra
         if(isalpha(tabuleiro[linha][coluna])!=0){
+            // se essa letra for minuscula
             if(islower(tabuleiro[linha][coluna])!=0){
-                *movimento_valido=1;
+                *movimento_valido=1;//significa que ele pode andar e comer a peca do adversario
             }
             else{
-                *movimento_valido=0;
+                *movimento_valido=0;//significa que ele não pode andar e comer a peca do adversario
             }
         }
+        // se não for uma letra e sim um espaço vazio, ele só pode andar para frente
         if(tabuleiro[linha][coluna]=='-'){
-            *movimento_valido=0;
+            *movimento_valido=0;//significa que ele não pode andar
         }
+        // a função não entra nas condiçoes subsequentes
         NaoEntraMais=1;
     }
+    //quando o peão se desloca para frente
     if ((coluna==colunavelha) && (linha-linhavelha==1) && (NaoEntraMais==0)){
+        //para um local onde tem uma letra
         if(isalpha(tabuleiro[linha][coluna])!=0){
-            *movimento_valido=0;
+            *movimento_valido=0;//significa que ele não pode andar
         }
         if(tabuleiro[linha][coluna]=='-'){
-            *movimento_valido=1;
+            *movimento_valido=1;//significa que ele pode andar
         }
+        // a função não entra nas condiçoes subsequentes
         NaoEntraMais=1;
     }
+    // se for o primeiro movimento do peao ele pode andar duas casas para frente
     if ((linhavelha==7) && (coluna==colunavelha) && (linhavelha-linha==2) && (NaoEntraMais==0)){
-        *movimento_valido=1;
+        *movimento_valido=1;//significa que ele pode andar
+        // a função não entra nas condiçoes subsequentes
         NaoEntraMais=1;
     }
     if (*movimento_valido==1){
@@ -783,47 +841,67 @@ void validar_movimento_peaoP (char tabuleiro[10][10], int linha, int coluna, int
     }
 }
 
-
+//função para mover o peao pequeno
 void validar_movimento_peaop (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha, int *movimento_valido){
-   int NaoEntraMais=0;
+   int NaoEntraMais=0;//variavel criada para evitar que a função entre em todos os laços se uma opção inicial for falsa
    *movimento_valido=0;
+   //quando o peão se desloca na diagonal esquerda
     if((colunavelha-coluna==1) && (linhavelha-linha==1) && (NaoEntraMais==0)){
+        // para um local que tenha uma letra
         if(isalpha(tabuleiro[linha][coluna])!=0){
+            // se essa letra for maiuscula
             if((isupper(tabuleiro[linha][coluna])!=0)){
+                //significa que ele pode andar e comer a peca do adversario
                 *movimento_valido=1;
             }
             else{
+                //significa que ele não pode andar e comer a peca do adversario
                 *movimento_valido=0;
             }
         }
+        // se não for uma letra e sim um espaço vazio, ele só pode andar para frente
         if(tabuleiro[linha][coluna]=='-'){
-            *movimento_valido=0;
+            *movimento_valido=1;//rever sigificado
         }
+        // a função não entra nas condiçoes subsequentes
         NaoEntraMais=1;
     }
+    // quando o peao se desloca para a direita
     if((coluna-colunavelha==1) && (linhavelha-linha==1) && (NaoEntraMais==0)){
+        // para um local que tenha uma letra
         if(isalpha(tabuleiro[linha][coluna])!=0){
+            // se essa letra for maiuscula
             if((isupper(tabuleiro[linha][coluna])!=0)){
+                // ele pode andar e comer a peça
                 *movimento_valido=1;
             }
             else{
+                // ele não pode andar e comer a peca
                 *movimento_valido=0;
             }
         }
+        //se o local de destino for um espaço vazio ele pode andar
         if(tabuleiro[linha][coluna]=='-'){
-            *movimento_valido=0;
+            *movimento_valido=1;//rever significado
         }
+        // não entra nos laços subsequentes
         NaoEntraMais=1;
     }
+    // se o peao andar para frente
     if ((coluna==colunavelha) && (linhavelha-linha==1) && (NaoEntraMais==0)){
+        // para um local onde tenha uma letra
         if(isalpha(tabuleiro[linha][coluna])!=0){
+            // ele não pode andar e comer. obs peao não come para frente
             *movimento_valido=0;
             }
+        //para um local onde tenha um espaço vazio
         if(tabuleiro[linha][coluna]=='-'){
+            // ele pode andar
             *movimento_valido=1;
         }
         NaoEntraMais=1;
     }
+    // se for o primeiro movimento do peao ele pode andar duas casas para frente
     if ((linhavelha==7) && (coluna==colunavelha) && (linhavelha-linha==2) && (NaoEntraMais==0)){
         *movimento_valido=1;
         NaoEntraMais=1;
@@ -835,4 +913,54 @@ void validar_movimento_peaop (char tabuleiro[10][10], int linha, int coluna, int
         printf("\nMovimento invalido\n");
     }
 }
+
+//função que verifica o fim do jogo
+void check_mate (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha, int *movimento_valido){
+    int rei_vivo=0;// significa que o rei minusculo começa o jogo morto
+    int Rei_vivo=0;// significa que o rei maiusculo começa o jogo morto
+    char peca;
+    //função para rodar a matrix e verificar a presença dos reis
+    for (linha=0;linha<10;linha++){
+        for(coluna=0;coluna<10;coluna++){
+            peca=tabuleiro[linha][coluna];
+            // se a função encontrar o rei minusculo siginifica dizer que ele esta vivo
+            if(peca=='r'){
+                rei_vivo=1;
+
+            }
+            // se a função encontrar o rei maisculo siginifica dizer que ele esta vivo
+            if(peca=='R'){
+                Rei_vivo=1;
+
+            }
+            // se não for encontrado o rei minusculo, significa dizer o plater um perdeu
+            if(rei_vivo==0){
+                //limpa a tela
+                system("cls");
+                //mostra o perdedor, player 1 (pecas minusculas)
+                printf("\nPlayer 1 perdeu. Check Mate\n");
+                printf("\nParabens Player 2");
+                printf("Game Over");
+                system("pause");
+                //retorna para o menu
+                printar_menu(tabuleiro);
+
+            }
+            if(Rei_vivo==0){
+                //limpa a tela
+                system("cls");
+                //mostra o perdedor, player  (pecas maiusculas)
+                printf("\nPlayer 2 perdeu. Check Mate\n");
+                printf("\nParabens player 1");
+                printf("Game Over");
+                system("pause");
+                //retorna para o menu
+                printar_menu(tabuleiro);
+
+
+            }
+        }
+    }
+}
+
 
