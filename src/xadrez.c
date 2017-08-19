@@ -267,7 +267,8 @@ void selecao_peca (char tabuleiro[10][10], char *ppeca){
         if(rodada%2==0){
                 //laço para fazer com que o player 1 selecione uma peca valida
                  do{
-                    printf("%s (Player 1) digite uma peca a ser movida (minusculas) (linha x coluna)\n",&nomeJogador1);
+                    printf("%s (Player 1) digite uma peca a ser movida (minusculas) (linha x coluna) ou\n",&nomeJogador1);
+                    printf("Digite 10 e 10 para voltar ao menu\n");
                     scanf("%d %d", &linha, &coluna);
                     //guardar a linha de onde a peca saiu
                     linhavelha=linha;
@@ -277,6 +278,13 @@ void selecao_peca (char tabuleiro[10][10], char *ppeca){
                     peca=tabuleiro[linha][coluna];
                     //guardar o local da peca
                     ppeca=&peca;
+                    //opção para voltar ao menu no meio do jogo
+                    if(linha==10&&coluna==10){
+                    printf("Voce sera redirecionda ao menu\n");
+                    system("pause");
+                    system("cls");
+                    printar_menu(tabuleiro);
+                    }
 
                     //verificando se o player 1 selecionou os espaços internos da matrix
                     if((linha <= 8 && linha >= 1) && (coluna <= 8 && coluna >= 1)){
@@ -349,7 +357,8 @@ void selecao_peca (char tabuleiro[10][10], char *ppeca){
         else{
             //laço para fazer com que o player 2 selecione uma peca valida
              do{
-                printf("%s (Player 2) digite uma peca a ser movida (minusculas) (linha x coluna)\n",&nomeJogador2);
+                printf("%s (Player 2) digite uma peca a ser movida (minusculas) (linha x coluna) ou\n",&nomeJogador2);
+                printf("Digite 10 e 10 para voltar ao menu");
                 scanf("%d %d", &linha, &coluna);
                 //guardar a linha de onde a peca saiu
                 linhavelha=linha;
@@ -359,6 +368,13 @@ void selecao_peca (char tabuleiro[10][10], char *ppeca){
                 peca=tabuleiro[linha][coluna];
                 //guardar o local desta peca
                 ppeca=&peca;
+                //opção para voltar ao menu no meio do jogo
+                if(linha==10&&coluna==10){
+                    printf("Voce será redirecionda ao menu\n");
+                    system("pause");
+                    system("cls");
+                    printar_menu(tabuleiro);
+                }
 
                 //verifica se o player 2 selecionou os espaços dentro da matriz
                 if((linha <= 8 && linha >= 1) && (coluna <= 8 && coluna >= 1)){
@@ -661,6 +677,7 @@ void atualizar_tela ( char tabuleiro[10][10], int *rodada){
 //fecha a função
 }
 
+// função para mover o bispo
 void validar_movimento_bispo (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
         if(coluna-colunavelha == linha-linhavelha || coluna-colunavelha==((linha-linhavelha)*(-1))){
             *movimento_valido=1;
@@ -677,6 +694,7 @@ void validar_movimento_bispo (char tabuleiro[10][10], int linha, int coluna, int
 
 }
 
+// função para mover o cavalo
 void validar_movimento_cavalo (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
         if(((linhavelha-linha==2)&&(colunavelha-coluna==1)) || ((linhavelha-linha==1)&&(colunavelha-coluna==2)) || ((linha-linhavelha==1)&&(colunavelha-coluna==2)) || ((linha-linhavelha==2)&&(colunavelha-coluna==1)) || ((linhavelha-linha==2)&&(coluna-colunavelha==1)) || ((linhavelha-linha==1)&&(coluna-colunavelha==2)) || ((linha-linhavelha==1)&&(coluna-colunavelha==2)) || ((linha-linhavelha==2)&&(coluna-colunavelha==1))){
             printf("\nMovimento valido\n");
@@ -689,6 +707,7 @@ void validar_movimento_cavalo (char tabuleiro[10][10], int linha, int coluna, in
 
 }
 
+// função para mover a torre
 void validar_movimento_torre (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
     int cont;
     *movimento_valido=0;
@@ -744,6 +763,7 @@ void validar_movimento_torre (char tabuleiro[10][10], int linha, int coluna, int
     }
 }
 
+// função para mover a rainha
 void validar_movimento_rainha (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
     if((coluna-colunavelha==linha-linhavelha) || (coluna-colunavelha==linhavelha-linha) || ((colunavelha==coluna) && (linha!=linhavelha)) || ((linhavelha==linha) && (colunavelha!=coluna))){
         *movimento_valido=1;
@@ -760,6 +780,7 @@ void validar_movimento_rainha (char tabuleiro[10][10], int linha, int coluna, in
 
 }
 
+// função para mover o rei
 void validar_movimento_rei (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
         if(((coluna-colunavelha==1) && (linha-linhavelha==1)) || ((colunavelha-coluna==1) && (linha-linhavelha)==1) || ((colunavelha-coluna==1) && (linha-linhavelha==1)) || ((colunavelha-coluna==1) && (linhavelha-linha==1)) || ((linha-linhavelha==1) && (coluna==colunavelha)) || ((linhavelha-linha==1) && (coluna==colunavelha)) || ((linhavelha==linha) && (colunavelha-coluna==1)) || ((linhavelha==linha) && (coluna-colunavelha==1))){
             *movimento_valido=1;
