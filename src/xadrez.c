@@ -711,45 +711,65 @@ void validar_movimento_cavalo (char tabuleiro[10][10], int linha, int coluna, in
 void validar_movimento_torre (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
     int cont;
     *movimento_valido=0;
+    //andar na vertical
     if ((colunavelha==coluna) && (linhavelha!= linha)){
+        // descendo no tabuleiro
         if (linhavelha<linha){
+            // verfica se no intervalo entre a linhavelha e a linha tem alguma peca
             for (cont=linhavelha; cont<=linha; cont++){
+                //se tiver peca
                 if(tabuleiro[cont][coluna]!='-'){
+                    // não é possivel mover a torre
                     *movimento_valido=0;
                 }
                 else{
+                    //é possivel mover a torre
                     *movimento_valido=1;
                 }
             }
         }
     }
+        // se a torre estiver subindo no tabuleiro
         if (linha<linhavelha){
+            //verifica se no intervalo entre a linhavelha e a linha tem alguma peca
             for (cont=linha; cont<=linhavelha; cont++){
+                //se tiver peca
                 if(tabuleiro[cont][coluna]!='-'){
+                    //não é possivel mover a torre
                     *movimento_valido=0;
                 }
                 else{
+                    //é possivel mover a torre
                     *movimento_valido=1;
                 }
             }
     }
+    // se a torre se mover na horizontal
     if((linhavelha==linha) && (colunavelha!=coluna)){
+        // da esquerda para a direita
         if (colunavelha<coluna){
+            // verifica se a ulguma peca
             for (cont=colunavelha; cont<=coluna; cont++){
+                // se for uma peca a torre não pode mover
                 if(tabuleiro[cont][coluna]!='-'){
                     *movimento_valido=0;
                 }
+                // se for um espaço a torre pode mover
                 else{
                     *movimento_valido=1;
                 }
             }
         }
     }
+    // movendo a torre da direita para esquerda
     if (coluna<colunavelha){
+            // verificando se no intervalo entre a colunavelha e a coluna tem alguma letra
             for (cont=coluna; cont<=colunavelha; cont++){
+                // se tiver letra a torre não pode mover
                 if(tabuleiro[cont][coluna]!='-'){
                     *movimento_valido=0;
                 }
+                // se não tiver letra a torre pode mover
                 else{
                     *movimento_valido=1;
                 }
