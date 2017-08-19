@@ -13,12 +13,16 @@ void selecao_peca (char tabuleiro[10][10], char *ppeca);
 void atualizar_tela ( char tabuleiro[10][10], int *rodada);
 //Funcão pra chamar os jogadores pelo nome
 void nome_jogadores (char *nomeJogador1, char *nomeJogador2);
-//função do movimento do bispo
-void validar_movimento_bispo (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
+//função do movimento do bispo pequeno
+void validar_movimento_bispob (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
+//função do movimento do bispo grande
+void validar_movimento_bispoB (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
 //função do movimento do cavalo
 void validar_movimento_cavalo (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
-//função do movimento da torre
-void validar_movimento_torre (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha, int *movimento_valido);
+//função do movimento da torre pequena
+void validar_movimento_torret (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha, int *movimento_valido);
+//função do movimento da torre grande
+void validar_movimento_torreT (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha, int *movimento_valido);
 //função do movimento da rainha
 void validar_movimento_rainha (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
 //função do movimento do rei
@@ -306,6 +310,7 @@ void selecao_peca (char tabuleiro[10][10], char *ppeca){
                     }
                     //se o player 1 escolheu uma peca valida, colocar o nome da peça
                     if (peca_valida==1){
+                        atualizar_tela(tabuleiro,&rodada);
                         switch(tabuleiro[linha][coluna]){
 
                            case'p':
@@ -337,15 +342,14 @@ void selecao_peca (char tabuleiro[10][10], char *ppeca){
                         }
                     }
                     else{
-
-                        //atualizar o tabuleiro
-                        atualizar_tela(tabuleiro,rodada);
+                        atualizar_tela(tabuleiro,&rodada);
                         printf("Peca invalida.\n");
                     }
                     //fecha o Do While
               //chama a função que move a peca da posição original para a nova posição
 
             }while (peca_valida==0);
+
             mover_peca(tabuleiro, ppeca, &rodada, linhavelha, colunavelha, &peca_valida);
 
             //fecha o if que verifica se é o player1
@@ -356,7 +360,7 @@ void selecao_peca (char tabuleiro[10][10], char *ppeca){
             //laço para fazer com que o player 2 selecione uma peca valida
              do{
                 printf("%s (Player 2) digite uma peca a ser movida (minusculas) (linha x coluna) ou\n",&nomeJogador2);
-                printf("Digite 10 e 10 para voltar ao menu");
+                printf("Digite 10 e 10 para voltar ao menu\n");
                 scanf("%d %d", &linha, &coluna);
                 //guardar a linha de onde a peca saiu
                 linhavelha=linha;
@@ -400,8 +404,8 @@ void selecao_peca (char tabuleiro[10][10], char *ppeca){
 
                 //se o player 2 escolheu uma peca valida, colocar o nome da peça
                 if (peca_valida==1){
+                    atualizar_tela(tabuleiro,&rodada);
                     switch(tabuleiro[linha][coluna]){
-
 
                         case 'P':
                             printf("Voce selecionou o Peao!\n");
@@ -432,20 +436,20 @@ void selecao_peca (char tabuleiro[10][10], char *ppeca){
                     }
                 }
                 else{
-                     //atualizar o tabuleiro
-                     atualizar_tela(tabuleiro,rodada);
+                     atualizar_tela(tabuleiro,&rodada);
                      printf("Peca invalida.\n");
                 }
-                // chama a função que move a peça da posição original para uma nova posição
-
 
         //fecha o Do While. Realiza o laço enquanto ele tenha escolhido uma peça invalida
         }while (peca_valida==0);
 
+        // chama a função que move a peça da posição original para uma nova posição
         mover_peca(tabuleiro, ppeca, &rodada, linhavelha, colunavelha, &peca_valida);
-    //fecha o else
+
+    //fecha o else que enquadra o player 2
     }
-  //fecha o for
+
+  //fecha o for do laço infinito
   }
 
 //fecha a função
@@ -500,7 +504,7 @@ void mover_peca(char tabuleiro[10][10], char *ppeca, int *rodada, int linhavelha
                 break;
 
             case 't':
-                validar_movimento_torre (tabuleiro, linha, coluna, linhavelha, colunavelha, *movimento_valido);
+                validar_movimento_torret (tabuleiro, linha, coluna, linhavelha, colunavelha, *movimento_valido);
                 if(*movimento_valido==1){
                     //atribuindo que na posição escolhida pelo jogador será colocado a peca escolhida pelo jogador
                     tabuleiro[linha][coluna] = peca;
@@ -512,7 +516,7 @@ void mover_peca(char tabuleiro[10][10], char *ppeca, int *rodada, int linhavelha
                 break;
 
             case'b':
-                validar_movimento_bispo (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
+                validar_movimento_bispob (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
                 if(*movimento_valido==1){
                     //atribuindo que na posição escolhida pelo jogador será colocado a peca escolhida pelo jogador
                     tabuleiro[linha][coluna] = peca;
@@ -572,7 +576,7 @@ void mover_peca(char tabuleiro[10][10], char *ppeca, int *rodada, int linhavelha
                 break;
 
             case 'T':
-                validar_movimento_torre (tabuleiro, linha, coluna, linhavelha, colunavelha, *movimento_valido);
+                validar_movimento_torreT (tabuleiro, linha, coluna, linhavelha, colunavelha, *movimento_valido);
                 if(*movimento_valido==1){
                     //atribuindo que na posição escolhida pelo jogador será colocado a peca escolhida pelo jogador
                     tabuleiro[linha][coluna] = peca;
@@ -585,7 +589,7 @@ void mover_peca(char tabuleiro[10][10], char *ppeca, int *rodada, int linhavelha
 
             case'B':
                 //função que rege o movimento do bispo
-                validar_movimento_bispo (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
+                validar_movimento_bispoB (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
                 if(*movimento_valido==1){
                     //atribuindo que na posição escolhida pelo jogador será colocado a peca escolhida pelo jogador
                     tabuleiro[linha][coluna] = peca;
@@ -675,22 +679,181 @@ void atualizar_tela ( char tabuleiro[10][10], int *rodada){
 //fecha a função
 }
 
-// função para mover o bispo
-void validar_movimento_bispo (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
-        if(coluna-colunavelha == linha-linhavelha || coluna-colunavelha==((linha-linhavelha)*(-1))){
-            *movimento_valido=1;
+// função para mover o bispo grande
+void validar_movimento_bispoB (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
+        int contlinha, contcoluna, NaoEntraMais;
+        *movimento_valido=0;
+        if ((coluna-colunavelha) == (linha-linhavelha)){
+         if (linhavelha<linha){
+            for (contlinha=linhavelha, contcoluna=coluna; contlinha<=linha, contcoluna<=coluna; contlinha++, contcoluna++){
+                    if(tabuleiro[contlinha][contcoluna]!='-'){
+                        *movimento_valido=0;
+                        break;
+                    }
+                    else{
+                        *movimento_valido=1;
+                    }
+            }
+            if(isalpha(tabuleiro[linha][coluna])!=0){
+                if(islower(tabuleiro[linha][coluna])!=0){
+                    *movimento_valido=1;
+                }
+                else{
+                    *movimento_valido=0;
+                }
+            }
         }
-        else {
-            *movimento_valido=0;
+        if (linha<linhavelha){
+            for (contlinha=linha, contcoluna=colunavelha; contlinha<=linhavelha, contcoluna<=colunavelha; contlinha++, contcoluna++){
+                    if(tabuleiro[contlinha][contcoluna]!='-'){
+                        *movimento_valido=0;
+                        break;
+                    }
+                    else{
+                        *movimento_valido=1;
+                    }
+            }
+            if(isalpha(tabuleiro[linha][coluna])!=0){
+                if(islower(tabuleiro[linha][coluna])!=0){
+                    *movimento_valido=1;
+                }
+                else{
+                    *movimento_valido=0;
+                }
+            }
         }
-        if (*movimento_valido==1){
-            printf("\nMovimento valido\n");
+        NaoEntraMais=1;
+    }
+        if((coluna-colunavelha)==(linhavelha-linha)){
+            if (linhavelha<linha){
+                for (contlinha=linhavelha, contcoluna=coluna; contlinha<=linha, contcoluna<=colunavelha; contlinha++, contcoluna++){
+                    if(tabuleiro[contlinha][contcoluna]!='-'){
+                        *movimento_valido=0;
+                        break;
+                    }
+                    else{
+                        *movimento_valido=1;
+                    }
+                }
+                if(isalpha(tabuleiro[linha][coluna])!=0){
+                    if(islower(tabuleiro[linha][coluna])!=0){
+                        *movimento_valido=1;
+                    }
+                    else{
+                        *movimento_valido=0;
+                    }
+                }
+            }
+            if (linha<linhavelha){
+                for (contlinha=linha, contcoluna=colunavelha; contlinha<=linhavelha, contcoluna<=coluna; contlinha++, contcoluna++){
+                    if(tabuleiro[contlinha][contcoluna]!='-'){
+                        *movimento_valido=0;
+                        break;
+                    }
+                    else{
+                        *movimento_valido=1;
+                    }
+                }
+                if(isalpha(tabuleiro[linha][coluna])!=0){
+                    if(isupper(tabuleiro[linha][coluna])!=0){
+                        *movimento_valido=1;
+                    }
+                    else{
+                        *movimento_valido=0;
+                    }
+                }
+            }
+            NaoEntraMais=1;
         }
-        else {
-            printf("\nMovimento invalido\n");
-        }
+    }
 
-}
+// função para mover o bispo pequeno
+void validar_movimento_bispob (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
+        int contlinha, contcoluna, NaoEntraMais;
+        *movimento_valido=0;
+        if ((coluna-colunavelha) == (linha-linhavelha)){
+         if (linhavelha<linha){
+            for (contlinha=linhavelha, contcoluna=coluna; contlinha<=linha, contcoluna<=coluna; contlinha++, contcoluna++){
+                    if(tabuleiro[contlinha][contcoluna]!='-'){
+                        *movimento_valido=0;
+                        break;
+                    }
+                    else{
+                        *movimento_valido=1;
+                    }
+            }
+            if(isalpha(tabuleiro[linha][coluna])!=0){
+                if(isupper(tabuleiro[linha][coluna])!=0){
+                    *movimento_valido=1;
+                }
+                else{
+                    *movimento_valido=0;
+                }
+            }
+        }
+        if (linha<linhavelha){
+            for (contlinha=linha, contcoluna=colunavelha; contlinha<=linhavelha, contcoluna<=colunavelha; contlinha++, contcoluna++){
+                    if(tabuleiro[contlinha][contcoluna]!='-'){
+                        *movimento_valido=0;
+                        break;
+                    }
+                    else{
+                        *movimento_valido=1;
+                    }
+            }
+            if(isalpha(tabuleiro[linha][coluna])!=0){
+                if(isupper(tabuleiro[linha][coluna])!=0){
+                    *movimento_valido=1;
+                }
+                else{
+                    *movimento_valido=0;
+                }
+            }
+        }
+        NaoEntraMais=1;
+    }
+        if((coluna-colunavelha)==(linhavelha-linha)){
+            if (linhavelha<linha){
+                for (contlinha=linhavelha, contcoluna=coluna; contlinha<=linha, contcoluna<=colunavelha; contlinha++, contcoluna++){
+                    if(tabuleiro[contlinha][contcoluna]!='-'){
+                        *movimento_valido=0;
+                        break;
+                    }
+                    else{
+                        *movimento_valido=1;
+                    }
+                }
+                if(isalpha(tabuleiro[linha][coluna])!=0){
+                    if(islower(tabuleiro[linha][coluna])!=0){
+                        *movimento_valido=1;
+                    }
+                    else{
+                        *movimento_valido=0;
+                    }
+                }
+            }
+            if (linha<linhavelha){
+                for (contlinha=linha, contcoluna=colunavelha; contlinha<=linhavelha, contcoluna<=coluna; contlinha++, contcoluna++){
+                    if(tabuleiro[contlinha][contcoluna]!='-'){
+                        *movimento_valido=0;
+                        break;
+                    }
+                    else{
+                        *movimento_valido=1;
+                    }
+                }
+                if(isalpha(tabuleiro[linha][coluna])!=0){
+                    if(islower(tabuleiro[linha][coluna])!=0){
+                        *movimento_valido=1;
+                    }
+                    else{
+                        *movimento_valido=0;
+                    }
+                }
+            }
+            NaoEntraMais=1;
+        }
+    }
 
 // função para mover o cavalo
 void validar_movimento_cavalo (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
@@ -705,74 +868,170 @@ void validar_movimento_cavalo (char tabuleiro[10][10], int linha, int coluna, in
 
 }
 
-// função para mover a torre
-void validar_movimento_torre (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
-    int cont;
+// função para mover a torre grande
+void validar_movimento_torreT (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
+    int contlinha, contcoluna, cont, NaoEntraMais=0;
     *movimento_valido=0;
-    //andar na vertical
-    if ((colunavelha==coluna) && (linhavelha!= linha)){
-        // descendo no tabuleiro
+    if ((colunavelha==coluna) && (linhavelha!= linha) && (NaoEntraMais==0)){
         if (linhavelha<linha){
-            // verfica se no intervalo entre a linhavelha e a linha tem alguma peca
             for (cont=linhavelha; cont<=linha; cont++){
-                //se tiver peca
                 if(tabuleiro[cont][coluna]!='-'){
-                    // não é possivel mover a torre
                     *movimento_valido=0;
+                    break;
                 }
                 else{
-                    //é possivel mover a torre
                     *movimento_valido=1;
                 }
             }
+            if(isalpha(tabuleiro[linha][coluna])!=0){
+                if(islower(tabuleiro[linha][coluna])!=0){
+                    *movimento_valido=1;
+                }
+                else{
+                    *movimento_valido=0;
+                }
+            }
         }
-    }
-        // se a torre estiver subindo no tabuleiro
         if (linha<linhavelha){
-            //verifica se no intervalo entre a linhavelha e a linha tem alguma peca
             for (cont=linha; cont<=linhavelha; cont++){
-                //se tiver peca
                 if(tabuleiro[cont][coluna]!='-'){
-                    //não é possivel mover a torre
                     *movimento_valido=0;
+                    break;
                 }
                 else{
-                    //é possivel mover a torre
                     *movimento_valido=1;
                 }
             }
+            if(isalpha(tabuleiro[linha][coluna])!=0){
+                if(islower(tabuleiro[linha][coluna])!=0){
+                    *movimento_valido=1;
+                }
+                else{
+                    *movimento_valido=0;
+                }
+            }
+        }
+        NaoEntraMais=1;
     }
-    // se a torre se mover na horizontal
-    if((linhavelha==linha) && (colunavelha!=coluna)){
-        // da esquerda para a direita
-        if (colunavelha<coluna){
-            // verifica se a ulguma peca
+    if((linhavelha==linha) && (colunavelha!=coluna) && (NaoEntraMais==0)){
+        if(colunavelha<coluna){
             for (cont=colunavelha; cont<=coluna; cont++){
-                // se for uma peca a torre não pode mover
-                if(tabuleiro[cont][coluna]!='-'){
+                if(tabuleiro[linha][cont]!='-'){
                     *movimento_valido=0;
+                    break;
                 }
-                // se for um espaço a torre pode mover
                 else{
                     *movimento_valido=1;
                 }
             }
         }
-    }
-    // movendo a torre da direita para esquerda
-    if (coluna<colunavelha){
-            // verificando se no intervalo entre a colunavelha e a coluna tem alguma letra
+        if (coluna<colunavelha){
             for (cont=coluna; cont<=colunavelha; cont++){
-                // se tiver letra a torre não pode mover
-                if(tabuleiro[cont][coluna]!='-'){
+                if(tabuleiro[linha][cont]!='-'){
+                    *movimento_valido=0;
+                    break;
+                }
+                else{
+                    *movimento_valido=1;
+                }
+            }
+            if(isalpha(tabuleiro[linha][coluna])!=0){
+                if(islower(tabuleiro[linha][coluna])!=0){
+                    *movimento_valido=1;
+                }
+                else{
                     *movimento_valido=0;
                 }
-                // se não tiver letra a torre pode mover
+            }
+        }
+        NaoEntraMais=1;
+    }
+    if (*movimento_valido==1){
+        printf("\nMovimento valido\n");
+    }
+    else{
+        printf("\nMovimento invalido\n");
+    }
+}
+
+// função para mover a torre pequena
+void validar_movimento_torret (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
+    int cont, NaoEntraMais=0;
+    *movimento_valido=0;
+    if ((colunavelha==coluna) && (linhavelha!= linha) && (NaoEntraMais==0)){
+        if (linhavelha<linha){
+            for (cont=linhavelha; cont<=linha; cont++){
+                if(tabuleiro[cont][coluna]!='-'){
+                    *movimento_valido=0;
+                    break;
+                }
+                else{
+                    *movimento_valido=1;
+                }
+            }
+            if(isalpha(tabuleiro[linha][coluna])!=0){
+                if(isupper(tabuleiro[linha][coluna])!=0){
+                    *movimento_valido=1;
+                }
+                else{
+                    *movimento_valido=0;
+                }
+            }
+        }
+        if (linha<linhavelha){
+            for (cont=linha; cont<=linhavelha; cont++){
+                if(tabuleiro[cont][coluna]!='-'){
+                    *movimento_valido=0;
+                    break;
+                }
+                else{
+                    *movimento_valido=1;
+                }
+            }
+            if(isalpha(tabuleiro[linha][coluna])!=0){
+                if(isupper(tabuleiro[linha][coluna])!=0){
+                    *movimento_valido=1;
+                }
+                else{
+                    *movimento_valido=0;
+                }
+            }
+        }
+        NaoEntraMais==1;
+    }
+    if((linhavelha==linha) && (colunavelha!=coluna) && (NaoEntraMais==0)){
+        if(colunavelha<coluna){
+            for (cont=colunavelha; cont<=coluna; cont++){
+                if(tabuleiro[linha][cont]!='-'){
+                    *movimento_valido=0;
+                    break;
+                }
                 else{
                     *movimento_valido=1;
                 }
             }
         }
+        if (coluna<colunavelha){
+            for (cont=coluna; cont<=colunavelha; cont++){
+                if(tabuleiro[linha][cont]!='-'){
+                    *movimento_valido=0;
+                    break;
+                }
+                else{
+                    *movimento_valido=1;
+                }
+            }
+            if(isalpha(tabuleiro[linha][coluna])!=0){
+                if(islower(tabuleiro[linha][coluna])!=0){
+                    *movimento_valido=1;
+                }
+                else{
+                    *movimento_valido=0;
+                }
+            }
+        }
+        NaoEntraMais=1;
+    }
     if (*movimento_valido==1){
         printf("\nMovimento valido\n");
     }
