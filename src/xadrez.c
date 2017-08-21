@@ -1494,8 +1494,7 @@ int main()
         {
             clear_screen();
             imgIntro();
-            printf("\n\n\n\t\t\t########## XADREZ ########\n\n\n");
-            printf("\t\t\t########## MENU ##########\n");
+            printf("\n\n\n");
             printf("1. Novo Jogo\n");
             printf("2. Ajuda\n");
             printf("3. Sobre\n");
