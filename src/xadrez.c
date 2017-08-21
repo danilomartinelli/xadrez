@@ -33,6 +33,8 @@ void validar_movimento_peaop (char tabuleiro[10][10], int linha, int coluna, int
 void validar_movimento_peaoP (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha, int *movimento_valido);
 //função que move a peca
 void mover_peca(char tabuleiro[10][10], char *ppeca, int *rodada, int linhavelha , int colunavelha, int *movimento_valido);
+//função que verifica se ocorreu check e mate
+void check_mate (char tabuleiro[10][10]);
 
 //Função principal
 int main(){
@@ -474,7 +476,7 @@ void mover_peca(char tabuleiro[10][10], char *ppeca, int *rodada, int linhavelha
     do{
         printf("Digite 0 e 0 para selecionar outra peca ou");
         printf("\nDigite a linha e a coluna para onde voce quer mover a peca\n");
-        //linha e coluna para aonde a peç será movida
+        //linha e coluna para aonde a peça será movida
         scanf("%d %d", &linha, &coluna);
 
         //Se o player digitar 0 e 0 a função retorna para o laço de seleção de peça
@@ -641,6 +643,8 @@ void mover_peca(char tabuleiro[10][10], char *ppeca, int *rodada, int linhavelha
                 atualizar_tela(tabuleiro,rodada);
                 printf("\nPeca invalida.\n");
             }
+            //função que verifica se o jogo acabou
+            check_mate (tabuleiro);
 
         }
         }while(*movimento_valido==0);
@@ -1213,7 +1217,8 @@ void validar_movimento_peaop (char tabuleiro[10][10], int linha, int coluna, int
 }
 
 //função que verifica o fim do jogo
-void check_mate (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha, int *movimento_valido){
+void check_mate (char tabuleiro[10][10]){
+    int linha, coluna;
     int rei_vivo=0;// significa que o rei minusculo começa o jogo morto
     int Rei_vivo=0;// significa que o rei maiusculo começa o jogo morto
     char peca;
@@ -1231,33 +1236,35 @@ void check_mate (char tabuleiro[10][10], int linha, int coluna, int linhavelha, 
                 Rei_vivo=1;
 
             }
-            // se não for encontrado o rei minusculo, significa dizer o plater um perdeu
-            if(rei_vivo==0){
-                //limpa a tela
-                system("cls");
-                //mostra o perdedor, player 1 (pecas minusculas)
-                printf("\nPlayer 1 perdeu. Check Mate\n");
-                printf("\nParabens Player 2");
-                printf("Game Over");
-                system("pause");
-                //retorna para o menu
-                printar_menu(tabuleiro);
-
-            }
-            if(Rei_vivo==0){
-                //limpa a tela
-                system("cls");
-                //mostra o perdedor, player  (pecas maiusculas)
-                printf("\nPlayer 2 perdeu. Check Mate\n");
-                printf("\nParabens player 1");
-                printf("Game Over");
-                system("pause");
-                //retorna para o menu
-                printar_menu(tabuleiro);
-
-            }
         }
     }
+    // se não for encontrado o rei minusculo, significa dizer o plater um perdeu
+    if(rei_vivo==0){
+        //limpa a tela
+        system("cls");
+        //mostra o perdedor, player 1 (pecas minusculas)
+        printf("\nPlayer 1 perdeu. Check Mate\n");
+        printf("Parabens Player 2\n");
+        printf("Game Over\n");
+        system("pause");
+        //retorna para o menu
+        printar_menu(tabuleiro);
+
+    }
+    if(Rei_vivo==0){
+        //limpa a tela
+        system("cls");
+        //mostra o perdedor, player  (pecas maiusculas)
+        printf("\nPlayer 2 perdeu. Check Mate\n");
+        printf("Parabens player 1\n");
+        printf("Game Over\n");
+        system("pause");
+        //retorna para o menu
+        printar_menu(tabuleiro);
+
+    }
+
+
 }
 
 
