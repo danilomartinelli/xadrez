@@ -17,8 +17,10 @@ void validar_movimento_bispob (char tabuleiro[10][10], int linha, int coluna, in
 void validar_movimento_bispoB (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
 //função do movimento do cavalo
 void validar_movimento_cavalo (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
-//função do movimento da torre
-void validar_movimento_torre (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
+//função do movimento da torre pequena
+void validar_movimento_torret (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
+//função do movimento da torre grande
+void validar_movimento_torreT (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
 //função do movimento da rainha
 void validar_movimento_rainha (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
 //função do movimento do rei
@@ -217,7 +219,7 @@ void printar_menu(char tabuleiro[10][10]){
             printf("Player 1 controla as pecas minusculas e Player 2 as pecas maiusculas.");
             printf(" O jogo segue todas as regras oficiais. Exceto que:\n");
             printf("\n    - Nao e possivel fazer movimentos especiais como o roque.\n");
-            printf("\nPara jogar, basta digitar a linha e a coluna correspondentes a a peca que deseja movimentar.\n");
+            printf("\nPara jogar, basta digitar a linha e a coluna correspondentes a peca que deseja movimentar.\n");
             printf("\nLogo depois, deve-se digitar a linha e a coluna para qual voce deseja se movimentar.\n\n");
             printf(" o 'p' representa o peao Branco\n");
             printf(" o 'P' representa o peao Preto\n");
@@ -516,7 +518,7 @@ void mover_peca(char tabuleiro[10][10], char *ppeca, int *rodada, int linhavelha
                 break;
 
             case 't':
-                validar_movimento_torre (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
+                validar_movimento_torret (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
                 if(*movimento_valido==1){
                     //atribuindo que na posição escolhida pelo jogador será colocado a peca escolhida pelo jogador
                     tabuleiro[linha][coluna] = peca;
@@ -588,7 +590,7 @@ void mover_peca(char tabuleiro[10][10], char *ppeca, int *rodada, int linhavelha
                 break;
 
             case 'T':
-                validar_movimento_torre (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
+                validar_movimento_torreT (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
                 if(*movimento_valido==1){
                     //atribuindo que na posição escolhida pelo jogador será colocado a peca escolhida pelo jogador
                     tabuleiro[linha][coluna] = peca;
@@ -702,179 +704,295 @@ void atualizar_tela ( char tabuleiro[10][10], int *rodada){
 
 // função para mover o bispo grande
 void validar_movimento_bispoB (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
-        int contlinha, contcoluna, NaoEntraMais;
-        *movimento_valido=0;
-        if ((coluna-colunavelha) == (linha-linhavelha)){
+    int contlinha, contcoluna, NaoEntraMais;//variavel criada para evitar que a função entre em todos os laços se uma opção inicial for falsa
+    *movimento_valido=0;
+    // se o bispo se mover na diagonal
+    //abs retorna o valor em modulo da operação(absoluto)
+    if (abs((coluna-colunavelha)) == abs((linha-linhavelha))){
+         // descendo o tabuleiro
          if (linhavelha<linha){
-            for (contlinha=linhavelha, contcoluna=coluna; contlinha<=linha, contcoluna<=coluna; contlinha++, contcoluna++){
+            //da direita para a esquerda
+            if(colunavelha>coluna){
+                //função que verifica se no intervalo entre a posição original e a final tem alguma peca
+                for (contlinha=linhavelha, contcoluna=coluna; contlinha<=linha, contcoluna<=colunavelha; contlinha++, contcoluna++){
+                    // se tiver peca
                     if(tabuleiro[contlinha][contcoluna]!='-'){
+                        // o bispo não pode andar e comer a peca
                         *movimento_valido=0;
-                        break;
+                    }
+                    // se não tiverem pecas no intervalo
+                    else{
+                        // se no local de destino tiver uma peca
+                        if(isalpha(tabuleiro[linha][coluna])!=0){
+                            // se essa peca for minuscula
+                            if(islower(tabuleiro[linha][coluna])!=0){
+                                // o bispo pode andar e comer
+                                *movimento_valido=1;
+                            }
+                            else{
+                                // o bispo não pode andar e comer
+                                *movimento_valido=0;
+                            }
+                        }
+                        // se no local de destino tiver um espaço vazio
+                        else{
+                            // o bispo pode andar
+                            *movimento_valido=1;
+                        }
+                    }
+                }
+            }
+            //da esquerda para a direita
+            if(colunavelha<coluna){
+                //função que verifica se no intervalo entre a posição original e a final tem alguma peca
+                for (contlinha=linhavelha, contcoluna=colunavelha; contlinha<linha, contcoluna<coluna; contlinha++, contcoluna++){
+                    // se tiver peca
+                    if(tabuleiro[contlinha][contcoluna]!='-'){
+                        // o bispo não pode andar e comer a peca
+                        *movimento_valido=0;
                     }
                     else{
-                        *movimento_valido=1;
+                        // se no local de destino tiver uma peca
+                        if(isalpha(tabuleiro[linha][coluna])!=0){
+                            // se essa peca for minuscula
+                            if(islower(tabuleiro[linha][coluna])!=0){
+                                // o bispo pode andar e comer
+                                *movimento_valido=1;
+                            }
+                            else{
+                                // o bispo não pode andar e comer
+                                *movimento_valido=0;
+                            }
+                        }
+                        // se no local de destino tiver um espaço vazio
+                        else{
+                            // o bispo pode andar
+                            *movimento_valido=1;
+                        }
                     }
-            }
-            if(isalpha(tabuleiro[linha][coluna])!=0){
-                if(islower(tabuleiro[linha][coluna])!=0){
-                    *movimento_valido=1;
-                }
-                else{
-                    *movimento_valido=0;
                 }
             }
-        }
+         }
+        // subindo o tabuleiro
         if (linha<linhavelha){
-            for (contlinha=linha, contcoluna=colunavelha; contlinha<=linhavelha, contcoluna<=colunavelha; contlinha++, contcoluna++){
+            //da direita para a esquerda
+            if(colunavelha>coluna){
+                //função que verifica se no intervalo entre a posição original e a final tem alguma peca
+                for (contlinha=linha, contcoluna=coluna; contlinha<linhavelha, contcoluna<colunavelha; contlinha++, contcoluna++){
+                    // se tiver peca
                     if(tabuleiro[contlinha][contcoluna]!='-'){
+                        // o bispo não pode andar e comer a peca
                         *movimento_valido=0;
-                        break;
+
                     }
                     else{
-                        *movimento_valido=1;
+                        // se no local de destino tiver uma peca
+                        if(isalpha(tabuleiro[linha][coluna])!=0){
+                            // se essa peca for minuscula
+                            if(islower(tabuleiro[linha][coluna])!=0){
+                                // o bispo pode andar e comer
+                                *movimento_valido=1;
+                            }
+                            else{
+                                // o bispo pode andar e comer
+                                *movimento_valido=0;
+                            }
+                        }
+                        // se no local de destino tiver um espaço vazio
+                        else{
+                            // o bispo pode andar
+                            *movimento_valido=1;
+                        }
                     }
-            }
-            if(isalpha(tabuleiro[linha][coluna])!=0){
-                if(islower(tabuleiro[linha][coluna])!=0){
-                    *movimento_valido=1;
                 }
-                else{
-                    *movimento_valido=0;
+            }
+            //da esquerda para a direita
+            if(colunavelha<coluna){
+                //função que verifica se no intervalo entre a posição original e a final tem alguma peca
+                for (contlinha=linha, contcoluna=colunavelha; contlinha<linhavelha, contcoluna<coluna; contlinha++, contcoluna++){
+                    // se tiver peca
+                    if(tabuleiro[contlinha][contcoluna]!='-'){
+                        // o bispo não pode andar e comer a peca
+                        *movimento_valido=0;
+
+                    }
+                    else{
+                        // se no local de destino tiver uma peca
+                        if(isalpha(tabuleiro[linha][coluna])!=0){
+                            // se essa peca for minuscula
+                            if(islower(tabuleiro[linha][coluna])!=0){
+                                // o bispo pode andar e comer
+                                *movimento_valido=1;
+                            }
+                            else{
+                                // o bispo pode andar e comer
+                                *movimento_valido=0;
+                            }
+                        }
+                        // se no local de destino tiver um espaço vazio
+                        else{
+                            // o bispo pode andar
+                            *movimento_valido=1;
+                        }
+                    }
                 }
             }
         }
         NaoEntraMais=1;
     }
-        if((coluna-colunavelha)==(linhavelha-linha)){
-            if (linhavelha<linha){
-                for (contlinha=linhavelha, contcoluna=coluna; contlinha<=linha, contcoluna<=colunavelha; contlinha++, contcoluna++){
-                    if(tabuleiro[contlinha][contcoluna]!='-'){
-                        *movimento_valido=0;
-                        break;
-                    }
-                    else{
-                        *movimento_valido=1;
-                    }
-                }
-                if(isalpha(tabuleiro[linha][coluna])!=0){
-                    if(islower(tabuleiro[linha][coluna])!=0){
-                        *movimento_valido=1;
-                    }
-                    else{
-                        *movimento_valido=0;
-                    }
-                }
-            }
-            if (linha<linhavelha){
-                for (contlinha=linha, contcoluna=colunavelha; contlinha<=linhavelha, contcoluna<=coluna; contlinha++, contcoluna++){
-                    if(tabuleiro[contlinha][contcoluna]!='-'){
-                        *movimento_valido=0;
-                        break;
-                    }
-                    else{
-                        *movimento_valido=1;
-                    }
-                }
-                if(isalpha(tabuleiro[linha][coluna])!=0){
-                    if(isupper(tabuleiro[linha][coluna])!=0){
-                        *movimento_valido=1;
-                    }
-                    else{
-                        *movimento_valido=0;
-                    }
-                }
-            }
-            NaoEntraMais=1;
-        }
-    }
+}
 
 // função para mover o bispo pequeno
 void validar_movimento_bispob (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
-        int contlinha, contcoluna, NaoEntraMais;
-        *movimento_valido=0;
-        if ((coluna-colunavelha) == (linha-linhavelha)){
+    int contlinha, contcoluna, NaoEntraMais;//variavel criada para evitar que a função entre em todos os laços se uma opção inicial for falsa
+    *movimento_valido=0;
+    // se o bispo se mover na diagonal
+    //abs retorna o valor em modulo da operação(absoluto)
+    if (abs((coluna-colunavelha)) == abs((linha-linhavelha))){
+         // descendo o tabuleiro
          if (linhavelha<linha){
-            for (contlinha=linhavelha, contcoluna=coluna; contlinha<=linha, contcoluna<=coluna; contlinha++, contcoluna++){
+            //da direita para a esquerda
+            if(colunavelha>coluna){
+                //função que verifica se no intervalo entre a posição original e a final tem alguma peca
+                for (contlinha=linhavelha, contcoluna=coluna; contlinha<=linha, contcoluna<=colunavelha; contlinha++, contcoluna++){
+                    // se tiver peca
                     if(tabuleiro[contlinha][contcoluna]!='-'){
+                        // o bispo não pode andar e comer a peca
                         *movimento_valido=0;
-                        break;
+                    }
+                    // se não tiverem pecas no intervalo
+                    else{
+                        // se no local de destino tiver uma peca
+                        if(isalpha(tabuleiro[linha][coluna])!=0){
+                            // se essa peca for maiuscula
+                            if(isupper(tabuleiro[linha][coluna])!=0){
+                                // o bispo pode andar e comer
+                                *movimento_valido=1;
+                            }
+                            else{
+                                // o bispo não pode andar e comer
+                                *movimento_valido=0;
+                            }
+                        }
+                        // se no local de destino tiver um espaço vazio
+                        else{
+                            // o bispo pode andar
+                            *movimento_valido=1;
+                        }
+                    }
+                }
+            }
+            //da esquerda para a direita
+            if(colunavelha<coluna){
+                //função que verifica se no intervalo entre a posição original e a final tem alguma peca
+                for (contlinha=linhavelha, contcoluna=colunavelha; contlinha<linha, contcoluna<coluna; contlinha++, contcoluna++){
+                    // se tiver peca
+                    if(tabuleiro[contlinha][contcoluna]!='-'){
+                        // o bispo não pode andar e comer a peca
+                        *movimento_valido=0;
                     }
                     else{
-                        *movimento_valido=1;
+                        // se no local de destino tiver uma peca
+                        if(isalpha(tabuleiro[linha][coluna])!=0){
+                            // se essa peca for maiuscula
+                            if(isupper(tabuleiro[linha][coluna])!=0){
+                                // o bispo pode andar e comer
+                                *movimento_valido=1;
+                            }
+                            else{
+                                // o bispo não pode andar e comer
+                                *movimento_valido=0;
+                            }
+                        }
+                        // se no local de destino tiver um espaço vazio
+                        else{
+                            // o bispo pode andar
+                            *movimento_valido=1;
+                        }
                     }
-            }
-            if(isalpha(tabuleiro[linha][coluna])!=0){
-                if(isupper(tabuleiro[linha][coluna])!=0){
-                    *movimento_valido=1;
-                }
-                else{
-                    *movimento_valido=0;
                 }
             }
-        }
+         }
+        // subindo o tabuleiro
         if (linha<linhavelha){
-            for (contlinha=linha, contcoluna=colunavelha; contlinha<=linhavelha, contcoluna<=colunavelha; contlinha++, contcoluna++){
+            printf("fui chamado 1");
+            getchar();
+            //da direita para a esquerda
+            if(colunavelha>coluna){
+                printf("fui chamado 2");
+                getchar();
+                //função que verifica se no intervalo entre a posição original e a final tem alguma peca
+                for (contlinha=linha, contcoluna=coluna; contlinha<linhavelha, contcoluna<colunavelha; contlinha++, contcoluna++){
+                    printf("fui chamado 3");
+                    getchar();
+                    // se tiver peca
                     if(tabuleiro[contlinha][contcoluna]!='-'){
+                        // o bispo não pode andar e comer a peca
                         *movimento_valido=0;
-                        break;
+
                     }
                     else{
-                        *movimento_valido=1;
+                        printf("fui chamado 4");
+                        getchar();
+                        // se no local de destino tiver uma peca
+                        if(isalpha(tabuleiro[linha][coluna])!=0){
+                            printf("fui chamado 5");
+                            getchar();
+                            // se essa peca for maiuscula
+                            if(isupper(tabuleiro[linha][coluna])!=0){
+                                // o bispo pode andar e comer
+                                *movimento_valido=1;
+                            }
+                            else{
+                                // o bispo pode andar e comer
+                                *movimento_valido=0;
+                            }
+                        }
+                        // se no local de destino tiver um espaço vazio
+                        else{
+                            printf("fui chamado 6");
+                            getchar();
+                            // o bispo pode andar
+                            *movimento_valido=1;
+                        }
                     }
-            }
-            if(isalpha(tabuleiro[linha][coluna])!=0){
-                if(isupper(tabuleiro[linha][coluna])!=0){
-                    *movimento_valido=1;
                 }
-                else{
-                    *movimento_valido=0;
+            }
+            //da esquerda para a direita
+            if(colunavelha<coluna){
+                //função que verifica se no intervalo entre a posição original e a final tem alguma peca
+                for (contlinha=linha, contcoluna=colunavelha; contlinha<linhavelha, contcoluna<coluna; contlinha++, contcoluna++){
+                    // se tiver peca
+                    if(tabuleiro[contlinha][contcoluna]!='-'){
+                        // o bispo não pode andar e comer a peca
+                        *movimento_valido=0;
+
+                    }
+                    else{
+                        // se no local de destino tiver uma peca
+                        if(isalpha(tabuleiro[linha][coluna])!=0){
+                            // se essa peca for maiuscula
+                            if(isupper(tabuleiro[linha][coluna])!=0){
+                                // o bispo pode andar e comer
+                                *movimento_valido=1;
+                            }
+                            else{
+                                // o bispo pode andar e comer
+                                *movimento_valido=0;
+                            }
+                        }
+                        // se no local de destino tiver um espaço vazio
+                        else{
+                            // o bispo pode andar
+                            *movimento_valido=1;
+                        }
+                    }
                 }
             }
         }
         NaoEntraMais=1;
     }
-        if((coluna-colunavelha)==(linhavelha-linha)){
-            if (linhavelha<linha){
-                for (contlinha=linhavelha, contcoluna=coluna; contlinha<=linha, contcoluna<=colunavelha; contlinha++, contcoluna++){
-                    if(tabuleiro[contlinha][contcoluna]!='-'){
-                        *movimento_valido=0;
-                        break;
-                    }
-                    else{
-                        *movimento_valido=1;
-                    }
-                }
-                if(isalpha(tabuleiro[linha][coluna])!=0){
-                    if(islower(tabuleiro[linha][coluna])!=0){
-                        *movimento_valido=1;
-                    }
-                    else{
-                        *movimento_valido=0;
-                    }
-                }
-            }
-            if (linha<linhavelha){
-                for (contlinha=linha, contcoluna=colunavelha; contlinha<=linhavelha, contcoluna<=coluna; contlinha++, contcoluna++){
-                    if(tabuleiro[contlinha][contcoluna]!='-'){
-                        *movimento_valido=0;
-                        break;
-                    }
-                    else{
-                        *movimento_valido=1;
-                    }
-                }
-                if(isalpha(tabuleiro[linha][coluna])!=0){
-                    if(islower(tabuleiro[linha][coluna])!=0){
-                        *movimento_valido=1;
-                    }
-                    else{
-                        *movimento_valido=0;
-                    }
-                }
-            }
-            NaoEntraMais=1;
-        }
-    }
+}
 
 // função para mover o cavalo
 void validar_movimento_cavalo (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
@@ -890,7 +1008,7 @@ void validar_movimento_cavalo (char tabuleiro[10][10], int linha, int coluna, in
 }
 
 // função para mover a torre pequena
-void validar_movimento_torre (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
+void validar_movimento_torret (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
     int cont, NaoEntraMais=0; //variavel criada para evitar que a função entre em todos os laços se uma opção inicial for falsa
     *movimento_valido=0;
     // Se a torre andar na vertical
@@ -905,20 +1023,22 @@ void validar_movimento_torre (char tabuleiro[10][10], int linha, int coluna, int
                     *movimento_valido=0;
                 }
                 else{
-                    // A torre pode andar
-                    *movimento_valido=1;
-                }
-            }
-            // se no local de destino tiver uma peca
-            if(isalpha(tabuleiro[linha][coluna])!=0){
-                // se esta peca for maiuscula
-                if(isupper(tabuleiro[linha][coluna])!=0){
-                    // A torre pode comer e andar
-                    *movimento_valido=1;
-                }
-                else{
-                    // a torre não pode comer e andar
-                    *movimento_valido=0;
+                    // se no local de destino tiver uma peca
+                    if(isalpha(tabuleiro[linha][coluna])!=0){
+                        // se esta peca for maiuscula
+                        if(isupper(tabuleiro[linha][coluna])!=0){
+                            // A torre pode comer e andar
+                            *movimento_valido=1;
+                        }
+                        else{
+                            // a torre não pode comer e andar
+                            *movimento_valido=0;
+                        }
+                    }
+                    // se tiver um espaço vazio
+                    else{
+                       *movimento_valido=1;
+                    }
                 }
             }
         }
@@ -933,20 +1053,22 @@ void validar_movimento_torre (char tabuleiro[10][10], int linha, int coluna, int
 
                 }
                 else{
-                    //o movimento é valido
-                    *movimento_valido=1;
-                }
-            }
-            // se no local de destino tiver uma peca
-            if(isalpha(tabuleiro[linha][coluna])!=0){
-                // e essa peca for maiuscula
-                if(isupper(tabuleiro[linha][coluna])!=0){
-                    // atore pode andar e comer
-                    *movimento_valido=1;
-                }
-                else{
-                    // a torre não pode andar e comer
-                    *movimento_valido=0;
+                    // se no local de destino tiver uma peca
+                    if(isalpha(tabuleiro[linha][coluna])!=0){
+                        // se esta peca for maiuscula
+                        if(isupper(tabuleiro[linha][coluna])!=0){
+                            // A torre pode comer e andar
+                            *movimento_valido=1;
+                        }
+                        else{
+                            // a torre não pode comer e andar
+                            *movimento_valido=0;
+                        }
+                    }
+                    // se tiver um espaço vazio
+                    else{
+                       *movimento_valido=1;
+                    }
                 }
             }
         }
@@ -965,23 +1087,26 @@ void validar_movimento_torre (char tabuleiro[10][10], int linha, int coluna, int
                     *movimento_valido=0;
                 }
                 else{
-                    //a torre pode andar
-                    *movimento_valido=1;
-                }
-            }
-            //se no local de destino tiver uma letra
-            if(isalpha(tabuleiro[linha][coluna])!=0){
-                //se essa letra for maiuscula
-                if(isupper(tabuleiro[linha][coluna])!=0){
-                    //a torre pode andar e comer
-                    *movimento_valido=1;
-                }
-                else{
-                    // a torre não pode andar e comer
-                    *movimento_valido=0;
+                    // se no local de destino tiver uma peca
+                    if(isalpha(tabuleiro[linha][coluna])!=0){
+                        // se esta peca for maiuscula
+                        if(isupper(tabuleiro[linha][coluna])!=0){
+                            // A torre pode comer e andar
+                            *movimento_valido=1;
+                        }
+                        else{
+                            // a torre não pode comer e andar
+                            *movimento_valido=0;
+                        }
+                    }
+                    // se tiver um espaço vazio
+                    else{
+                       *movimento_valido=1;
+                    }
                 }
             }
         }
+
         //da direita para a esquerda
         if (coluna<colunavelha){
         // verificando se no intervalo entre a posição de destino e a posição de origem tem alguma peca
@@ -993,25 +1118,170 @@ void validar_movimento_torre (char tabuleiro[10][10], int linha, int coluna, int
 
                 }
                 else{
-                    // a torre pode andar
-                    *movimento_valido=1;
-                }
-            }
-            //se no local de destino tiver uma letra
-            if(isalpha(tabuleiro[linha][coluna])!=0){
-                //se essa letra for maiuscula
-                if(isupper(tabuleiro[linha][coluna])!=0){
-                    //a torre pode andar e comer
-                    *movimento_valido=1;
-                }
-                else{
-                    // a torre não pode andar e comer
-                    *movimento_valido=0;
+                    // se no local de destino tiver uma peca
+                    if(isalpha(tabuleiro[linha][coluna])!=0){
+                        // se esta peca for maiuscula
+                        if(isupper(tabuleiro[linha][coluna])!=0){
+                            // A torre pode comer e andar
+                            *movimento_valido=1;
+                        }
+                        else{
+                            // a torre não pode comer e andar
+                            *movimento_valido=0;
+                        }
+                    }
+                    // se tiver um espaço vazio
+                    else{
+                       *movimento_valido=1;
+                    }
                 }
             }
         }
-        //não entra em mais nenhum laço
+
+    //não entra em mais nenhum laço
+    NaoEntraMais=1;
+    }
+    if (*movimento_valido==1){
+        printf("\nMovimento valido\n");
+    }
+    else{
+        printf("\nMovimento invalido\n");
+    }
+}
+
+// função para mover a torre grande
+void validar_movimento_torreT (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
+    int cont, NaoEntraMais=0; //variavel criada para evitar que a função entre em todos os laços se uma opção inicial for falsa
+    *movimento_valido=0;
+    // Se a torre andar na vertical
+    if ((colunavelha==coluna) && (linhavelha!= linha) && (NaoEntraMais==0)){
+        //se atorre estiver descendo
+        if (linhavelha<linha){
+            //verifica se existe alguma peca no intervalo entre a posição partida e a posiçõa de destino da torre
+            for (cont=linhavelha; cont<linha; cont++){
+                // se encontrar alguma peca o movimento é invalido
+                if(tabuleiro[cont][coluna]!='-'){
+                    // atorre não pode andar
+                    *movimento_valido=0;
+                }
+                else{
+                    // se no local de destino tiver uma peca
+                    if(isalpha(tabuleiro[linha][coluna])!=0){
+                        // se esta peca for minuscula
+                        if(islower(tabuleiro[linha][coluna])!=0){
+                            // A torre pode comer e andar
+                            *movimento_valido=1;
+                        }
+                        else{
+                            // a torre não pode comer e andar
+                            *movimento_valido=0;
+                        }
+                    }
+                    // se tiver um espaço vazio
+                    else{
+                       *movimento_valido=1;
+                    }
+                }
+            }
+        }
+        // se a torre estiver subindo
+        if (linha<linhavelha){
+            // verificando se no intervalo entre a posição de destino e a posição de origem tem alguma peca
+            for (cont=linha; cont<linhavelha; cont++){
+                // setiver alguma peca
+                if(tabuleiro[cont][coluna]!='-'){
+                    //o movimento é invalido
+                    *movimento_valido=0;
+
+                }
+                else{
+                    // se no local de destino tiver uma peca
+                    if(isalpha(tabuleiro[linha][coluna])!=0){
+                        // se esta peca for minuscula
+                        if(islower(tabuleiro[linha][coluna])!=0){
+                            // A torre pode comer e andar
+                            *movimento_valido=1;
+                        }
+                        else{
+                            // a torre não pode comer e andar
+                            *movimento_valido=0;
+                        }
+                    }
+                    // se tiver um espaço vazio
+                    else{
+                       *movimento_valido=1;
+                    }
+                }
+            }
+        }
+        // se entrar neste laço a função não entra nos outros
         NaoEntraMais=1;
+    }
+    // se a torre se mover na horinzontal
+    if((linhavelha==linha) && (colunavelha!=coluna) && (NaoEntraMais==0)){
+        //da esquerda para a direita
+        if(colunavelha<coluna){
+            // laço que verifica se intervalo entre a posição final e a inicial tem alguma peca
+            for (cont=colunavelha; cont<coluna; cont++){
+                //se tiver alguma peca
+                if(tabuleiro[linha][cont]!='-'){
+                    //a torre não pode andar
+                    *movimento_valido=0;
+                }
+                else{
+                    // se no local de destino tiver uma peca
+                    if(isalpha(tabuleiro[linha][coluna])!=0){
+                        // se esta peca for minuscula
+                        if(islower(tabuleiro[linha][coluna])!=0){
+                            // A torre pode comer e andar
+                            *movimento_valido=1;
+                        }
+                        else{
+                            // a torre não pode comer e andar
+                            *movimento_valido=0;
+                        }
+                    }
+                    // se tiver um espaço vazio
+                    else{
+                       *movimento_valido=1;
+                    }
+                }
+            }
+        }
+
+        //da direita para a esquerda
+        if (coluna<colunavelha){
+        // verificando se no intervalo entre a posição de destino e a posição de origem tem alguma peca
+            for (cont=coluna; cont<colunavelha; cont++){
+                // se tiver alguma letra no intervalo
+                if(tabuleiro[linha][cont]!='-'){
+                    // a torre não pode andar
+                    *movimento_valido=0;
+
+                }
+                else{
+                    // se no local de destino tiver uma peca
+                    if(isalpha(tabuleiro[linha][coluna])!=0){
+                        // se esta peca for minuscula
+                        if(islower(tabuleiro[linha][coluna])!=0){
+                            // A torre pode comer e andar
+                            *movimento_valido=1;
+                        }
+                        else{
+                            // a torre não pode comer e andar
+                            *movimento_valido=0;
+                        }
+                    }
+                    // se tiver um espaço vazio
+                    else{
+                       *movimento_valido=1;
+                    }
+                }
+            }
+        }
+
+    //não entra em mais nenhum laço
+    NaoEntraMais=1;
     }
     if (*movimento_valido==1){
         printf("\nMovimento valido\n");
