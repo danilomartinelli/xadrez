@@ -704,13 +704,13 @@ void atualizar_tela ( char tabuleiro[10][10], int *rodada){
 
 // função para mover o bispo grande
 void validar_movimento_bispoB (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
-    int contlinha, contcoluna, NaoEntraMais;//variavel criada para evitar que a função entre em todos os laços se uma opção inicial for falsa
+    int contlinha, contcoluna, NaoEntraMais=0;//variavel criada para evitar que a função entre em todos os laços se uma opção inicial for falsa
     *movimento_valido=0;
     // se o bispo se mover na diagonal
     //abs retorna o valor em modulo da operação(absoluto)
     if (abs((coluna-colunavelha)) == abs((linha-linhavelha))){
          // descendo o tabuleiro
-         if (linhavelha<linha){
+         if (linhavelha<linha&&NaoEntraMais==0){
             //da direita para a esquerda
             if(colunavelha>coluna){
                 //função que verifica se no intervalo entre a posição original e a final tem alguma peca
@@ -772,13 +772,20 @@ void validar_movimento_bispoB (char tabuleiro[10][10], int linha, int coluna, in
                     }
                 }
             }
+            NaoEntraMais=1;
          }
         // subindo o tabuleiro
-        if (linha<linhavelha){
+        if (linha<linhavelha&&NaoEntraMais==0){
+            printf("fui chamado 1");
+            getchar();
             //da direita para a esquerda
             if(colunavelha>coluna){
+                printf("fui chamado 2");
+                getchar();
                 //função que verifica se no intervalo entre a posição original e a final tem alguma peca
                 for (contlinha=linha, contcoluna=coluna; contlinha<linhavelha, contcoluna<colunavelha; contlinha++, contcoluna++){
+                    printf("fui chamado 3");
+                    getchar();
                     // se tiver peca
                     if(tabuleiro[contlinha][contcoluna]!='-'){
                         // o bispo não pode andar e comer a peca
@@ -786,8 +793,12 @@ void validar_movimento_bispoB (char tabuleiro[10][10], int linha, int coluna, in
 
                     }
                     else{
+                        printf("fui chamado 4");
+                        getchar();
                         // se no local de destino tiver uma peca
                         if(isalpha(tabuleiro[linha][coluna])!=0){
+                            printf("fui chamado 5");
+                            getchar();
                             // se essa peca for minuscula
                             if(islower(tabuleiro[linha][coluna])!=0){
                                 // o bispo pode andar e comer
@@ -800,6 +811,8 @@ void validar_movimento_bispoB (char tabuleiro[10][10], int linha, int coluna, in
                         }
                         // se no local de destino tiver um espaço vazio
                         else{
+                            printf("fui chamado 6");
+                            getchar();
                             // o bispo pode andar
                             *movimento_valido=1;
                         }
@@ -844,13 +857,13 @@ void validar_movimento_bispoB (char tabuleiro[10][10], int linha, int coluna, in
 
 // função para mover o bispo pequeno
 void validar_movimento_bispob (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
-    int contlinha, contcoluna, NaoEntraMais;//variavel criada para evitar que a função entre em todos os laços se uma opção inicial for falsa
+    int contlinha, contcoluna, NaoEntraMais=0;//variavel criada para evitar que a função entre em todos os laços se uma opção inicial for falsa
     *movimento_valido=0;
     // se o bispo se mover na diagonal
     //abs retorna o valor em modulo da operação(absoluto)
     if (abs((coluna-colunavelha)) == abs((linha-linhavelha))){
          // descendo o tabuleiro
-         if (linhavelha<linha){
+         if (linhavelha<linha&&NaoEntraMais==0){
             //da direita para a esquerda
             if(colunavelha>coluna){
                 //função que verifica se no intervalo entre a posição original e a final tem alguma peca
@@ -912,9 +925,10 @@ void validar_movimento_bispob (char tabuleiro[10][10], int linha, int coluna, in
                     }
                 }
             }
+            NaoEntraMais=1;
          }
         // subindo o tabuleiro
-        if (linha<linhavelha){
+        if (linha<linhavelha&&NaoEntraMais==0){
             printf("fui chamado 1");
             getchar();
             //da direita para a esquerda
