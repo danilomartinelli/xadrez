@@ -593,10 +593,16 @@ void mover_peca(char tabuleiro[10][10], char *ppeca, int *rodada, int linhavelha
                 }
                 break;
 
+<<<<<<< Updated upstream
             case 'r':
                 validar_movimento_rei(tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
                 if (*movimento_valido == 1)
                 {
+=======
+            case'r':
+                validar_movimento_reir (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
+                if(*movimento_valido==1){
+>>>>>>> Stashed changes
                     //atribuindo que na posição escolhida pelo jogador será colocado a peca escolhida pelo jogador
                     tabuleiro[linha][coluna] = peca;
                     //atribuindo que na posição de onde a peca escolhida saiu será substituida por um espaço vazio
@@ -606,10 +612,16 @@ void mover_peca(char tabuleiro[10][10], char *ppeca, int *rodada, int linhavelha
                 }
                 break;
 
+<<<<<<< Updated upstream
             case 'a':
                 validar_movimento_rainha(tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
                 if (*movimento_valido == 1)
                 {
+=======
+            case'a':
+                validar_movimento_rainhar (tabuleiro, linha, coluna,  linhavelha, colunavelha, movimento_valido);
+                if(*movimento_valido==1){
+>>>>>>> Stashed changes
                     //atribuindo que na posição escolhida pelo jogador será colocado a peca escolhida pelo jogador
                     tabuleiro[linha][coluna] = peca;
                     //atribuindo que na posição de onde a peca escolhida saiu será substituida por um espaço vazio
@@ -672,10 +684,16 @@ void mover_peca(char tabuleiro[10][10], char *ppeca, int *rodada, int linhavelha
                 }
                 break;
 
+<<<<<<< Updated upstream
             case 'R':
                 validar_movimento_rei(tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
                 if (*movimento_valido == 1)
                 {
+=======
+            case'R':
+                validar_movimento_reiR (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
+                if(*movimento_valido==1){
+>>>>>>> Stashed changes
                     //atribuindo que na posição escolhida pelo jogador será colocado a peca escolhida pelo jogador
                     tabuleiro[linha][coluna] = peca;
                     //atribuindo que na posição de onde a peca escolhida saiu será substituida por um espaço vazio
@@ -685,10 +703,16 @@ void mover_peca(char tabuleiro[10][10], char *ppeca, int *rodada, int linhavelha
                 }
                 break;
 
+<<<<<<< Updated upstream
             case 'A':
                 validar_movimento_rainha(tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
                 if (*movimento_valido == 1)
                 {
+=======
+            case'A':
+                validar_movimento_rainhaR (tabuleiro, linha, coluna,  linhavelha, colunavelha, movimento_valido);
+                if(*movimento_valido==1){
+>>>>>>> Stashed changes
                     //atribuindo que na posição escolhida pelo jogador será colocado a peca escolhida pelo jogador
                     tabuleiro[linha][coluna] = peca;
                     //atribuindo que na posição de onde a peca escolhida saiu será substituida por um espaço vazio
@@ -1469,6 +1493,7 @@ void validar_movimento_reir(char tabuleiro[10][10], int linha, int coluna, int l
 {
     *movimento_valido = 0;
 
+<<<<<<< Updated upstream
     if (linhavelha == linha && colunavelha == coluna - 1)
     {
         if (isalpha(tabuleiro[linha][coluna]) != 0)
@@ -1483,6 +1508,23 @@ void validar_movimento_reir(char tabuleiro[10][10], int linha, int coluna, int l
             {
                 //significa que ele não pode andar e comer a peca do adversario
                 *movimento_valido = 0;
+=======
+        if (linhavelha == linha && colunavelha == coluna - 1) {
+            if(isalpha(tabuleiro[linha][coluna])!=0){
+                // se essa letra for minuscula
+                if(isupper(tabuleiro[linha][coluna])!=0){
+                    //significa que ele pode andar e comer a peca do adversario
+                    *movimento_valido=1;
+                }
+                else{
+                    //significa que ele não pode andar e comer a peca do adversario
+                    *movimento_valido=0;
+                }
+            } else {
+                if (tabuleiro[linha][coluna]=='-') {
+                    *movimento_valido=1;
+                }
+>>>>>>> Stashed changes
             }
         }
         else
@@ -1668,6 +1710,7 @@ void validar_movimento_reiR(char tabuleiro[10][10], int linha, int coluna, int l
 {
     *movimento_valido = 0;
 
+<<<<<<< Updated upstream
     if (linhavelha == linha && colunavelha == coluna - 1)
     {
         if (isalpha(tabuleiro[linha][coluna]) != 0)
@@ -1682,6 +1725,23 @@ void validar_movimento_reiR(char tabuleiro[10][10], int linha, int coluna, int l
             {
                 //significa que ele não pode andar e comer a peca do adversario
                 *movimento_valido = 0;
+=======
+        if (linhavelha == linha && colunavelha == coluna - 1) {
+            if(isalpha(tabuleiro[linha][coluna])!=0){
+                // se essa letra for minuscula
+                if(islower(tabuleiro[linha][coluna])!=0){
+                    //significa que ele pode andar e comer a peca do adversario
+                    *movimento_valido=1;
+                }
+                else{
+                    //significa que ele não pode andar e comer a peca do adversario
+                    *movimento_valido=0;
+                }
+            } else {
+                if (tabuleiro[linha][coluna]=='-') {
+                    *movimento_valido=1;
+                }
+>>>>>>> Stashed changes
             }
         }
         else
@@ -1787,6 +1847,7 @@ void validar_movimento_reiR(char tabuleiro[10][10], int linha, int coluna, int l
                 *movimento_valido = 1;
             }
         }
+<<<<<<< Updated upstream
     }
     if (colunavelha == coluna + 1 && linhavelha == linha - 1)
     {
@@ -1860,6 +1921,9 @@ void validar_movimento_reiR(char tabuleiro[10][10], int linha, int coluna, int l
             }
         }
     }
+=======
+
+>>>>>>> Stashed changes
 }
 
 //função para mover o peao grande
