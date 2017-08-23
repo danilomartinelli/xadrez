@@ -659,6 +659,7 @@ void mover_peca(char tabuleiro[10][10], char *ppeca, int *rodada, int linhavelha
                 printf("\nMovimento invalido.\a\n");
 
             }
+            check_mate (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
 
             //função que verifica se o jogo acabou
             check_mate (tabuleiro);
@@ -1703,7 +1704,7 @@ void validar_movimento_peaop (char tabuleiro[10][10], int linha, int coluna, int
         }
          // se não for uma letra e sim um espaço vazio, ele não pode andar
         if(tabuleiro[linha][coluna]=='-'){
-            *movimento_valido=0;
+            *movimento_valido=1;
         }
         // a função não entra nas condiçoes subsequentes
         NaoEntraMais=1;
@@ -1724,7 +1725,7 @@ void validar_movimento_peaop (char tabuleiro[10][10], int linha, int coluna, int
         }
          // se não for uma letra e sim um espaço vazio, ele não pode andar
         if(tabuleiro[linha][coluna]=='-'){
-            *movimento_valido=0;
+            *movimento_valido=1;
         }
         // a função não entra nas condiçoes subsequentes
         NaoEntraMais=1;

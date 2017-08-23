@@ -13,10 +13,14 @@ void selecao_peca (char tabuleiro[10][10], char *ppeca);
 void atualizar_tela ( char tabuleiro[10][10], int *rodada);
 //Funcão pra chamar os jogadores pelo nome
 void nome_jogadores (char *nomeJogador1, char *nomeJogador2);
-//função do movimento do bispo
-void movimento_bispo (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
-//função do movimento do cavalo
-void movimento_cavalo (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
+//função do movimento do bispo maiusculo
+void movimento_bispoB (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
+//função do movimento do bispo minusculo
+void movimento_bispob (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
+//função do movimento do cavalo maiusculo
+void validar_movimento_cavaloC (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
+//função do movimento do cavalo minusculo
+void validar_movimento_cavaloc (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
 //função do movimento da torre maiusculo
 void validar_movimento_torreT (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
 //função do movimento da torre minusculo
@@ -500,7 +504,7 @@ void mover_peca(char tabuleiro[10][10], char *ppeca, int *rodada, int linhavelha
                 break;
 
             case'b':
-                validar_movimento_peaoP (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
+                validar_movimento_bispob (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
                 if(*movimento_valido==1){
                     //atribuindo que na posição escolhida pelo jogador será colocado a peca escolhida pelo jogador
                     tabuleiro[linha][coluna] = peca;
@@ -512,7 +516,7 @@ void mover_peca(char tabuleiro[10][10], char *ppeca, int *rodada, int linhavelha
                 break;
 
             case'c':
-                movimento_cavalo (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
+                validar_movimento_cavaloc (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
                 if(*movimento_valido==1){
                     //atribuindo que na posição escolhida pelo jogador será colocado a peca escolhida pelo jogador
                     tabuleiro[linha][coluna] = peca;
@@ -573,7 +577,7 @@ void mover_peca(char tabuleiro[10][10], char *ppeca, int *rodada, int linhavelha
 
             case'B':
                 //função que rege o movimento do bispo
-                movimento_bispo (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
+                validar_movimento_bispoB (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
                 if(*movimento_valido==1){
                     //atribuindo que na posição escolhida pelo jogador será colocado a peca escolhida pelo jogador
                     tabuleiro[linha][coluna] = peca;
@@ -585,7 +589,7 @@ void mover_peca(char tabuleiro[10][10], char *ppeca, int *rodada, int linhavelha
                 break;
 
             case'C':
-                movimento_cavalo (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
+                validar_movimento_cavaloC (tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
                 if(*movimento_valido==1){
                     //atribuindo que na posição escolhida pelo jogador será colocado a peca escolhida pelo jogador
                     tabuleiro[linha][coluna] = peca;
@@ -661,38 +665,238 @@ void atualizar_tela ( char tabuleiro[10][10], int *rodada){
 //fecha a função
 }
 
-void movimento_bispo (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
-        if(coluna-colunavelha == linha-linhavelha || coluna-colunavelha==((linha-linhavelha)*(-1))){
-            *movimento_valido=1;
+void validar_movimento_bispoB (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
+        int contlinha, contcoluna, NaoEntraMais;
+        movimento_valido=0;
+        if ((coluna-colunavelha) == (linha-linhavelha)){
+         if (linhavelha<linha){
+            for (contlinha=linhavelha, contcoluna=coluna; contlinha<=linha, contcoluna<=coluna; contlinha++, contcoluna++){
+                    if(tabuleiro[contlinha][contcoluna]!='-'){
+                        *movimento_valido=0;
+                        break;
+                    }
+                    else{
+                        *movimento_valido=1;
+                    }
+            }
+            if(isalpha(tabuleiro[linha][coluna])!=0){
+                if(islower(tabuleiro[linha][coluna])!=0){
+                    *movimento_valido=1;
+                }
+                else{
+                    *movimento_valido=0;
+                }
+            }
         }
+        if (linha<linhavelha){
+            for (contlinha=linha, contcoluna=colunavelha; contlinha<=linhavelha, contcoluna<=colunavelha; contlinha++, contcoluna++){
+                    if(tabuleiro[contlinha][contcoluna]!='-'){
+                        *movimento_valido=0;
+                        break;
+                    }
+                    else{
+                        *movimento_valido=1;
+                    }
+            }
+            if(isalpha(tabuleiro[linha][coluna])!=0){
+                if(islower(tabuleiro[linha][coluna])!=0){
+                    *movimento_valido=1;
+                }
+                else{
+                    *movimento_valido=0;
+                }
+            }
+        }
+        NaoEntraMais=1;
+    }
+        if((coluna-colunavelha)==(linhavelha-linha)){
+            if (linhavelha<linha){
+                for (contlinha=linhavelha, contcoluna=coluna; contlinha<=linha, contcoluna<=colunavelha; contlinha++, contcoluna++){
+                    if(tabuleiro[contlinha][contcoluna]!='-'){
+                        *movimento_valido=0;
+                        break;
+                    }
+                    else{
+                        *movimento_valido=1;
+                    }
+                }
+                if(isalpha(tabuleiro[linha][coluna])!=0){
+                    if(islower(tabuleiro[linha][coluna])!=0){
+                        *movimento_valido=1;
+                    }
+                    else{
+                        *movimento_valido=0;
+                    }
+                }
+            }
+            if (linha<linhavelha){
+                for (contlinha=linha, contcoluna=colunavelha; contlinha<=linhavelha, contcoluna<=coluna; contlinha++, contcoluna++){
+                    if(tabuleiro[contlinha][contcoluna]!='-'){
+                        *movimento_valido=0;
+                        break;
+                    }
+                    else{
+                        *movimento_valido=1;
+                    }
+                }
+                if(isalpha(tabuleiro[linha][coluna])!=0){
+                    if(isupper(tabuleiro[linha][coluna])!=0){
+                        *movimento_valido=1;
+                    }
+                    else{
+                        *movimento_valido=0;
+                    }
+                }
+            }
+            NaoEntraMais=1;
+        }
+    }
+
+
+void validar_movimento_bispob (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
+        int contlinha, contcoluna, NaoEntraMais;
+        movimento_valido=0;
+        if ((coluna-colunavelha) == (linha-linhavelha)){
+         if (linhavelha<linha){
+            for (contlinha=linhavelha, contcoluna=coluna; contlinha<=linha, contcoluna<=coluna; contlinha++, contcoluna++){
+                    if(tabuleiro[contlinha][contcoluna]!='-'){
+                        *movimento_valido=0;
+                        break;
+                    }
+                    else{
+                        *movimento_valido=1;
+                    }
+            }
+            if(isalpha(tabuleiro[linha][coluna])!=0){
+                if(isupper(tabuleiro[linha][coluna])!=0){
+                    *movimento_valido=1;
+                }
+                else{
+                    *movimento_valido=0;
+                }
+            }
+        }
+        if (linha<linhavelha){
+            for (contlinha=linha, contcoluna=colunavelha; contlinha<=linhavelha, contcoluna<=colunavelha; contlinha++, contcoluna++){
+                    if(tabuleiro[contlinha][contcoluna]!='-'){
+                        *movimento_valido=0;
+                        break;
+                    }
+                    else{
+                        *movimento_valido=1;
+                    }
+            }
+            if(isalpha(tabuleiro[linha][coluna])!=0){
+                if(isupper(tabuleiro[linha][coluna])!=0){
+                    *movimento_valido=1;
+                }
+                else{
+                    *movimento_valido=0;
+                }
+            }
+        }
+        NaoEntraMais=1;
+    }
+        if((coluna-colunavelha)==(linhavelha-linha)){
+            if (linhavelha<linha){
+                for (contlinha=linhavelha, contcoluna=coluna; contlinha<=linha, contcoluna<=colunavelha; contlinha++, contcoluna++){
+                    if(tabuleiro[contlinha][contcoluna]!='-'){
+                        *movimento_valido=0;
+                        break;
+                    }
+                    else{
+                        *movimento_valido=1;
+                    }
+                }
+                if(isalpha(tabuleiro[linha][coluna])!=0){
+                    if(islower(tabuleiro[linha][coluna])!=0){
+                        *movimento_valido=1;
+                    }
+                    else{
+                        *movimento_valido=0;
+                    }
+                }
+            }
+            if (linha<linhavelha){
+                for (contlinha=linha, contcoluna=colunavelha; contlinha<=linhavelha, contcoluna<=coluna; contlinha++, contcoluna++){
+                    if(tabuleiro[contlinha][contcoluna]!='-'){
+                        *movimento_valido=0;
+                        break;
+                    }
+                    else{
+                        *movimento_valido=1;
+                    }
+                }
+                if(isalpha(tabuleiro[linha][coluna])!=0){
+                    if(islower(tabuleiro[linha][coluna])!=0){
+                        *movimento_valido=1;
+                    }
+                    else{
+                        *movimento_valido=0;
+                    }
+                }
+            }
+            NaoEntraMais=1;
+        }
+    }
+
+
+void validar_movimento_cavaloC (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
+        *movimento_valido=0;
+        int NaoEntraMais=0;
+        if(((linhavelha-linha==2)&&(colunavelha-coluna==1)) || ((linhavelha-linha==1)&&(colunavelha-coluna==2)) || ((linha-linhavelha==1)&&(colunavelha-coluna==2)) || ((linha-linhavelha==2)&&(colunavelha-coluna==1)) || ((linhavelha-linha==2)&&(coluna-colunavelha==1)) || ((linhavelha-linha==1)&&(coluna-colunavelha==2)) || ((linha-linhavelha==1)&&(coluna-colunavelha==2)) || ((linha-linhavelha==2)&&(coluna-colunavelha==1))){
+           if((isalpha(tabuleiro[linha][coluna])!=0) && (NaoEntraMais==0)){
+                if(islower(tabuleiro[linha][coluna])!=0){
+                    *movimento_valido=1;
+                }
+                NaoEntraMais=1;
+            }
+            if(tabuleiro[linha][coluna]='-' && NaoEntraMais==0){
+                *movimento_valido=1;
+            }
         else {
             *movimento_valido=0;
         }
-        if (*movimento_valido==1){
-            printf("\nMovimento valido\n");
+        if(*movimento_valido==1){
+            printf("Movimento valido\n");
         }
         else {
-            printf("\nMovimento invalido\n");
+            printf("Movimento invalido \n");
         }
-
+    }
 }
 
-void movimento_cavalo (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
+void validar_movimento_cavaloc (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
+        *movimento_valido=0;
+        int NaoEntraMais=0;
         if(((linhavelha-linha==2)&&(colunavelha-coluna==1)) || ((linhavelha-linha==1)&&(colunavelha-coluna==2)) || ((linha-linhavelha==1)&&(colunavelha-coluna==2)) || ((linha-linhavelha==2)&&(colunavelha-coluna==1)) || ((linhavelha-linha==2)&&(coluna-colunavelha==1)) || ((linhavelha-linha==1)&&(coluna-colunavelha==2)) || ((linha-linhavelha==1)&&(coluna-colunavelha==2)) || ((linha-linhavelha==2)&&(coluna-colunavelha==1))){
-            printf("\nMovimento valido\n");
-            *movimento_valido=1;
-        }
+           if((isalpha(tabuleiro[linha][coluna])!=0) && (NaoEntraMais==0)){
+                printf("FUI CHAMADO 1\n");
+                getchar();
+                if(isupper(tabuleiro[linha][coluna])!=0){
+                    *movimento_valido=1;
+                }
+                NaoEntraMais=1;
+            }
+            if(tabuleiro[linha][coluna]='-' && NaoEntraMais==0){
+                *movimento_valido=1;
+            }
         else {
-            printf("\nMovimento invalido\n");
             *movimento_valido=0;
         }
-
+        if(*movimento_valido==1){
+            printf("Movimento valido\n");
+        }
+        else {
+            printf("Movimento invalido \n");
+        }
+    }
 }
 
 void validar_movimento_torreT (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
-    int cont;
+    int contlinha, contcoluna, cont, NaoEntraMais=0;
     *movimento_valido=0;
-    if ((colunavelha==coluna) && (linhavelha!= linha)){
+    if ((colunavelha==coluna) && (linhavelha!= linha) && (NaoEntraMais==0)){
         if (linhavelha<linha){
             for (cont=linhavelha; cont<=linha; cont++){
                 if(tabuleiro[cont][coluna]!='-'){
@@ -729,12 +933,14 @@ void validar_movimento_torreT (char tabuleiro[10][10], int linha, int coluna, in
                 else{
                     *movimento_valido=0;
                 }
+            }
         }
+        NaoEntraMais=1;
     }
-    if((linhavelha==linha) && (colunavelha!=coluna)){
+    if((linhavelha==linha) && (colunavelha!=coluna) && (NaoEntraMais==0)){
         if(colunavelha<coluna){
             for (cont=colunavelha; cont<=coluna; cont++){
-                if(tabuleiro[cont][coluna]!='-'){
+                if(tabuleiro[linha][cont]!='-'){
                     *movimento_valido=0;
                     break;
                 }
@@ -743,10 +949,9 @@ void validar_movimento_torreT (char tabuleiro[10][10], int linha, int coluna, in
                 }
             }
         }
-    }
-    if (coluna<colunavelha){
+        if (coluna<colunavelha){
             for (cont=coluna; cont<=colunavelha; cont++){
-                if(tabuleiro[cont][coluna]!='-'){
+                if(tabuleiro[linha][cont]!='-'){
                     *movimento_valido=0;
                     break;
                 }
@@ -763,6 +968,7 @@ void validar_movimento_torreT (char tabuleiro[10][10], int linha, int coluna, in
                 }
             }
         }
+        NaoEntraMais=1;
     }
     if (*movimento_valido==1){
         printf("\nMovimento valido\n");
@@ -773,9 +979,9 @@ void validar_movimento_torreT (char tabuleiro[10][10], int linha, int coluna, in
 }
 
 void validar_movimento_torret (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
-    int cont;
+    int cont, NaoEntraMais=0;
     *movimento_valido=0;
-    if ((colunavelha==coluna) && (linhavelha!= linha)){
+    if ((colunavelha==coluna) && (linhavelha!= linha) && (NaoEntraMais==0)){
         if (linhavelha<linha){
             for (cont=linhavelha; cont<=linha; cont++){
                 if(tabuleiro[cont][coluna]!='-'){
@@ -812,12 +1018,14 @@ void validar_movimento_torret (char tabuleiro[10][10], int linha, int coluna, in
                 else{
                     *movimento_valido=0;
                 }
+            }
         }
+        NaoEntraMais==1;
     }
-    if((linhavelha==linha) && (colunavelha!=coluna)){
+    if((linhavelha==linha) && (colunavelha!=coluna) && (NaoEntraMais==0)){
         if(colunavelha<coluna){
             for (cont=colunavelha; cont<=coluna; cont++){
-                if(tabuleiro[cont][coluna]!='-'){
+                if(tabuleiro[linha][cont]!='-'){
                     *movimento_valido=0;
                     break;
                 }
@@ -826,10 +1034,9 @@ void validar_movimento_torret (char tabuleiro[10][10], int linha, int coluna, in
                 }
             }
         }
-    }
-    if (coluna<colunavelha){
+        if (coluna<colunavelha){
             for (cont=coluna; cont<=colunavelha; cont++){
-                if(tabuleiro[cont][coluna]!='-'){
+                if(tabuleiro[linha][cont]!='-'){
                     *movimento_valido=0;
                     break;
                 }
@@ -846,6 +1053,7 @@ void validar_movimento_torret (char tabuleiro[10][10], int linha, int coluna, in
                 }
             }
         }
+        NaoEntraMais=1;
     }
     if (*movimento_valido==1){
         printf("\nMovimento valido\n");
@@ -924,7 +1132,7 @@ void validar_movimento_peaoP (char tabuleiro[10][10], int linha, int coluna, int
         }
         NaoEntraMais=1;
     }
-    if ((linhavelha==7) && (coluna==colunavelha) && (linhavelha-linha==2) && (NaoEntraMais==0)){
+    if ((linhavelha==2) && (coluna==colunavelha) && (linha-linhavelha==2) && (NaoEntraMais==0)){
         *movimento_valido=1;
         NaoEntraMais=1;
     }
