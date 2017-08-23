@@ -21,10 +21,14 @@ void validar_movimento_cavalo (char tabuleiro[10][10], int linha, int coluna, in
 void validar_movimento_torret (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
 //função do movimento da torre grande
 void validar_movimento_torreT (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
-//função do movimento da rainha
-void validar_movimento_rainha (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
-//função do movimento do rei
-void validar_movimento_rei (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
+//função do movimento da rainha pequena
+void validar_movimento_rainhar (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
+//função do movimento da rainha grande
+void validar_movimento_rainhaR (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
+//função do movimento do rei pequeno
+void validar_movimento_reir (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
+//função do movimento do rei grande
+void validar_movimento_reiR (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido);
 //função do movimento do peão minusculo
 void validar_movimento_peaop (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha, int *movimento_valido);
 //função do movimento do peão maisculo
@@ -1305,34 +1309,30 @@ void validar_movimento_torreT (char tabuleiro[10][10], int linha, int coluna, in
     }
 }
 
-// função para mover a rainha
-void validar_movimento_rainha (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
-    if((coluna-colunavelha==linha-linhavelha) || (coluna-colunavelha==linhavelha-linha) || ((colunavelha==coluna) && (linha!=linhavelha)) || ((linhavelha==linha) && (colunavelha!=coluna))){
-        *movimento_valido=1;
-    }
-    else {
-        *movimento_valido=0;
-    }
-    if (*movimento_valido==1){
-        printf("\nMovimento valido\n");
-    }
-    else {
-        printf("\nMovimento invalido\n");
-    }
+// função para mover a rainha pequena
+void validar_movimento_rainhar (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
+    validar_movimento_bispob(tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
+    validar_movimento_torret(tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
 
 }
 
-// função para mover o rei
-void validar_movimento_rei (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
-        if(((coluna-colunavelha==1) && (linha-linhavelha==1)) || ((colunavelha-coluna==1) && (linha-linhavelha)==1) || ((colunavelha-coluna==1) && (linha-linhavelha==1)) || ((colunavelha-coluna==1) && (linhavelha-linha==1)) || ((linha-linhavelha==1) && (coluna==colunavelha)) || ((linhavelha-linha==1) && (coluna==colunavelha)) || ((linhavelha==linha) && (colunavelha-coluna==1)) || ((linhavelha==linha) && (coluna-colunavelha==1))){
-            *movimento_valido=1;
-            printf("\nMovimento valido\n");
-        }
-        else {
-            *movimento_valido=0;
-            printf("\nMovimento invalido\n");
-        }
+// função para mover a rainha grande
+void validar_movimento_rainhaR (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
+    validar_movimento_bispoB(tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
+    validar_movimento_torreT(tabuleiro, linha, coluna, linhavelha, colunavelha, movimento_valido);
 
+}
+
+// função para mover o rei pequeno
+void validar_movimento_reir (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
+
+
+}
+
+// função para mover o rei grande
+void validar_movimento_reiR (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
+    
+    
 }
 
 //função para mover o peao grande
