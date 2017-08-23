@@ -859,157 +859,146 @@ void validar_movimento_bispoB (char tabuleiro[10][10], int linha, int coluna, in
     }
 }
 
-// função para mover o bispo pequeno
-void validar_movimento_bispob (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
-    int contlinha, contcoluna, NaoEntraMais=0;//variavel criada para evitar que a função entre em todos os laços se uma opção inicial for falsa
-    *movimento_valido=0;
-    // se o bispo se mover na diagonal
-    //abs retorna o valor em modulo da operação(absoluto)
-    if (abs((coluna-colunavelha)) == abs((linha-linhavelha))){
-         // descendo o tabuleiro
-         if (linhavelha<linha&&NaoEntraMais==0){
-            //da direita para a esquerda
-            if(colunavelha>coluna){
-                //função que verifica se no intervalo entre a posição original e a final tem alguma peca
-                for (contlinha=linhavelha, contcoluna=coluna; contlinha<=linha, contcoluna<=colunavelha; contlinha++, contcoluna++){
-                    // se tiver peca
-                    if(tabuleiro[contlinha][contcoluna]!='-'){
-                        // o bispo não pode andar e comer a peca
-                        *movimento_valido=0;
-                    }
-                    // se não tiverem pecas no intervalo
-                    else{
-                        // se no local de destino tiver uma peca
-                        if(isalpha(tabuleiro[linha][coluna])!=0){
-                            // se essa peca for maiuscula
-                            if(isupper(tabuleiro[linha][coluna])!=0){
-                                // o bispo pode andar e comer
-                                *movimento_valido=1;
-                            }
-                            else{
-                                // o bispo não pode andar e comer
-                                *movimento_valido=0;
-                            }
-                        }
-                        // se no local de destino tiver um espaço vazio
-                        else{
-                            // o bispo pode andar
-                            *movimento_valido=1;
-                        }
-                    }
-                }
-            }
-            //da esquerda para a direita
-            if(colunavelha<coluna){
-                //função que verifica se no intervalo entre a posição original e a final tem alguma peca
-                for (contlinha=linhavelha, contcoluna=colunavelha; contlinha<linha, contcoluna<coluna; contlinha++, contcoluna++){
-                    // se tiver peca
-                    if(tabuleiro[contlinha][contcoluna]!='-'){
-                        // o bispo não pode andar e comer a peca
-                        *movimento_valido=0;
-                    }
-                    else{
-                        // se no local de destino tiver uma peca
-                        if(isalpha(tabuleiro[linha][coluna])!=0){
-                            // se essa peca for maiuscula
-                            if(isupper(tabuleiro[linha][coluna])!=0){
-                                // o bispo pode andar e comer
-                                *movimento_valido=1;
-                            }
-                            else{
-                                // o bispo não pode andar e comer
-                                *movimento_valido=0;
-                            }
-                        }
-                        // se no local de destino tiver um espaço vazio
-                        else{
-                            // o bispo pode andar
-                            *movimento_valido=1;
-                        }
-                    }
-                }
-            }
-            NaoEntraMais=1;
-         }
-        // subindo o tabuleiro
-        if (linha<linhavelha&&NaoEntraMais==0){
-            printf("fui chamado 1");
-            getchar();
-            //da direita para a esquerda
-            if(colunavelha>coluna){
-                printf("fui chamado 2");
-                getchar();
-                //função que verifica se no intervalo entre a posição original e a final tem alguma peca
-                for (contlinha=linha, contcoluna=coluna; contlinha<linhavelha, contcoluna<colunavelha; contlinha++, contcoluna++){
-                    printf("fui chamado 3");
-                    getchar();
-                    // se tiver peca
-                    if(tabuleiro[contlinha][contcoluna]!='-'){
-                        // o bispo não pode andar e comer a peca
-                        *movimento_valido=0;
+//Verificar possíveis locais para o bispo.
+void validar_movimento_bispob(char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido)
+{
+    //Declarar variáveis auxiliares.
+    int auxRow, auxColumn, breakIf = 1;
+    char tempPiece;
 
-                    }
-                    else{
-                        printf("fui chamado 4");
-                        getchar();
-                        // se no local de destino tiver uma peca
-                        if(isalpha(tabuleiro[linha][coluna])!=0){
-                            printf("fui chamado 5");
-                            getchar();
-                            // se essa peca for maiuscula
-                            if(isupper(tabuleiro[linha][coluna])!=0){
-                                // o bispo pode andar e comer
-                                *movimento_valido=1;
-                            }
-                            else{
-                                // o bispo pode andar e comer
-                                *movimento_valido=0;
-                            }
-                        }
-                        // se no local de destino tiver um espaço vazio
-                        else{
-                            printf("fui chamado 6");
-                            getchar();
-                            // o bispo pode andar
-                            *movimento_valido=1;
-                        }
-                    }
-                }
-            }
-            //da esquerda para a direita
-            if(colunavelha<coluna){
-                //função que verifica se no intervalo entre a posição original e a final tem alguma peca
-                for (contlinha=linha, contcoluna=colunavelha; contlinha<linhavelha, contcoluna<coluna; contlinha++, contcoluna++){
-                    // se tiver peca
-                    if(tabuleiro[contlinha][contcoluna]!='-'){
-                        // o bispo não pode andar e comer a peca
-                        *movimento_valido=0;
+    //Bispo percorrendo para o inferior direito.
+    if (coluna > colunavelha && linha > linhavelha && breakIf)
+    {
+        for (auxRow = (linhavelha + 1), auxColumn = (colunavelha + 1); auxRow <= linha, auxColumn <= coluna; auxRow++, auxColumn++)
+        {
+            tempPiece = table[auxRow][auxColumn];
 
+            if (tempPiece != '-')
+            {
+                if (islower(tempPiece) == 0)
+                {
+                    *movimento_valido = 0;
+                    breakIf = 0;
+                }
+                else
+                {
+                    if (islower(tempPiece) != 0 && auxRow == linha)
+                    {
+                        *movimento_valido = 1;
+                        breakIf = 0;
                     }
-                    else{
-                        // se no local de destino tiver uma peca
-                        if(isalpha(tabuleiro[linha][coluna])!=0){
-                            // se essa peca for maiuscula
-                            if(isupper(tabuleiro[linha][coluna])!=0){
-                                // o bispo pode andar e comer
-                                *movimento_valido=1;
-                            }
-                            else{
-                                // o bispo pode andar e comer
-                                *movimento_valido=0;
-                            }
-                        }
-                        // se no local de destino tiver um espaço vazio
-                        else{
-                            // o bispo pode andar
-                            *movimento_valido=1;
-                        }
+                    else
+                    {
+                        *movimento_valido = 0;
+                        breakIf = 0;
                     }
                 }
             }
         }
-        NaoEntraMais=1;
+        *movimento_valido = 1;
+        breakIf = 0;
     }
+
+    //Bispo percorrendo para o superior direito.
+    if (coluna > colunavelha && linha < linhavelha && breakIf)
+    {
+        for (auxRow = (linhavelha - 1), auxColumn = (colunavelha + 1); auxRow >= linha, auxColumn <= coluna; auxRow--, auxColumn++)
+        {
+            tempPiece = table[auxRow][auxColumn];
+
+            if (tempPiece != '-')
+            {
+                if (islower(tempPiece) == 0)
+                {
+                    *movimento_valido = 0;
+                    breakIf = 0;
+                }
+                else
+                {
+                    if (islower(tempPiece) != 0 && auxRow == linha)
+                    {
+                        *movimento_valido = 1;
+                        breakIf = 0;
+                    }
+                    else
+                    {
+                        *movimento_valido = 0;
+                        breakIf = 0;
+                    }
+                }
+            }
+        }
+        *movimento_valido = 1;
+        breakIf = 0;
+    }
+
+    //Bispo percorrendo para o inferior esquerdo.
+    if (linha > linhavelha && coluna < colunavelha && breakIf)
+    {
+        for (auxColumn = (colunavelha - 1), auxRow = (linhavelha + 1); auxColumn >= coluna, auxRow <= linha; auxRow++, auxColumn--)
+        {
+            tempPiece = table[auxRow][auxColumn];
+
+            if (tempPiece != '-')
+            {
+                if (islower(tempPiece) == 0)
+                {
+                    *movimento_valido = 0;
+                    breakIf = 0;
+                }
+                else
+                {
+                    if (islower(tempPiece) != 0 && auxRow == linha)
+                    {
+                        *movimento_valido = 1;
+                        breakIf = 0;
+                    }
+                    else
+                    {
+                        *movimento_valido = 0;
+                        breakIf = 0;
+                    }
+                }
+            }
+        }
+        *movimento_valido = 1;
+        breakIf = 0;
+    }
+
+    //Bispo percorrendo para o inferior superior.
+    if (linha < linhavelha && coluna < colunavelha && breakIf)
+    {
+        for (auxColumn = (colunavelha - 1), auxRow = (linhavelha - 1); auxColumn >= coluna, auxRow >= linha; auxColumn--, auxRow--)
+        {
+            tempPiece = table[auxRow][auxColumn];
+
+            if (tempPiece != '-')
+            {
+                if (islower(tempPiece) == 0)
+                {
+                    *movimento_valido = 0;
+                    breakIf = 0;
+                }
+                else
+                {
+                    if (islower(tempPiece) != 0 && auxRow == linha)
+                    {
+                        *movimento_valido = 1;
+                        breakIf = 0;
+                    }
+                    else
+                    {
+                        *movimento_valido = 0;
+                        breakIf = 0;
+                    }
+                }
+            }
+        }
+        *movimento_valido = 1;
+        breakIf = 0;
+    }
+    *movimento_valido = 0;
+    breakIf = 0;
 }
 
 // função para mover o cavalo
