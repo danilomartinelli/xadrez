@@ -1325,13 +1325,61 @@ void validar_movimento_rainhaR (char tabuleiro[10][10], int linha, int coluna, i
 
 // função para mover o rei pequeno
 void validar_movimento_reir (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
-
+    *movimento_valido = 0;
+    if (linhavelha == linha && colunavelha == coluna - 1) {
+        *movimento_valido = 1;
+    }
+    if (linhavelha == linha && colunavelha == coluna + 1) {
+        *movimento_valido = 1;
+    }
+    if (colunavelha == coluna && linhavelha == linha - 1) {
+        *movimento_valido = 1;
+    }
+    if (colunavelha == coluna && linhavelha == linha + 1) {
+        *movimento_valido = 1;
+    }
+    if (colunavelha == coluna + 1 && linhavelha == linha + 1) {
+        *movimento_valido = 1;
+    }
+    if (colunavelha == coluna + 1 && linhavelha == linha - 1) {
+        *movimento_valido = 1;
+    }
+    if (colunavelha == coluna - 1 && linhavelha == linha - 1) {
+        *movimento_valido = 1;
+    }
+    if (colunavelha == coluna - 1 && linhavelha == linha + 1) {
+        *movimento_valido = 1;
+    }
 
 }
 
 // função para mover o rei grande
 void validar_movimento_reiR (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
-    
+    *movimento_valido = 0;
+    if (linhavelha == linha && colunavelha == coluna - 1) {
+        *movimento_valido = 1;
+    }
+    if (linhavelha == linha && colunavelha == coluna + 1) {
+        *movimento_valido = 1;
+    }
+    if (colunavelha == coluna && linhavelha == linha - 1) {
+        *movimento_valido = 1;
+    }
+    if (colunavelha == coluna && linhavelha == linha + 1) {
+        *movimento_valido = 1;
+    }
+    if (colunavelha == coluna + 1 && linhavelha == linha + 1) {
+        *movimento_valido = 1;
+    }
+    if (colunavelha == coluna + 1 && linhavelha == linha - 1) {
+        *movimento_valido = 1;
+    }
+    if (colunavelha == coluna - 1 && linhavelha == linha - 1) {
+        *movimento_valido = 1;
+    }
+    if (colunavelha == coluna - 1 && linhavelha == linha + 1) {
+        *movimento_valido = 1;
+    }
     
 }
 
