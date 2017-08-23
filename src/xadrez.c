@@ -1326,60 +1326,286 @@ void validar_movimento_rainhaR (char tabuleiro[10][10], int linha, int coluna, i
 // função para mover o rei pequeno
 void validar_movimento_reir (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
     *movimento_valido = 0;
-    if (linhavelha == linha && colunavelha == coluna - 1) {
-        *movimento_valido = 1;
-    }
-    if (linhavelha == linha && colunavelha == coluna + 1) {
-        *movimento_valido = 1;
-    }
-    if (colunavelha == coluna && linhavelha == linha - 1) {
-        *movimento_valido = 1;
-    }
-    if (colunavelha == coluna && linhavelha == linha + 1) {
-        *movimento_valido = 1;
-    }
-    if (colunavelha == coluna + 1 && linhavelha == linha + 1) {
-        *movimento_valido = 1;
-    }
-    if (colunavelha == coluna + 1 && linhavelha == linha - 1) {
-        *movimento_valido = 1;
-    }
-    if (colunavelha == coluna - 1 && linhavelha == linha - 1) {
-        *movimento_valido = 1;
-    }
-    if (colunavelha == coluna - 1 && linhavelha == linha + 1) {
-        *movimento_valido = 1;
-    }
+    
+        if (linhavelha == linha && colunavelha == coluna - 1) {
+            if(isalpha(tabuleiro[linha][coluna])!=0){
+                // se essa letra for minuscula
+                if(isupper(tabuleiro[linha][coluna])!=0){
+                    //significa que ele pode andar e comer a peca do adversario
+                    *movimento_valido=1;
+                }
+                else{
+                    //significa que ele não pode andar e comer a peca do adversario
+                    *movimento_valido=0;
+                }
+            } else {
+                if (tabuleiro[linha][coluna]=='-') {
+                    *movimento_valido=1;
+                }
+            }
+        }
+        if (linhavelha == linha && colunavelha == coluna + 1) {
+            if(isalpha(tabuleiro[linha][coluna])!=0){
+                // se essa letra for minuscula
+                if(isupper(tabuleiro[linha][coluna])!=0){
+                    //significa que ele pode andar e comer a peca do adversario
+                    *movimento_valido=1;
+                }
+                else{
+                    //significa que ele não pode andar e comer a peca do adversario
+                    *movimento_valido=0;
+                }
+            } else {
+                if (tabuleiro[linha][coluna]=='-') {
+                    *movimento_valido=1;
+                }
+            }
+        }
+        if (colunavelha == coluna && linhavelha == linha - 1) {
+            if(isalpha(tabuleiro[linha][coluna])!=0){
+                // se essa letra for minuscula
+                if(isupper(tabuleiro[linha][coluna])!=0){
+                    //significa que ele pode andar e comer a peca do adversario
+                    *movimento_valido=1;
+                }
+                else{
+                    //significa que ele não pode andar e comer a peca do adversario
+                    *movimento_valido=0;
+                }
+            } else {
+                if (tabuleiro[linha][coluna]=='-') {
+                    *movimento_valido=1;
+                }
+            }
+        }
+        if (colunavelha == coluna && linhavelha == linha + 1) {
+            if(isalpha(tabuleiro[linha][coluna])!=0){
+                // se essa letra for minuscula
+                if(isupper(tabuleiro[linha][coluna])!=0){
+                    //significa que ele pode andar e comer a peca do adversario
+                    *movimento_valido=1;
+                }
+                else{
+                    //significa que ele não pode andar e comer a peca do adversario
+                    *movimento_valido=0;
+                }
+            } else {
+                if (tabuleiro[linha][coluna]=='-') {
+                    *movimento_valido=1;
+                }
+            }
+        }
+        if (colunavelha == coluna + 1 && linhavelha == linha + 1) {
+            if(isalpha(tabuleiro[linha][coluna])!=0){
+                // se essa letra for minuscula
+                if(isupper(tabuleiro[linha][coluna])!=0){
+                    //significa que ele pode andar e comer a peca do adversario
+                    *movimento_valido=1;
+                }
+                else{
+                    //significa que ele não pode andar e comer a peca do adversario
+                    *movimento_valido=0;
+                }
+            } else {
+                if (tabuleiro[linha][coluna]=='-') {
+                    *movimento_valido=1;
+                }
+            }
+        }
+        if (colunavelha == coluna + 1 && linhavelha == linha - 1) {
+            if(isalpha(tabuleiro[linha][coluna])!=0){
+                // se essa letra for minuscula
+                if(isupper(tabuleiro[linha][coluna])!=0){
+                    //significa que ele pode andar e comer a peca do adversario
+                    *movimento_valido=1;
+                }
+                else{
+                    //significa que ele não pode andar e comer a peca do adversario
+                    *movimento_valido=0;
+                }
+            } else {
+                if (tabuleiro[linha][coluna]=='-') {
+                    *movimento_valido=1;
+                }
+            }
+        }
+        if (colunavelha == coluna - 1 && linhavelha == linha - 1) {
+            if(isalpha(tabuleiro[linha][coluna])!=0){
+                // se essa letra for minuscula
+                if(isupper(tabuleiro[linha][coluna])!=0){
+                    //significa que ele pode andar e comer a peca do adversario
+                    *movimento_valido=1;
+                }
+                else{
+                    //significa que ele não pode andar e comer a peca do adversario
+                    *movimento_valido=0;
+                }
+            } else {
+                if (tabuleiro[linha][coluna]=='-') {
+                    *movimento_valido=1;
+                }
+            }
+        }
+        if (colunavelha == coluna - 1 && linhavelha == linha + 1) {
+            if(isalpha(tabuleiro[linha][coluna])!=0){
+                // se essa letra for minuscula
+                if(isupper(tabuleiro[linha][coluna])!=0){
+                    //significa que ele pode andar e comer a peca do adversario
+                    *movimento_valido=1;
+                }
+                else{
+                    //significa que ele não pode andar e comer a peca do adversario
+                    *movimento_valido=0;
+                }
+            } else {
+                if (tabuleiro[linha][coluna]=='-') {
+                    *movimento_valido=1;
+                }
+            }
+        }
 
 }
 
 // função para mover o rei grande
 void validar_movimento_reiR (char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha,int *movimento_valido){
     *movimento_valido = 0;
-    if (linhavelha == linha && colunavelha == coluna - 1) {
-        *movimento_valido = 1;
-    }
-    if (linhavelha == linha && colunavelha == coluna + 1) {
-        *movimento_valido = 1;
-    }
-    if (colunavelha == coluna && linhavelha == linha - 1) {
-        *movimento_valido = 1;
-    }
-    if (colunavelha == coluna && linhavelha == linha + 1) {
-        *movimento_valido = 1;
-    }
-    if (colunavelha == coluna + 1 && linhavelha == linha + 1) {
-        *movimento_valido = 1;
-    }
-    if (colunavelha == coluna + 1 && linhavelha == linha - 1) {
-        *movimento_valido = 1;
-    }
-    if (colunavelha == coluna - 1 && linhavelha == linha - 1) {
-        *movimento_valido = 1;
-    }
-    if (colunavelha == coluna - 1 && linhavelha == linha + 1) {
-        *movimento_valido = 1;
-    }
+    
+        if (linhavelha == linha && colunavelha == coluna - 1) {
+            if(isalpha(tabuleiro[linha][coluna])!=0){
+                // se essa letra for minuscula
+                if(islower(tabuleiro[linha][coluna])!=0){
+                    //significa que ele pode andar e comer a peca do adversario
+                    *movimento_valido=1;
+                }
+                else{
+                    //significa que ele não pode andar e comer a peca do adversario
+                    *movimento_valido=0;
+                }
+            } else {
+                if (tabuleiro[linha][coluna]=='-') {
+                    *movimento_valido=1;
+                }
+            }
+        }
+        if (linhavelha == linha && colunavelha == coluna + 1) {
+            if(isalpha(tabuleiro[linha][coluna])!=0){
+                // se essa letra for minuscula
+                if(islower(tabuleiro[linha][coluna])!=0){
+                    //significa que ele pode andar e comer a peca do adversario
+                    *movimento_valido=1;
+                }
+                else{
+                    //significa que ele não pode andar e comer a peca do adversario
+                    *movimento_valido=0;
+                }
+            } else {
+                if (tabuleiro[linha][coluna]=='-') {
+                    *movimento_valido=1;
+                }
+            }
+        }
+        if (colunavelha == coluna && linhavelha == linha - 1) {
+            if(isalpha(tabuleiro[linha][coluna])!=0){
+                // se essa letra for minuscula
+                if(islower(tabuleiro[linha][coluna])!=0){
+                    //significa que ele pode andar e comer a peca do adversario
+                    *movimento_valido=1;
+                }
+                else{
+                    //significa que ele não pode andar e comer a peca do adversario
+                    *movimento_valido=0;
+                }
+            } else {
+                if (tabuleiro[linha][coluna]=='-') {
+                    *movimento_valido=1;
+                }
+            }
+        }
+        if (colunavelha == coluna && linhavelha == linha + 1) {
+            if(isalpha(tabuleiro[linha][coluna])!=0){
+                // se essa letra for minuscula
+                if(islower(tabuleiro[linha][coluna])!=0){
+                    //significa que ele pode andar e comer a peca do adversario
+                    *movimento_valido=1;
+                }
+                else{
+                    //significa que ele não pode andar e comer a peca do adversario
+                    *movimento_valido=0;
+                }
+            } else {
+                if (tabuleiro[linha][coluna]=='-') {
+                    *movimento_valido=1;
+                }
+            }
+        }
+        if (colunavelha == coluna + 1 && linhavelha == linha + 1) {
+            if(isalpha(tabuleiro[linha][coluna])!=0){
+                // se essa letra for minuscula
+                if(islower(tabuleiro[linha][coluna])!=0){
+                    //significa que ele pode andar e comer a peca do adversario
+                    *movimento_valido=1;
+                }
+                else{
+                    //significa que ele não pode andar e comer a peca do adversario
+                    *movimento_valido=0;
+                }
+            } else {
+                if (tabuleiro[linha][coluna]=='-') {
+                    *movimento_valido=1;
+                }
+            }
+        }
+        if (colunavelha == coluna + 1 && linhavelha == linha - 1) {
+            if(isalpha(tabuleiro[linha][coluna])!=0){
+                // se essa letra for minuscula
+                if(islower(tabuleiro[linha][coluna])!=0){
+                    //significa que ele pode andar e comer a peca do adversario
+                    *movimento_valido=1;
+                }
+                else{
+                    //significa que ele não pode andar e comer a peca do adversario
+                    *movimento_valido=0;
+                }
+            } else {
+                if (tabuleiro[linha][coluna]=='-') {
+                    *movimento_valido=1;
+                }
+            }
+        }
+        if (colunavelha == coluna - 1 && linhavelha == linha - 1) {
+            if(isalpha(tabuleiro[linha][coluna])!=0){
+                // se essa letra for minuscula
+                if(islower(tabuleiro[linha][coluna])!=0){
+                    //significa que ele pode andar e comer a peca do adversario
+                    *movimento_valido=1;
+                }
+                else{
+                    //significa que ele não pode andar e comer a peca do adversario
+                    *movimento_valido=0;
+                }
+            } else {
+                if (tabuleiro[linha][coluna]=='-') {
+                    *movimento_valido=1;
+                }
+            }
+        }
+        if (colunavelha == coluna - 1 && linhavelha == linha + 1) {
+            if(isalpha(tabuleiro[linha][coluna])!=0){
+                // se essa letra for minuscula
+                if(islower(tabuleiro[linha][coluna])!=0){
+                    //significa que ele pode andar e comer a peca do adversario
+                    *movimento_valido=1;
+                }
+                else{
+                    //significa que ele não pode andar e comer a peca do adversario
+                    *movimento_valido=0;
+                }
+            } else {
+                if (tabuleiro[linha][coluna]=='-') {
+                    *movimento_valido=1;
+                }
+            }
+        }
     
 }
 
