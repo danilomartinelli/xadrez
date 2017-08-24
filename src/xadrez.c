@@ -709,7 +709,7 @@ void atualizar_tela ( char tabuleiro[10][10], int *rodada){
 }
 
 //Verificar possíveis locais para o bispo grande
-void validar_movimento_bispob(char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha, int *movimento_valido){
+void validar_movimento_bispoB(char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha, int *movimento_valido){
     int breakIf = 1;
     *movimento_valido=0;
 
@@ -871,7 +871,7 @@ void validar_movimento_bispob(char tabuleiro[10][10], int linha, int coluna, int
 }
 
 //Verificar possíveis locais para o bispo pequeno
-void validar_movimento_bispoB(char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha, int *movimento_valido){
+void validar_movimento_bispob(char tabuleiro[10][10], int linha, int coluna, int linhavelha, int colunavelha, int *movimento_valido){
     int breakIf = 1;
     *movimento_valido=0;
 
