@@ -2117,10 +2117,12 @@ void check_mate (char tabuleiro[10][10]){
         //limpa a tela
         system("cls");
         //mostra o perdedor, player 1 (pecas minusculas)
-        printf("\nPlayer 1 perdeu. Check Mate\n");
-        printf("Parabens Player 2\n");
-        printf("Game Over\n");
+        printf("\n\aPlayer 1 perdeu. Check Mate\a\n");
+        printf("\aParabens Player 2\a\n");
+        printf("\aGame Over\a\n");
         system("pause");
+        //limpa a tela
+        system("cls");
         //retorna para o menu
         printar_menu(tabuleiro);
 
@@ -2129,10 +2131,12 @@ void check_mate (char tabuleiro[10][10]){
         //limpa a tela
         system("cls");
         //mostra o perdedor, player  (pecas maiusculas)
-        printf("\nPlayer 2 perdeu. Check Mate\n");
-        printf("Parabens player 1\n");
-        printf("Game Over\n");
+        printf("\n\aPlayer 2 perdeu. Check Mate\a\n");
+        printf("aParabens player 1\a\n");
+        printf("\aGame Over\a\n");
         system("pause");
+        //limpa a tela
+        system("cls");
         //retorna para o menu
         printar_menu(tabuleiro);
 
