@@ -1,0 +1,16 @@
+# Ajuda
+
+Documentação e Instruções do jogo.
+
+## Regras gerais
+O jogo segue as regrais normais do jogo de xadrez de tabuleiro.
+
+## Controles
+
+### Seleção e Movimentação de peças
+É necessário primeiramente digitar a linha e a coluna da peça que deseja movimentar.
+Após isso é necessário digitar para onde você deseja movimentar.
+
+### Exemplo
+Digite 2 3 para selecionar uma peça na linha 2 e coluna 3.
+Logo após digite 4 4 para movimentar essa peça para a linha 4, coluna 4.
